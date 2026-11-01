@@ -1,6 +1,6 @@
 /* Shared landing engine.
    A concept page calls PF.init({theme, reel, flavor, draw}). The engine builds the stage, the highlight reel,
-   the quick menu, the in-place panels (with tabs and deep links like #games/clockout) and parallax. */
+   the quick menu, the in-place single-scroll panels (deep links like #games/clockout) and parallax. */
 (function(){
   var NS='http://www.w3.org/2000/svg',KEYS=['games','docs','art','about','contact'];
   var seed=5;
@@ -19,7 +19,7 @@
     root.appendChild(bar);
 
     /* stage + svg */
-    var stage=h('div','pf-stage');root.appendChild(stage);
+    var stage=h('div','pf-stage'+(cfg.reelBehind?' behind':''));root.appendChild(stage);
     var svg=svgEl('svg',{class:'pf-svg',viewBox:'0 0 1600 900',preserveAspectRatio:'xMidYMid slice','aria-hidden':'false'});
     stage.appendChild(svg);
 
@@ -132,25 +132,27 @@
       var f=F[sec],S=D[sec];
       over.innerHTML='<div class="pf-frame"><i class="c c1"></i><i class="c c2"></i><i class="c c3"></i><i class="c c4"></i>'+
         '<div class="pf-head"><div class="ttl"><small>'+esc(f.name)+'</small><h2>'+esc(S.title)+'</h2></div>'+(cfg.icons&&cfg.icons[sec]?'<img class="pf-icon" src="'+cfg.icons[sec]+'" alt="">':'')+'<button class="pf-x" type="button" aria-label="Close">&times;</button></div>'+
-        (S.items.length>1?'<div class="pf-tabs" role="tablist"></div>':'')+
         '<div class="pf-body" tabindex="0"></div>'+
         '<div class="pf-foot"><span>'+esc(S.blurb)+'</span><span>'+S.more.map(function(m){return '<a href="'+m.u+'">'+esc(m.t)+' &rarr;</a>'}).join(' &nbsp; ')+'</span></div></div>';
       over.querySelector('.pf-x').onclick=function(){setHash('')};
-      var tabs=over.querySelector('.pf-tabs');
-      if(tabs)S.items.forEach(function(it){
-        var b=h('button','',esc(it.name)+(it.tag?'<small>'+esc(it.tag)+'</small>':''));b.type='button';b.setAttribute('role','tab');b.dataset.id=it.id;
-        b.onclick=function(){setHash(sec+'/'+it.id)};tabs.appendChild(b)});
     }
     function select(sec,id){
-      var S=D[sec],it=S.items[0];
+      var S=D[sec],body=over.querySelector('.pf-body'),it=S.items[0];
       S.items.forEach(function(x){if(x.id===id)it=x});
+      if(!body.firstChild){
+        var multi=S.items.length>1;
+        body.innerHTML=S.items.map(function(x){
+          var html=x.render().replace(/<iframe(?![^>]*loading=)/g,'<iframe loading="lazy"');
+          return '<section class="pf-item" data-id="'+x.id+'">'+(multi?'<header class="pf-ih"><h3 class="pf-it">'+esc(x.name)+'</h3>'+(x.tag?'<span class="pf-itag">'+esc(x.tag)+'</span>':'')+'</header>':'')+html+'</section>'}).join('');
+      }
       cur.item=it.id;
-      var body=over.querySelector('.pf-body');
-      body.innerHTML=it.render();body.scrollTop=0;
-      [].forEach.call(over.querySelectorAll('.pf-tabs button'),function(b){
-        var on=b.dataset.id===it.id;b.setAttribute('aria-selected',on);
-        if(on&&b.scrollIntoView)b.scrollIntoView({block:'nearest',inline:'center'})});
+      var t=id?body.querySelector('[data-id="'+it.id+'"]'):null;
+      body.scrollTop=t?Math.max(0,t.getBoundingClientRect().top-body.getBoundingClientRect().top+body.scrollTop-4):0;
     }
+    function itemIndex(){
+      var body=over.querySelector('.pf-body'),items=D[cur.sec].items,i=0,top=body.getBoundingClientRect().top;
+      items.forEach(function(x,j){var e=body.querySelector('[data-id="'+x.id+'"]');if(e&&e.getBoundingClientRect().top-top<=24)i=j});
+      return i}
     function open(sec,id){
       if(!D[sec])return;
       if(!cur||cur.sec!==sec){
@@ -182,7 +184,7 @@
     over.addEventListener('click',function(e){
       if(e.target===over){setHash('');return}
       var b=e.target.closest('[data-embed]');
-      if(b){var slot=over.querySelector('[data-slot]');
+      if(b){var slot=(b.closest('.pf-item')||over).querySelector('[data-slot]');
         slot.innerHTML='<iframe class="pf-read" src="'+b.getAttribute('data-embed')+'" title="Document preview" allow="fullscreen"></iframe>';
         b.textContent='Reading...';b.disabled=true;slot.scrollIntoView({behavior:'smooth',block:'nearest'})}
     });
@@ -201,7 +203,7 @@
       if(typing||e.metaKey||e.ctrlKey||e.altKey)return;
       if(/^[1-5]$/.test(e.key)){go(KEYS[+e.key-1]);return}
       if(cur&&(e.key==='ArrowRight'||e.key==='ArrowLeft')){
-        var items=D[cur.sec].items,i=0;items.forEach(function(x,j){if(x.id===cur.item)i=j});
+        var items=D[cur.sec].items,i=itemIndex();
         i=(i+(e.key==='ArrowRight'?1:-1)+items.length)%items.length;
         setHash(cur.sec+'/'+items[i].id);e.preventDefault()}
     });

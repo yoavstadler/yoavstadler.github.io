@@ -214,7 +214,7 @@ body[data-theme=crossroads] .pf-btn.ghost,body[data-theme=dungeon] .pf-btn.ghost
   box-shadow:inset 0 0 38px rgba(170,120,255,.6)}
 .pf-reel.arch{box-shadow:0 0 0 3px #000,0 0 30px rgba(224,116,42,.35)}
 @media (max-width:760px){.pf-menu button kbd{display:none}.pf-menu button{padding-left:14px}}
-.pf-over{grid-template-columns:minmax(0,1fr)}
+.pf-over{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr)}
 .pf-frame,.pf-body,.pf-head .ttl{min-width:0}
 .pf-body img,.pf-body iframe{max-width:100%}
 
@@ -265,8 +265,78 @@ body[data-theme=workshop]{--edge:#150e09;--pbg:#ead9b0;--ink:#2e2015;--ink2:#6a5
 .hot.cut .wtag text{fill:#2a1b12;font:700 15px Kalam,"Segoe Print","Bradley Hand","Comic Sans MS",cursive;text-anchor:middle;dominant-baseline:central;pointer-events:none}
 .hot.cut:hover .wtag rect,.hot.cut:focus-visible .wtag rect,.hot.cut.on .wtag rect,.hot.cut.peek .wtag rect{fill:#ffd27a}
 @media (min-width:761px){
-  body[data-theme=workshop] .pf-reel.rect{-webkit-mask:url(../art2/reel-mask.png) 0 0/100% 100% no-repeat;mask:url(../art2/reel-mask.png) 0 0/100% 100% no-repeat;box-shadow:none}
+  .pf-stage.behind .pf-reel{z-index:1}
+  .pf-stage.behind .pf-svg{z-index:2;pointer-events:none}
+  .pf-stage.behind .hot{pointer-events:all}
   body[data-theme=workshop] .pf-menu{bottom:auto;top:12px}
   body[data-theme=workshop] .pf-hint{top:64px}
 }
 @media (max-width:760px){.wtag{display:none}}
+
+/* ---------- single-scroll panels: every item of a category in one list ---------- */
+.pf-body{position:relative}
+.pf-item{padding:4px 0 26px}
+.pf-item+.pf-item{border-top:2px dashed var(--line);padding-top:22px}
+.pf-ih{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;margin:2px 0 4px}
+.pf-it{font:700 clamp(22px,2.6vw,28px)/1.15 var(--head);margin:0;color:var(--ink)}
+.pf-itag{font:700 11px var(--head);letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+
+/* ======================================================================
+   Workshop UI kit skin (Gemini art in ../ui/). Only the workshop theme.
+   Frame = 9-slice (stone corners, plain wood edges). Plaque = 3-slice.
+   ====================================================================== */
+body[data-theme=workshop]{--kit-cream:#efe1bc}
+body[data-theme=workshop] .pf-frame{
+  width:min(1120px,100%);height:min(800px,100%);
+  border:46px solid transparent;border-image:url(../ui/frame.png) 95 / 46px stretch;
+  border-radius:0;background:var(--kit-cream);background-clip:padding-box;
+  box-shadow:none;filter:drop-shadow(0 22px 40px rgba(10,5,0,.7));animation:pop .25s cubic-bezier(.2,.9,.3,1.2)}
+body[data-theme=workshop] .pf-frame:before,body[data-theme=workshop] .pf-frame .c{display:none}
+/* header = plaque hanging over the top edge */
+body[data-theme=workshop] .pf-head{position:absolute;top:0;left:0;right:0;height:0;padding:0;display:block;z-index:5}
+body[data-theme=workshop] .pf-head .ttl{position:absolute;left:50%;top:-74px;transform:translateX(-50%);width:min(80%,640px);height:64px;
+  display:flex;align-items:center;justify-content:center;text-align:center;box-sizing:border-box;padding:0 4px;
+  border:0 solid transparent;border-width:0 44px;border-image:url(../ui/plaque.png) 0 82 0 82 fill / 0 44px 0 44px stretch}
+body[data-theme=workshop] .pf-head small{display:none}
+body[data-theme=workshop] .pf-head h2{margin:0;color:#f6ead0;font:700 clamp(19px,2.3vw,26px)/1 var(--head);letter-spacing:.04em;text-shadow:0 2px 0 #1b110a,0 0 12px rgba(0,0,0,.5)}
+body[data-theme=workshop] .pf-head .pf-icon{display:none}
+body[data-theme=workshop] .pf-x{position:absolute;top:-40px;right:-14px;width:50px;height:50px;border:0;border-radius:0;padding:0;
+  background:url(../ui/close.png) center/contain no-repeat;font-size:0;color:transparent;filter:drop-shadow(0 3px 3px rgba(0,0,0,.5))}
+body[data-theme=workshop] .pf-x:hover,body[data-theme=workshop] .pf-x:focus-visible{background:url(../ui/close-hot.png) center/contain no-repeat;outline:none}
+body[data-theme=workshop] .pf-body{padding:16px 24px 18px;margin-top:-2px}
+body[data-theme=workshop] .pf-foot{border-top:0;padding:20px 24px 6px;position:relative}
+body[data-theme=workshop] .pf-foot:before{content:"";position:absolute;left:24px;right:24px;top:4px;height:14px;
+  background:url(../ui/div-l.png) left center/calc(50% - 22px) 14px no-repeat,url(../ui/div-r.png) right center/calc(50% - 22px) 14px no-repeat,url(../ui/div-m.png) center/auto 14px no-repeat}
+/* items separated by the ornamental divider instead of tabs */
+body[data-theme=workshop] .pf-item+.pf-item{border-top:0;padding-top:50px;position:relative}
+body[data-theme=workshop] .pf-item+.pf-item:before{content:"";position:absolute;left:0;right:0;top:10px;height:26px;
+  background:url(../ui/div-l.png) left center/calc(50% - 40px) 26px no-repeat,url(../ui/div-r.png) right center/calc(50% - 40px) 26px no-repeat,url(../ui/div-m.png) center/auto 26px no-repeat}
+body[data-theme=workshop] .pf-ih{margin-bottom:6px}
+body[data-theme=workshop] .pf-it{color:#2a1a0e}
+/* badges, buttons */
+body[data-theme=workshop] .pf-badge{border:0;border-radius:0;background:none;color:#f6ead0;padding:5px 14px;border:7px solid transparent;border-image:url(../ui/btn.png) 26 30 fill / 9px 11px stretch;font-size:11px;line-height:1;text-shadow:0 1px 0 rgba(0,0,0,.5)}
+body[data-theme=workshop] .pf-badge.ghost{color:#2f6b57;text-shadow:none;border-image:url(../ui/chip.png) 22 30 fill / 8px 12px stretch}
+body[data-theme=workshop] .pf-badges{gap:6px 4px}
+body[data-theme=workshop] .pf-btn{background:none;border:10px solid transparent;border-image:url(../ui/btn.png) 26 30 fill / 13px 16px stretch;border-radius:0;color:#f6ead0!important;padding:3px 10px;text-shadow:0 1px 0 rgba(0,0,0,.55);filter:none}
+body[data-theme=workshop] .pf-btn:hover,body[data-theme=workshop] .pf-btn:focus-visible{border-image:url(../ui/btn-hot.png) 26 30 fill / 13px 16px stretch;filter:none;outline:none}
+body[data-theme=workshop] .pf-btn.ghost{border-image:url(../ui/chip.png) 22 30 fill / 11px 15px stretch;color:#2f6b57!important;text-shadow:none}
+body[data-theme=workshop] .pf-btn.ghost:hover{border-image:url(../ui/btn-hot.png) 26 30 fill / 13px 16px stretch;color:#f6ead0!important}
+/* lists */
+body[data-theme=workshop] .pf-did ul,body[data-theme=workshop] .pf-body ul.pf-ul{list-style:none;padding-left:4px}
+body[data-theme=workshop] .pf-did li,body[data-theme=workshop] .pf-ul li{position:relative;padding-left:22px}
+body[data-theme=workshop] .pf-did li:before,body[data-theme=workshop] .pf-ul li:before{content:"";position:absolute;left:2px;top:.35em;width:11px;height:14px;background:url(../ui/bullet.png) center/contain no-repeat}
+/* scrollbar (webkit); Firefox keeps the thin themed bar */
+body[data-theme=workshop] .pf-body{scrollbar-width:auto;scrollbar-color:auto}
+@supports not selector(::-webkit-scrollbar){body[data-theme=workshop] .pf-body{scrollbar-width:thin;scrollbar-color:#2f7a62 #3a2a1e}}
+body[data-theme=workshop] .pf-body::-webkit-scrollbar{width:20px}
+body[data-theme=workshop] .pf-body::-webkit-scrollbar-track{background:url(../ui/track.png) center top/20px 38px repeat-y;border-radius:0}
+body[data-theme=workshop] .pf-body::-webkit-scrollbar-thumb{border:0 solid transparent;border-width:16px 0;border-image:url(../ui/thumb.png) 40 0 fill / 16px 0 stretch;background:none;min-height:56px}
+@media (max-width:760px){
+  body[data-theme=workshop] .pf-frame{width:100%;height:100%;border-width:26px;border-image:url(../ui/frame.png) 95 / 26px stretch;filter:none}
+  body[data-theme=workshop] .pf-head .ttl{top:-16px;height:44px;width:min(76%,360px);border-width:0 30px;border-image:url(../ui/plaque.png) 0 82 0 82 fill / 0 30px 0 30px stretch}
+  body[data-theme=workshop] .pf-head h2{font-size:18px}
+  body[data-theme=workshop] .pf-x{top:-18px;right:-14px;width:42px;height:42px}
+  body[data-theme=workshop] .pf-body{padding:14px 12px 14px}
+  body[data-theme=workshop] .pf-body::-webkit-scrollbar{width:12px}
+  body[data-theme=workshop] .pf-body::-webkit-scrollbar-track{background-size:12px 23px}
+}
