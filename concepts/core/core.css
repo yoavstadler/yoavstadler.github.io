@@ -237,3 +237,45 @@ body[data-theme=crossroads] .pf-btn.ghost,body[data-theme=dungeon] .pf-btn.ghost
   .pf-reel.oval{border-radius:10px!important}
   .pf-reel.oval:after{border-radius:10px}
 }
+
+/* ---------- affordance: brackets + spotlight ---------- */
+.hbr path{fill:none;stroke:#ffd27a;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;opacity:.75;transition:opacity .2s,stroke-width .2s;filter:drop-shadow(0 0 2px rgba(0,0,0,.95)) drop-shadow(0 0 5px rgba(0,0,0,.6));animation:brk 3.2s ease-in-out infinite var(--dl,0s)}
+@keyframes brk{0%,100%{opacity:.55}50%{opacity:1}}
+.hot:hover .hbr path,.hot:focus-visible .hbr path,.hot.on .hbr path,.hot.peek .hbr path{opacity:1;stroke-width:4.5;animation:none}
+.hot.on{filter:brightness(1.22) drop-shadow(0 0 14px var(--acc-hi))}
+.hot.flat.on{filter:none}
+.hot.on .hot-art{transform:scale(1.045)}
+.hot.on .hglow,.hot.on .ptag{opacity:1}
+.pf-stage.spot .hot:not(.on){filter:brightness(.55) saturate(.7)}
+.pf-stage.spot .hot.flat:not(.on){filter:none}
+.pf-stage.spot .hot:not(.on) .hbr path{opacity:.35;animation:none}
+@media (max-width:760px){.hbr{display:none}}
+
+/* ---------- Workshop concept (hand-drawn layered art) ---------- */
+body[data-theme=workshop]{--edge:#150e09;--pbg:#ead9b0;--ink:#2e2015;--ink2:#6a5239;--acc:#2f7a62;--acc-hi:#f0c060;--line:rgba(80,55,30,.42);--card:rgba(255,255,255,.4);--head:Georgia,"Times New Roman",serif;--pshadow:rgba(10,5,0,.72);--btn-ink:#fff;--topbar:rgba(21,14,9,.78)}
+.pf-reel.rect{box-shadow:0 0 0 1px #0b0d12}
+.pf-reel.rect:after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 22px 7px rgba(6,8,12,.72)}
+.pf-reel.rect .pf-snd{z-index:3}
+.hot.cut .lift{transition:transform .28s cubic-bezier(.2,.8,.3,1)}
+.hot.cut:hover .lift,.hot.cut:focus-visible .lift,.hot.cut.on .lift{transform:translateY(-4px)}
+.hot.cut:hover,.hot.cut:focus-visible,.hot.cut.on,.hot.cut.peek{filter:brightness(1.1) saturate(1.08) drop-shadow(2px 0 0 #ffd27a) drop-shadow(-2px 0 0 #ffd27a) drop-shadow(0 2px 0 #ffd27a) drop-shadow(0 -2px 0 #ffd27a) drop-shadow(0 0 9px rgba(255,210,122,.6))}
+.pf-stage.spot .hot.cut:not(.on){filter:brightness(.8) saturate(.82)}
+.hot.cut .wtag rect{fill:#e6d4a2;stroke:#2a1b12;stroke-width:1.6;transition:fill .2s}
+.hot.cut .wtag path{fill:none;stroke:#2a1b12;stroke-width:1.3;stroke-linecap:round}
+.hot.cut .wtag circle{fill:#2a1b12}
+.hot.cut .wtag text{fill:#2a1b12;font:700 15px Kalam,"Segoe Print","Bradley Hand","Comic Sans MS",cursive;text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.hot.cut:hover .wtag rect,.hot.cut:focus-visible .wtag rect,.hot.cut.on .wtag rect,.hot.cut.peek .wtag rect{fill:#ffd27a}
+.idle-sway{animation:sway 6s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes sway{from{transform:rotate(-.9deg)}to{transform:rotate(.9deg)}}
+.idle-breathe{animation:breathe2 5s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes breathe2{50%{transform:scale(1.006,1.016)}}
+.drift{animation:drift 70s linear infinite alternate}
+@keyframes drift{from{transform:translateX(-26px)}to{transform:translateX(30px)}}
+.wflame{animation:wflame 1.6s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes wflame{0%{transform:scale(1,1) skewX(0)}35%{transform:scale(.94,1.08) skewX(2deg)}70%{transform:scale(1.04,.94) skewX(-2deg)}100%{transform:scale(.97,1.05) skewX(1deg)}}
+@media (prefers-reduced-motion:reduce){.idle-sway,.idle-breathe,.drift,.wflame,.twinkle,.mote{animation:none}}
+@media (min-width:761px){
+  body[data-theme=workshop] .pf-menu{bottom:auto;top:12px}
+  body[data-theme=workshop] .pf-hint{top:64px}
+}
+@media (max-width:760px){.wtag{display:none}}

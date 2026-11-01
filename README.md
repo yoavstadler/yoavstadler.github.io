@@ -24,6 +24,12 @@ crossroads.html, wizard.html, dungeon.html, guild.html, plus a gallery at `conce
 - Each section has a deep link, for example `concepts/guild.html#games/clockout`.
 - To make one the real home page later, copy its html file to the repo root as `index.html` and fix the three relative paths (core/, scenes/, ../).
 
+### The Workshop (hand-drawn, layered)
+`concepts/workshop.html` + `concepts/scenes/workshop.js`. Layers live in `concepts/art2/`: `plate.jpg` (empty room) and one transparent PNG per object (`raven, construct, books, about, disc`) plus `icon-*.png` for the menu.
+Cut-outs sit at their original positions in the 1024 x 572 source image; the `CUT` table and hit boxes in `workshop.js` are in those pixels. The reel rectangle is the frame interior (`reel:{x,y,w,h}` in scene units, 1600 x 900).
+To replace an object: export it on a flat green background at the same position, key it out, save as PNG in `art2/` and update its entry in `CUT`.
+The tag font (Kalam) loads from Google Fonts in `workshop.html`; it falls back to a system handwriting font offline.
+
 ### Painted wizard concept
 `concepts/wizard-art.html` uses the generated art in `concepts/art/` (`wizard-scene.jpg` plus cut-outs `wand/books/owl/robe/letter.png`).
 Hotspot regions are listed in `concepts/scenes/wizard-art.js` in image pixels (1672 x 941); change them if you swap the scene image.

@@ -65,17 +65,25 @@
         g.setAttribute('class',(g.getAttribute('class')||'')+' hot');
         g.setAttribute('tabindex','0');g.setAttribute('role','button');g.setAttribute('aria-label',f.name+' - '+f.sub);
         if(o.box)svgEl('rect',{x:o.box[0],y:o.box[1],width:o.box[2],height:o.box[3],fill:'transparent'},g);
+        if(o.box){
+          var fr=o.frame||o.box,bx=fr[0],by=fr[1],bw=fr[2],bh=fr[3],L=Math.max(14,Math.min(34,Math.min(bw,bh)*.2)),br=svgEl('g',{class:'hbr','pointer-events':'none'},g);
+          br.style.setProperty('--dl',(1.2+Object.keys(hots).length*.35).toFixed(2)+'s');
+          [[bx,by,1,1],[bx+bw,by,-1,1],[bx,by+bh,1,-1],[bx+bw,by+bh,-1,-1]].forEach(function(c){
+            svgEl('path',{d:'M'+c[0]+' '+(c[1]+c[3]*L)+' V'+c[1]+' H'+(c[0]+c[2]*L)},br)});
+        }
         if(o.ping)svgEl('circle',{class:'ping',cx:o.ping[0],cy:o.ping[1],r:o.ping[2]||60},g);
         hots[key]=g;
         g.addEventListener('click',function(e){e.stopPropagation();go(key)});
         g.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();go(key)}});
-        g.addEventListener('pointerenter',function(e){showTip(key,e.clientX,e.clientY)});
+        g.addEventListener('pointerenter',function(e){spotOn(key);showTip(key,e.clientX,e.clientY)});
         g.addEventListener('pointermove',function(e){moveTip(e.clientX,e.clientY)});
-        g.addEventListener('pointerleave',hideTip);
-        g.addEventListener('focus',function(){var r=g.getBoundingClientRect();showTip(key,r.left+r.width/2,r.top)});
-        g.addEventListener('blur',hideTip);
+        g.addEventListener('pointerleave',function(){spotOff();hideTip()});
+        g.addEventListener('focus',function(){spotOn(key);var r=g.getBoundingClientRect();showTip(key,r.left+r.width/2,r.top)});
+        g.addEventListener('blur',function(){spotOff();hideTip()});
         return g}
     };
+    function spotOn(k){stage.classList.add('spot');Object.keys(hots).forEach(function(j){hots[j].classList.toggle('on',j===k)})}
+    function spotOff(){stage.classList.remove('spot');Object.keys(hots).forEach(function(j){hots[j].classList.remove('on')})}
     function showTip(key,x,y){var f=F[key];tip.innerHTML='<b>'+esc(f.name)+'</b>'+esc(f.sub);tip.classList.add('on');moveTip(x,y)}
     function moveTip(x,y){tip.style.left=x+'px';tip.style.top=y+'px'}
     function hideTip(){tip.classList.remove('on')}
@@ -83,7 +91,7 @@
     cfg.draw(svg,P);
 
     /* highlight reel */
-    var R=cfg.reel,reel=h('div','pf-reel'+(R.shape==='circle'?' circle':R.shape==='oval'?' oval':''));
+    var R=cfg.reel,reel=h('div','pf-reel'+(R.shape==='circle'?' circle':R.shape==='oval'?' oval':R.shape==='rect'?' rect':''));
     reel.style.left=(R.x/16)+'%';reel.style.top=(R.y/9)+'%';reel.style.width=(R.w/16)+'%';reel.style.height=(R.h/9)+'%';
     if(R.tf){reel.style.transform=R.tf}
     if(R.r){reel.style.borderRadius=R.r}
@@ -106,13 +114,13 @@
     KEYS.forEach(function(k,i){
       var b=h('button','','<kbd>'+(i+1)+'</kbd>'+(cfg.icons&&cfg.icons[k]?'<img class="pf-mi" src="'+cfg.icons[k]+'" alt="">':'')+esc(F[k].name));b.type='button';
       b.onclick=function(){go(k)};
-      b.addEventListener('mouseenter',function(){if(hots[k])hots[k].classList.add('peek')});
-      b.addEventListener('mouseleave',function(){if(hots[k])hots[k].classList.remove('peek')});
-      b.addEventListener('focus',function(){if(hots[k])hots[k].classList.add('peek')});
-      b.addEventListener('blur',function(){if(hots[k])hots[k].classList.remove('peek')});
+      b.addEventListener('mouseenter',function(){spotOn(k)});
+      b.addEventListener('mouseleave',spotOff);
+      b.addEventListener('focus',function(){spotOn(k)});
+      b.addEventListener('blur',spotOff);
       menu.appendChild(b)});
     stage.appendChild(menu);
-    var hint=h('div','pf-hint','Click anything that glows &middot; or press 1-5');
+    var hint=h('div','pf-hint','Click any framed object &middot; or press 1-5');
     stage.appendChild(hint);
     setTimeout(function(){hint.classList.add('gone')},9000);
 

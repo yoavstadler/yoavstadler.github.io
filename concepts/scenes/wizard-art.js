@@ -34,18 +34,18 @@ PF.init({
     glow(1612,205,'pulse',{r:95,fill:'url(#flameg)',opacity:.7});
 
     /* hotspot helper: ellipse glow + hit box + hover tag + sparkle */
-    function spot(key,cx,cy,rx,ry,tagAt,spk){
+    function spot(key,cx,cy,rx,ry,frame,spk){
       var g=el('g',{class:'flat'},svg);
       el('ellipse',{class:'hglow',cx:cx*K,cy:cy*K,rx:rx*K,ry:ry*K,fill:'url(#hg)'},g);
       P.sparkle(g,spk[0]*K,spk[1]*K,15);
-      P.hot(key,g,{box:[(cx-rx)*K,(cy-ry)*K,rx*2*K,ry*2*K]});
+      P.hot(key,g,{box:[(cx-rx)*K,(cy-ry)*K,rx*2*K,ry*2*K],frame:[frame[0]*K,frame[1]*K,(frame[2]-frame[0])*K,(frame[3]-frame[1])*K]});
       return g;
     }
-    spot('games',335,725,325,125,[335,590],[505,765]);
-    spot('docs',1405,650,215,108,[1405,535],[1392,592]);
-    spot('art',290,345,125,190,[290,135],[305,250]);
-    spot('about',1330,290,175,275,[1330,585],[1330,255]);
-    spot('contact',1310,792,150,58,[1310,712],[1395,785]);
+    spot('games',335,725,325,125,[30,580,645,865],[505,765]);
+    spot('docs',1405,650,215,108,[1190,540,1625,770],[1392,592]);
+    spot('art',290,345,125,190,[185,190,415,530],[305,250]);
+    spot('about',1330,290,175,275,[1165,70,1490,565],[1330,255]);
+    spot('contact',1310,792,150,58,[1170,735,1455,855],[1395,785]);
 
     P.motes(svg,22,{x0:150,x1:1450,y0:150,y1:850,color:'#ffcf70',dy:60,dx:20,r:1.5,rv:1.4});
     el('rect',{x:0,y:0,width:1600,height:900,fill:'url(#vig)','pointer-events':'none'},svg);
