@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Landing concepts - Yoav Stadler</title>
+<meta name="description" content="Four RPG landing page concepts for Yoav Stadler's portfolio.">
+<style>
+:root{--bg:#08130f;--panel:#11231b;--ink:#efe6cf;--ink2:#b9ad8c;--amber:#C8922A;--amber-hi:#f0bf5a;--line:rgba(200,146,42,.35)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif}
+a{color:var(--amber-hi)}
+header{padding:28px 20px 8px;text-align:center}
+h1{font:700 clamp(28px,5vw,44px)/1.15 Georgia,serif;margin:0 0 8px}
+.sub{color:var(--ink2);max-width:720px;margin:0 auto}
+.wrap{max-width:1180px;margin:0 auto;padding:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:22px;margin-top:10px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.card .th{display:block;aspect-ratio:16/9;background:#000;overflow:hidden}
+.card .th img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.card:hover .th img{transform:scale(1.04)}
+.card .b{padding:16px 18px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card small{color:var(--amber);font:700 12px Georgia,serif;letter-spacing:.18em;text-transform:uppercase}
+.card h2{margin:0;font:700 24px/1.2 Georgia,serif}
+.card p{margin:0;color:var(--ink2)}
+.card ul{margin:2px 0 6px;padding-left:18px;color:var(--ink2);font-size:14.5px}
+.btn{margin-top:auto;align-self:flex-start;display:inline-block;background:var(--amber);color:#1a1206;text-decoration:none;font:700 14px Georgia,serif;letter-spacing:.06em;padding:10px 18px;border-radius:8px}
+.btn:hover{filter:brightness(1.12)}
+.note{margin-top:30px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 22px}
+.note h3{margin:0 0 6px;font:700 20px Georgia,serif}
+.note code{background:rgba(255,255,255,.08);padding:1px 6px;border-radius:4px}
+footer{text-align:center;color:var(--ink2);padding:10px 20px 40px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Landing concepts</h1>
+  <p class="sub">Four ways to open the portfolio. All of them share the same content, the same looping highlight-reel slot in the middle, and sections that open in place. Click through each one and open a few objects.</p>
+</header>
+<div class="wrap">
+  <div class="grid">
+    <article class="card">
+      <a class="th" href="crossroads.html"><img src="thumbs/crossroads.jpg" alt="The Crossroads concept"></a>
+      <div class="b"><small>Concept A</small><h2>The Crossroads</h2>
+        <p>Your original idea, refined: the paladin stands at the fork, the highlight reel plays inside a ruined gate on the hill, signposts are the sections.</p>
+        <ul><li>Closest to what we talked about</li><li>You are in the scene (click the paladin for the character sheet)</li><li>Calm and atmospheric</li></ul>
+        <a class="btn" href="crossroads.html">Open</a></div>
+    </article>
+    <article class="card">
+      <a class="th" href="wizard.html"><img src="thumbs/wizard.jpg" alt="The Wizard's Table concept"></a>
+      <div class="b"><small>Concept B</small><h2>The Wizard's Table</h2>
+        <p>A wizard's workbench: the reel plays inside a crystal ball. Wand and dice are games, papers and books are documents, the owl familiar holds a spinning 3D gem.</p>
+        <ul><li>Most literal answer to "a table with objects"</li><li>Warm and playful, clear object metaphors</li><li>Reel is round, so keep the key action in the middle of the video</li></ul>
+        <a class="btn" href="wizard.html">Open</a></div>
+    </article>
+    <article class="card">
+      <a class="th" href="dungeon.html"><img src="thumbs/dungeon.jpg" alt="The Dungeon concept"></a>
+      <div class="b"><small>Concept C</small><h2>The Dungeon</h2>
+        <p>A torch-lit hall in perspective. The reel plays in an arched magic portal at the far end. Chest = games, chained tome = documents, forge = 3D art, banner = about, raven = contact.</p>
+        <ul><li>The most dramatic and cinematic</li><li>Feels like a game level</li><li>Moodier, so the video should be bright to pop</li></ul>
+        <a class="btn" href="dungeon.html">Open</a></div>
+    </article>
+    <article class="card">
+      <a class="th" href="guild.html"><img src="thumbs/guild.jpg" alt="The Guild Hall concept"></a>
+      <div class="b"><small>Concept D - my own idea</small><h2>The Guild Hall</h2>
+        <p>A quest board. The reel is the guild's great notice in the middle; your games are pinned as quest notices (with real titles), and your info is an adventurer's license.</p>
+        <ul><li>Most information visible at a glance</li><li>Wide 16:9 reel with no cropping</li><li>Speaks the language of RPG UI and quests</li></ul>
+        <a class="btn" href="guild.html">Open</a></div>
+    </article>
+  </div>
+  <div class="note">
+    <h3>How it works</h3>
+    <p>Click any glowing object, use the bar at the bottom, or press <code>1</code> to <code>5</code>. <code>Esc</code> closes a panel, left and right arrows flip through its tabs, and every view has its own link (for example <code>guild.html#games/clockout</code>). The reel slot plays <code>assets/reel.mp4</code> on a muted loop (a sound button appears once a video is there). Until the file exists you see a placeholder.</p>
+    <p><a href="../index.html">Back to the classic multi-page site</a></p>
+  </div>
+</div>
+<footer>Prototype concepts - the live Weebly portfolio is untouched.</footer>
+</body>
+</html>

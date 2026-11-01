@@ -14,3 +14,12 @@ Static site (plain HTML, CSS and JavaScript, no build step). Live at https://yoa
 ## Editing
 Open a file on GitHub, click the pencil icon, change the text, then "Commit changes". The site updates in a minute or two.
 Add a new game or GDD card by copying an existing card block in the matching page and changing the text and links.
+
+## Landing concepts (v2)
+
+`concepts/` holds four RPG landing pages that share one engine (`concepts/core/`) and one content file (`concepts/core/data.js`):
+crossroads.html, wizard.html, dungeon.html, guild.html, plus a gallery at `concepts/index.html`.
+
+- Put your highlight video at `assets/reel.mp4` (muted loop, 16:9, a few MB). Until it exists a placeholder shows.
+- Each section has a deep link, for example `concepts/guild.html#games/clockout`.
+- To make one the real home page later, copy its html file to the repo root as `index.html` and fix the three relative paths (core/, scenes/, ../).
