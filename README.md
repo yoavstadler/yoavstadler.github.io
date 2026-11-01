@@ -23,3 +23,7 @@ crossroads.html, wizard.html, dungeon.html, guild.html, plus a gallery at `conce
 - Put your highlight video at `assets/reel.mp4` (muted loop, 16:9, a few MB). Until it exists a placeholder shows.
 - Each section has a deep link, for example `concepts/guild.html#games/clockout`.
 - To make one the real home page later, copy its html file to the repo root as `index.html` and fix the three relative paths (core/, scenes/, ../).
+
+### Painted wizard concept
+`concepts/wizard-art.html` uses the generated art in `concepts/art/` (`wizard-scene.jpg` plus cut-outs `wand/books/owl/robe/letter.png`).
+Hotspot regions are listed in `concepts/scenes/wizard-art.js` in image pixels (1672 x 941); change them if you swap the scene image.

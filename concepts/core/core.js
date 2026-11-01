@@ -33,6 +33,11 @@
         var w=text.length*11.6+30,g=svgEl('g',{class:'plq',transform:'translate('+x+','+y+')'},parent);
         svgEl('rect',{x:-w/2,y:-18,width:w,height:36,rx:9},g);
         var t=svgEl('text',{x:0,y:1},g);t.textContent=text;return g},
+      sparkle:function(parent,x,y,size){
+        var o=svgEl('g',{transform:'translate('+x+','+y+')','pointer-events':'none'},parent),g=svgEl('g',{class:'twinkle'},o);
+        svgEl('circle',{r:size*1.5,fill:'url(#spark)'},g);
+        svgEl('path',{d:'M0 '+(-size)+' Q'+(size*.18)+' '+(-size*.18)+' '+size+' 0 Q'+(size*.18)+' '+(size*.18)+' 0 '+size+' Q'+(-size*.18)+' '+(size*.18)+' '+(-size)+' 0 Q'+(-size*.18)+' '+(-size*.18)+' 0 '+(-size)+'Z',fill:'#fff2c0'},g);
+        return o},
       icon:function(parent,type,x,y,size,color,sw){
         var ICONS={
           sword:'M4 20L16 8M13 5h6v6M20 20L8 8M11 5H5v6',
@@ -78,7 +83,7 @@
     cfg.draw(svg,P);
 
     /* highlight reel */
-    var R=cfg.reel,reel=h('div','pf-reel'+(R.shape==='circle'?' circle':''));
+    var R=cfg.reel,reel=h('div','pf-reel'+(R.shape==='circle'?' circle':R.shape==='oval'?' oval':''));
     reel.style.left=(R.x/16)+'%';reel.style.top=(R.y/9)+'%';reel.style.width=(R.w/16)+'%';reel.style.height=(R.h/9)+'%';
     if(R.tf){reel.style.transform=R.tf}
     if(R.r){reel.style.borderRadius=R.r}
@@ -99,7 +104,7 @@
     /* quick menu + hint */
     var menu=h('nav','pf-menu');menu.setAttribute('aria-label','Sections');
     KEYS.forEach(function(k,i){
-      var b=h('button','','<kbd>'+(i+1)+'</kbd>'+esc(F[k].name));b.type='button';
+      var b=h('button','','<kbd>'+(i+1)+'</kbd>'+(cfg.icons&&cfg.icons[k]?'<img class="pf-mi" src="'+cfg.icons[k]+'" alt="">':'')+esc(F[k].name));b.type='button';
       b.onclick=function(){go(k)};
       b.addEventListener('mouseenter',function(){if(hots[k])hots[k].classList.add('peek')});
       b.addEventListener('mouseleave',function(){if(hots[k])hots[k].classList.remove('peek')});
@@ -118,7 +123,7 @@
     function frame(sec){
       var f=F[sec],S=D[sec];
       over.innerHTML='<div class="pf-frame"><i class="c c1"></i><i class="c c2"></i><i class="c c3"></i><i class="c c4"></i>'+
-        '<div class="pf-head"><div class="ttl"><small>'+esc(f.name)+'</small><h2>'+esc(S.title)+'</h2></div><button class="pf-x" type="button" aria-label="Close">&times;</button></div>'+
+        '<div class="pf-head"><div class="ttl"><small>'+esc(f.name)+'</small><h2>'+esc(S.title)+'</h2></div>'+(cfg.icons&&cfg.icons[sec]?'<img class="pf-icon" src="'+cfg.icons[sec]+'" alt="">':'')+'<button class="pf-x" type="button" aria-label="Close">&times;</button></div>'+
         (S.items.length>1?'<div class="pf-tabs" role="tablist"></div>':'')+
         '<div class="pf-body" tabindex="0"></div>'+
         '<div class="pf-foot"><span>'+esc(S.blurb)+'</span><span>'+S.more.map(function(m){return '<a href="'+m.u+'">'+esc(m.t)+' &rarr;</a>'}).join(' &nbsp; ')+'</span></div></div>';
