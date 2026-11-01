@@ -120,7 +120,7 @@
       b.addEventListener('blur',spotOff);
       menu.appendChild(b)});
     stage.appendChild(menu);
-    var hint=h('div','pf-hint','Click any framed object &middot; or press 1-5');
+    var hint=h('div','pf-hint',cfg.hint||'Click any framed object &middot; or press 1-5');
     stage.appendChild(hint);
     setTimeout(function(){hint.classList.add('gone')},9000);
 

@@ -27,6 +27,7 @@ crossroads.html, wizard.html, dungeon.html, guild.html, plus a gallery at `conce
 ### The Workshop (hand-drawn, layered)
 `concepts/workshop.html` + `concepts/scenes/workshop.js`. Layers live in `concepts/art2/`: `plate.jpg` (empty room) and one transparent PNG per object (`raven, construct, books, about, disc`) plus `icon-*.png` for the menu.
 Cut-outs sit at their original positions in the 1024 x 572 source image; the `CUT` table and hit boxes in `workshop.js` are in those pixels. The reel rectangle is the frame interior (`reel:{x,y,w,h}` in scene units, 1600 x 900).
+Art is the 2576-px-wide version of the six generated layers (scene, empty room, five objects). `reel-mask.png` trims the video to the frame's irregular inner edge, so the stones sit in front of it.
 To replace an object: export it on a flat green background at the same position, key it out, save as PNG in `art2/` and update its entry in `CUT`.
 The tag font (Kalam) loads from Google Fonts in `workshop.html`; it falls back to a system handwriting font offline.
 

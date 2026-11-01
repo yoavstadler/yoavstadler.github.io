@@ -259,18 +259,13 @@ body[data-theme=workshop]{--edge:#150e09;--pbg:#ead9b0;--ink:#2e2015;--ink2:#6a5
 .hot.cut,.hot.cut:hover,.hot.cut:focus-visible,.hot.cut.on,.hot.cut.peek,.pf-stage.spot .hot.cut:not(.on){filter:none}
 .hot.cut .ring{opacity:0;transition:opacity .16s ease-out}
 .hot.cut:hover .ring,.hot.cut:focus-visible .ring,.hot.cut.on .ring,.hot.cut.peek .ring{opacity:1}
-.hot.cut .hbr path{filter:none;animation:none;opacity:.85}
-.hot.cut:hover .hbr path,.hot.cut.on .hbr path,.hot.cut.peek .hbr path{opacity:1}
-.pf-stage.spot .hot.cut:not(.on) .hbr path{opacity:.5}
 .hot.cut .wtag rect{fill:#e6d4a2;stroke:#2a1b12;stroke-width:1.6;transition:fill .2s}
 .hot.cut .wtag path{fill:none;stroke:#2a1b12;stroke-width:1.3;stroke-linecap:round}
 .hot.cut .wtag circle{fill:#2a1b12}
 .hot.cut .wtag text{fill:#2a1b12;font:700 15px Kalam,"Segoe Print","Bradley Hand","Comic Sans MS",cursive;text-anchor:middle;dominant-baseline:central;pointer-events:none}
 .hot.cut:hover .wtag rect,.hot.cut:focus-visible .wtag rect,.hot.cut.on .wtag rect,.hot.cut.peek .wtag rect{fill:#ffd27a}
-.wflame{animation:wflame 1.6s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
-@keyframes wflame{0%{transform:scale(1,1) skewX(0)}35%{transform:scale(.94,1.08) skewX(2deg)}70%{transform:scale(1.04,.94) skewX(-2deg)}100%{transform:scale(.97,1.05) skewX(1deg)}}
-@media (prefers-reduced-motion:reduce){.wflame{animation:none}}
 @media (min-width:761px){
+  body[data-theme=workshop] .pf-reel.rect{-webkit-mask:url(../art2/reel-mask.png) 0 0/100% 100% no-repeat;mask:url(../art2/reel-mask.png) 0 0/100% 100% no-repeat;box-shadow:none}
   body[data-theme=workshop] .pf-menu{bottom:auto;top:12px}
   body[data-theme=workshop] .pf-hint{top:64px}
 }
