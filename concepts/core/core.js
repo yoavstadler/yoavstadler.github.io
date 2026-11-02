@@ -79,10 +79,13 @@
         g.addEventListener('pointerenter',function(e){spotOn(key);showTip(key,e.clientX,e.clientY)});
         g.addEventListener('pointermove',function(e){moveTip(e.clientX,e.clientY)});
         g.addEventListener('pointerleave',function(){spotOff();hideTip()});
-        g.addEventListener('focus',function(){spotOn(key);var r=g.getBoundingClientRect();showTip(key,r.left+r.width/2,r.top)});
+        g.addEventListener('focus',function(){if(!kbd)return;spotOn(key);var r=g.getBoundingClientRect();showTip(key,r.left+r.width/2,r.top)});   /* keyboard focus only: a mouse click must never leave an object stuck in its hover look */
         g.addEventListener('blur',function(){spotOff();hideTip()});
         return g}
     };
+    var kbd=false;   /* true while the last input was the keyboard */
+    document.addEventListener('keydown',function(e){if(e.key==='Tab'||e.key==='Enter'||e.key===' '||e.key.indexOf('Arrow')===0)kbd=true},true);
+    document.addEventListener('pointerdown',function(){kbd=false},true);
     function spotOn(k){stage.classList.add('spot');Object.keys(hots).forEach(function(j){hots[j].classList.toggle('on',j===k)})}
     function spotOff(){stage.classList.remove('spot');Object.keys(hots).forEach(function(j){hots[j].classList.remove('on')})}
     function showTip(key,x,y){var f=F[key];tip.innerHTML='<b>'+esc(f.name)+'</b>'+esc(f.sub);tip.classList.add('on');moveTip(x,y)}
@@ -90,6 +93,7 @@
     function hideTip(){tip.classList.remove('on')}
 
     cfg.draw(svg,P);
+    if(document.body.getAttribute('data-theme')==='workshop')setTimeout(function(){['frame','plaque','btn','btn-hot','chip','close-red','close-red-hot','div-l','div-m','div-r','bullet','thumb','track'].forEach(function(n){var i=new Image();i.decoding='async';i.src='ui/'+n+'.png';if(i.decode)i.decode().catch(function(){})})},250);
 
     /* highlight reel */
     var R=cfg.reel,reel=h('div','pf-reel'+(R.shape==='circle'?' circle':R.shape==='oval'?' oval':R.shape==='rect'?' rect':''));
@@ -118,7 +122,7 @@
       b.onclick=function(){go(k)};
       b.addEventListener('mouseenter',function(){spotOn(k)});
       b.addEventListener('mouseleave',spotOff);
-      b.addEventListener('focus',function(){spotOn(k)});
+      b.addEventListener('focus',function(){if(kbd)spotOn(k)});
       b.addEventListener('blur',spotOff);
       menu.appendChild(b)});
     stage.appendChild(menu);
@@ -171,7 +175,7 @@
         var multi=S.items.length>1;
         body.innerHTML=list.map(function(x){
           var html=lazify(x.render()).replace(/<iframe(?![^>]*loading=)/g,'<iframe loading="lazy"');
-          return '<section class="pf-item" data-id="'+x.id+'">'+(multi?'<header class="pf-ih"><h3 class="pf-it">'+esc(x.name)+'</h3>'+(x.tag?'<span class="pf-itag">'+esc(x.tag)+'</span>':'')+'<button type="button" class="pf-copy" data-copy="'+sec+'/'+x.id+'">Copy link</button></header>':'')+html+'</section>'}).join('');
+          return '<section class="pf-item" data-id="'+x.id+'">'+(multi?'<header class="pf-ih"><h3 class="pf-it">'+esc(x.name)+'</h3>'+(x.tag?'<span class="pf-itag">'+esc(x.tag)+'</span>':'')+'<button type="button" class="pf-copy" title="Copy a link to this project" data-copy="'+sec+'/'+x.id+'">Copy link</button></header>':'')+html+'</section>'}).join('');
         over.querySelectorAll('.pf-tab').forEach(function(b){var on=b.getAttribute('data-tab')===key;b.classList.toggle('on',on);b.setAttribute('aria-selected',on?'true':'false');b.tabIndex=on?0:-1});
       }
       cur.item=it.id;
@@ -196,7 +200,8 @@
       if(!cur)return;cur=null;over.classList.remove('open');over.innerHTML='';
       Object.keys(hots).forEach(function(k){hots[k].classList.remove('peek')});
       var p=vid.play();if(p&&p.catch)p.catch(function(){});
-      if(lastFocus&&lastFocus.focus)try{lastFocus.focus({preventScroll:true})}catch(e){}
+      if(lastFocus&&lastFocus.focus)try{lastFocus.focus({preventScroll:true});if(!kbd&&lastFocus.blur)lastFocus.blur()}catch(e){}
+      spotOff();hideTip();
     }
     function setHash(v){
       if(v)location.hash=v;

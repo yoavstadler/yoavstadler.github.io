@@ -296,7 +296,9 @@ body[data-theme=workshop] .pf-frame{
   width:min(1120px,100%);height:min(800px,100%);
   border:46px solid transparent;border-image:url(../ui/frame.png) 95 / 46px stretch;
   border-radius:0;background:var(--kit-cream);background-clip:padding-box;
-  box-shadow:none;filter:drop-shadow(0 22px 40px rgba(10,5,0,.7));animation:pop .25s cubic-bezier(.2,.9,.3,1.2)}
+  box-shadow:none;filter:none;animation:pop .25s cubic-bezier(.2,.9,.3,1.2)}
+/* static shadow (a CSS filter on this big, scrolling element made every frame slow) */
+body[data-theme=workshop] .pf-frame:after{content:"";position:absolute;inset:26px;z-index:-1;border-radius:14px;box-shadow:0 22px 44px rgba(10,5,0,.72);pointer-events:none}
 body[data-theme=workshop] .pf-frame:before,body[data-theme=workshop] .pf-frame .c{display:none}
 /* header = plaque hanging over the top edge */
 body[data-theme=workshop] .pf-head{position:absolute;top:0;left:0;right:0;height:0;padding:0;display:block;z-index:5}
@@ -416,6 +418,45 @@ body[data-theme=workshop] .pf-tip b{color:#7a3f12}
 @media (max-width:760px){body[data-theme=workshop] .pf-tabs{flex-wrap:nowrap;margin-top:38px;padding:0 12px}body[data-theme=workshop] .pf-tab{border-width:5px;padding:0 5px;font-size:11.5px;margin:0 2px 4px 0}}
 /* v14: vector hover ring (three strokes = crisp core + soft halo, no filters) */
 .hot.cut .ring path{fill:none;stroke:#ffd678;stroke-linejoin:round;stroke-linecap:round}
-.hot.cut .ring .rg1{stroke-width:9;stroke-opacity:.12}
-.hot.cut .ring .rg2{stroke-width:5;stroke-opacity:.24}
-.hot.cut .ring .rg3{stroke-width:2.4;stroke-opacity:.95}
+.hot.cut .ring .rg1{stroke-width:4.4;stroke-opacity:.12}
+.hot.cut .ring .rg2{stroke-width:2.9;stroke-opacity:.38}
+.hot.cut .ring .rg3{stroke-width:1.7;stroke-opacity:1}
+
+/* ======================================================================
+   v15: clickable vs informational UI. Buttons are carved + glow on hover; badges are flat labels.
+   Hover/press effects never paint over the lettering (they change the element's own filter/shadow only).
+   ====================================================================== */
+.pf-badge{background:rgba(128,128,128,.13);color:var(--ink2);border:1px dashed var(--line);box-shadow:none;cursor:default;font-weight:600;letter-spacing:.08em}
+.pf-badge:first-child{background:rgba(128,128,128,.2);color:var(--ink)}
+.pf-badge.ghost{background:transparent;border:1px dashed var(--line);color:var(--ink2)}
+body[data-theme=crossroads] .pf-badge.ghost,body[data-theme=dungeon] .pf-badge.ghost{color:var(--ink2);border-color:var(--line)}
+.pf-btn{transition:filter .12s,transform .12s}
+.pf-btn:hover{filter:brightness(1.14);transform:translateY(-1px)}
+.pf-btn:active{filter:brightness(.94);transform:translateY(1px)}
+.pf-btn:focus-visible{outline:2px solid var(--acc-hi,#ffd27a);outline-offset:3px}
+/* workshop: flat dashed label vs carved plaque button */
+body[data-theme=workshop] .pf-badge{border:1px dashed #9a7a4a;border-image:none;border-radius:4px;background:rgba(122,84,40,.1);color:#5a3b22;text-shadow:none;padding:4px 9px;font:700 11px var(--head);letter-spacing:.09em;line-height:1.1}
+body[data-theme=workshop] .pf-badge:first-child{background:rgba(47,107,87,.14);border-color:#2f6b57;color:#1f5a47}
+body[data-theme=workshop] .pf-badge.ghost{background:transparent;border:1px dashed #9a7a4a;border-image:none;color:#6b4a2b}
+body[data-theme=workshop] .pf-badges{gap:6px}
+body[data-theme=workshop] .pf-btn{cursor:pointer;padding:5px 12px;font-size:13px;letter-spacing:.07em;transition:filter .12s,transform .12s}
+body[data-theme=workshop] .pf-btn:hover,body[data-theme=workshop] .pf-btn:focus-visible{border-image:url(../ui/btn.png) 26 30 fill / 13px 16px stretch;filter:brightness(1.28) saturate(1.12) drop-shadow(0 0 5px rgba(255,210,122,.85));transform:translateY(-1px);outline:none}
+body[data-theme=workshop] .pf-btn:active{filter:brightness(.92);transform:translateY(1px)}
+body[data-theme=workshop] .pf-btn.ghost:hover,body[data-theme=workshop] .pf-btn.ghost:focus-visible{border-image:url(../ui/chip.png) 22 30 fill / 11px 15px stretch;color:#1b5a46!important;filter:brightness(1.06) saturate(1.25) drop-shadow(0 0 5px rgba(255,210,122,.9))}
+/* tabs */
+.pf-tab{transition:background .15s,color .15s,transform .12s,filter .12s}
+.pf-tab:not(.on):hover{background:rgba(128,128,128,.18);color:var(--ink);box-shadow:inset 0 -3px 0 var(--acc)}
+body[data-theme=workshop] .pf-tab{cursor:pointer;transition:filter .12s,transform .12s,color .12s}
+body[data-theme=workshop] .pf-tab:not(.on):hover{color:#2a1a0e;background:none;box-shadow:none;transform:translateY(-1px);filter:brightness(1.07) saturate(1.2) drop-shadow(0 0 4px rgba(255,210,122,.9))}
+body[data-theme=workshop] .pf-tab.on:hover{filter:brightness(1.12)}
+body[data-theme=workshop] .pf-tab:active{transform:translateY(1px);filter:brightness(.95)}
+/* copy link: a real button (icon + label), carved chip in the workshop */
+.pf-copy{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--acc);color:var(--acc);background:transparent;padding:3px 11px 3px 9px;font-weight:700;transition:background .12s,color .12s,transform .12s}
+.pf-copy:before{content:"";width:13px;height:13px;flex:none;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1'/%3E%3Cpath d='M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1'/%3E%3Cpath d='M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1'/%3E%3C/svg%3E") center/contain no-repeat}
+.pf-copy:hover,.pf-copy:focus-visible{background:var(--acc);border-color:var(--acc);color:var(--btn-ink);outline:none}
+.pf-copy:active{transform:translateY(1px)}
+.pf-copy.ok{background:#2f8f5b;border-color:#2f8f5b;color:#fff}
+body[data-theme=workshop] .pf-copy{border:7px solid transparent;border-image:url(../ui/chip.png) 22 30 fill / 8px 12px stretch;background:none;color:#5a3b22;padding:1px 6px 1px 4px;font:700 12px var(--body,system-ui);cursor:pointer;transition:filter .12s,transform .12s,color .12s}
+body[data-theme=workshop] .pf-copy:hover,body[data-theme=workshop] .pf-copy:focus-visible{background:none;color:#1b5a46;filter:brightness(1.06) saturate(1.25) drop-shadow(0 0 4px rgba(255,210,122,.9));transform:translateY(-1px)}
+body[data-theme=workshop] .pf-copy.ok{background:none;color:#1f6b45;border-image:url(../ui/chip.png) 22 30 fill / 8px 12px stretch;filter:saturate(1.3)}
+.pf-x{cursor:pointer}
