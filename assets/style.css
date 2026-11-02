@@ -268,3 +268,12 @@ form input:focus,form textarea:focus{outline:2px solid var(--amber-hi);border-co
   form .row{grid-template-columns:1fr}
   .band{padding:44px 0}
 }
+
+/* captioned pictures + trailer placeholder */
+.project .shots figure{margin:0}
+.project .shots figcaption{font:600 12px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-top:6px;text-align:center}
+.project .shots .shotlink{position:relative;display:block}
+.project .shots .shotlink span{position:absolute;right:10px;bottom:10px;background:var(--amber);color:#1a1206;font:700 12px var(--sans);letter-spacing:.06em;padding:6px 11px;border-radius:7px}
+.video.ph{display:grid;place-items:center;background:repeating-linear-gradient(135deg,rgba(255,255,255,.03) 0 10px,rgba(255,255,255,.07) 10px 20px);border:2px dashed var(--line2)}
+.video.ph span{font:700 13px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--amber)}
+.project .shots{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}

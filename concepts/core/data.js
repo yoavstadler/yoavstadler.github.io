@@ -10,7 +10,12 @@
 
   function badges(a){return '<div class="pf-badges">'+a.map(function(b,i){return '<span class="pf-badge'+(i?' ghost':'')+'">'+esc(b)+'</span>'}).join('')+'</div>'}
   function meta(a){return '<dl class="pf-meta">'+a.map(function(m){return '<div><dt>'+esc(m[0])+'</dt><dd>'+esc(m[1])+'</dd></div>'}).join('')+'</dl>'}
-  function shots(ids,alt){return '<div class="pf-shots'+(ids.length===1?' one':'')+'">'+ids.map(function(id,i){return '<img src="'+IMG(id,1000)+'" alt="'+esc(alt)+' screenshot '+(i+1)+'" loading="lazy">'}).join('')+'</div>'}
+  /* items: [driveId, caption] or [driveId, caption, linkUrl, linkText] */
+  function shots(items,alt){return '<div class="pf-shots'+(items.length===1?' one':'')+'">'+items.map(function(x,i){
+    var img='<img src="'+IMG(x[0],1000)+'" alt="'+esc(x[1]||alt+' screenshot '+(i+1))+'" loading="lazy">';
+    if(x[2])img='<a class="pf-shotlink" href="'+x[2]+'" target="_blank" rel="noopener">'+img+'<span>'+x[3]+'</span></a>';
+    return '<figure>'+img+(x[1]?'<figcaption>'+esc(x[1])+'</figcaption>':'')+'</figure>'}).join('')+'</div>'}
+  function soon(t){return '<div class="pf-video ph"><span>Trailer coming soon</span></div>'}
   function yt(id,t){return '<div class="pf-video"><iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0" title="'+esc(t)+'" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>'}
   function itch(id,t){return '<iframe class="pf-embed" src="https://itch.io/embed/'+id+'" title="'+esc(t)+' on itch.io" loading="lazy"></iframe>'}
   function did(a){return '<div class="pf-did"><h4>What I did</h4><ul>'+a.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul></div>'}
@@ -20,12 +25,12 @@
     return '<a class="pf-btn'+(b.g?' ghost':'')+'" href="'+b.u+'"'+(b.go?'':' target="_blank" rel="noopener"')+'>'+b.t+'</a>'}).join('')+'</div>'}
   function paras(a){return a.map(function(p){return '<p>'+p+'</p>'}).join('')}
 
+  /* card order: trailer (or placeholder) first, then facts, what I did, a few captioned pictures */
   function project(o){
-    var media=(o.shots||'')+(o.video||'')+(o.itch||'');
-    var left=o.media?o.media:media;
-    return badges(o.badges)+meta(o.meta)+
-      '<div class="pf-split"><div>'+left+'</div><div>'+paras(o.text)+(o.callout?callout(o.callout):'')+did(o.did)+btns(o.btns)+'</div></div>';
-  }
+    var lead=(o.video||soon())+(o.itch||'');
+    return badges(o.badges)+
+      '<div class="pf-split"><div>'+lead+'</div><div>'+meta(o.meta)+paras(o.text)+(o.callout?callout(o.callout):'')+did(o.did)+btns(o.btns)+'</div></div>'+
+      (o.shots||'')}
 
   /* ---------- games ---------- */
   var shipped=[
@@ -43,39 +48,39 @@
     {id:'bigred',name:'Big Red, Little Red',tag:'Jam',render:function(){return project({
       badges:['Game jam - Mini Jame Gam #59','Play in browser'],
       meta:[['Type','Game jam'],['Role','Systems Designer, Programmer & 3D Artist'],['Team','4'],['Engine','Unity'],['Duration','2 days']],
-      shots:shots(['1G99_ngCOning-J6H5561b0wFGgvAKZ2x','1BR0VVQ95qs8ur8oBbvy_2dtG7S3VsW-N'],'Big Red, Little Red'),itch:itch(5032761,'Big Red, Little Red'),
-      text:['A 2-player local co-op action game where two tomatoes battle an army of vegetables together, combining dash, shooting, and grenade abilities to survive increasingly difficult waves. Made in 2 days with three friends.','Between rounds, each player picks from their own separate upgrade pool, so the two characters specialize into distinct playstyles over a run. The core design focus was local co-op feel, responsive controls, and a wave-based difficulty curve - the Systems Design Log shows how that curve was iterated on.'],
-      did:['Designed the game\'s core systems and mechanics','Balanced each player\'s separate upgrade pool','Designed, balanced and programmed the enemies and their wave-difficulty curve (documented in the Systems Design Log)','Programmed Little Red, the second player character, end to end'],
+      shots:shots([['1OUhREg6VNhH-YxSNvaEImn_hG0-3emX6','Enemy waves ramping up'],['1G99_ngCOning-J6H5561b0wFGgvAKZ2x',"Player's upgrade pool"],['1jxdDPaQliZUuwLIDZW1k0y6ua3gUFzin','Wave difficulty curve','https://drive.google.com/file/d/17ti0blt8rceYqNd_v5MBtP4S3-yf9eCy/view','Read the doc &rarr;']],'Big Red, Little Red'),itch:itch(5032761,'Big Red, Little Red'),
+      text:['A 2-player local co-op action game. Little Red shoots and throws grenades, Big Red dashes and pushes enemies (and Little Red) around, and together they hold off escalating enemy waves.'],
+      did:['Designed the core systems','Balanced each player\'s upgrade pool','Designed, balanced and programmed the enemies and the wave-difficulty curve','Programmed Little Red end to end'],
       btns:[{t:'Play on itch.io &rarr;',u:'https://yoavstad.itch.io/big-red-little-red'},{t:'Read the Systems Design Log &rarr;',u:'#docs/log',g:1,go:1}]})}},
     {id:'clockout',name:'Clock Out',tag:'Jam',render:function(){return project({
       badges:['Game jam - The Game Design','Trailer','Play in browser'],
       meta:[['Type','University game jam'],['Role','Game & Systems Designer'],['Team','3'],['Engine','Unity'],['Duration','1.5 days']],
-      shots:shots(['1CZ8GjQKbTirdsfptHpZVP5m4vfZV26nh','1xwWIXmhYsRz9NBhzXKqd8RibEf8sR8SG'],'Clock Out'),video:yt('Fz5CbVEgtMs','Clock Out trailer'),itch:itch(5095025,'Clock Out'),
-      text:['A top-down stealth puzzle game about sneaking out of the office early using the one tool on your desk nobody suspects - an old rotary phone. Dial a desk, make it ring, and watch coworkers walk over to answer it, clearing your path. Made with tijmenDC and bronzenkid.'],
-      did:['Designed the desk-calling mechanic: dial a desk on the rotary phone to pull coworkers away from your escape route','Designed and balanced the Manager, who calls to micromanage you every 30 seconds and comes running if you don\'t answer','Designed the phone-hand mechanic, used both to answer the Manager\'s calls and to clear a mistaken dial','Designed and balanced the level layout'],
+      shots:shots([['1G4t1JqdsiA7ZnaL_0bhseZE0zYtRmSjH','Desk-calling'],['1hZnFNcZu5MiAHKRJ-cT03ds6ybDZtwQV','The Manager & phone-hand'],['19L14RBBqT0zNP-FgrY_BuAr7APd0uto6','Level layout']],'Clock Out'),video:yt('Fz5CbVEgtMs','Clock Out trailer'),itch:itch(5095025,'Clock Out'),
+      text:['A top-down stealth puzzle game. You\'re sneaking out of the office early using the one tool on your desk nobody suspects: an old rotary phone. Dial a desk, make it ring, and watch coworkers walk over to answer it, clearing your path. Made with tijmenDC and bronzenkid.'],
+      did:['Designed the desk-calling mechanic','Designed and balanced the Manager, who calls every 30 seconds to micromanage and comes for you if you don\'t answer','Designed the phone-hand, used to answer the Manager and hang up a wrong dial','Designed and balanced the level layout'],
       btns:[{t:'Play on itch.io &rarr;',u:'https://tijmendc.itch.io/clock-out'}]})}},
     {id:'bumping',name:'Bumping Mayhem',tag:'School',render:function(){return project({
       badges:['Student game - Howest DAE','Play in browser'],
       meta:[['Type','School project'],['School','Howest DAE'],['Role','Game Lead & Lead Designer'],['Team','3'],['Engine','Unity'],['Duration','2 months']],
-      shots:shots(['1AsEbUBOVsja8Wmj0-5rCtkG-BVxo-x7C','1UsaBKk6b7_20Iw0m-1j8E7yuuFORdBO4','1J9fH4AffV7VEFz1lLiqzcrKRfYnJvXuU','1MKKQKztNOTZgvJAlO44G2FOj2ETKmyxJ'],'Bumping Mayhem'),itch:itch(5128382,'Bumping Mayhem'),
+      shots:shots([['1kT9R-Nh_tJxOmiz1BHADCPT8s8LVQMSK','Power-up picks'],['1iL-bk2c6fMMnhC12fEN8hYpuj0qQKWLh','Wave start'],['1CcYqxa3JwhsoZTBzn2tJPdlfz091zp_m','Bubble shield']],'Bumping Mayhem'),itch:itch(5128382,'Bumping Mayhem'),
       text:['A vehicular wave-defense game where the player rams, tricks, and power-ups their way through escalating enemy hordes to protect and repair a central objective. Power-ups are tuned to scale exponentially, meaning specialization beats generalism: a deliberate risk/reward design.'],
       callout:'Playtesting revealed a core feel problem: enemies clustering on the objective meant the player kept accidentally hitting it when trying to ram enemies, killing momentum and punishing aggression. My solution was a one-way bubble shield. Enemies push against it from outside, but the player drives through freely. This separated the collision domains cleanly and made aggressive play feel satisfying rather than frustrating.',
-      did:['Designed the exponential power-up system','Tuned enemy waves on a sine-wave difficulty curve, alternating pressure with breathing room'],
+      did:['Designed the exponential power-up system','Tuned enemy waves on a sine-wave difficulty curve, alternating pressure with breathing room','Designed the one-way bubble shield around the objective'],
       btns:[{t:'Play on itch.io &rarr;',u:'https://morose-interactive.itch.io/bumping-mayham'}]})}},
     {id:'warped',name:'Warped',tag:'School',render:function(){return project({
       badges:['Student game - The Open University','Trailer'],
       meta:[['Type','School project'],['School','The Open University'],['Role','Game Lead & Lead Designer'],['Team','6'],['Engine','Unity'],['Duration','3 months']],
-      video:yt('nLN4PbjdHUc','Warped trailer'),
+      shots:shots([['1tHepYQ7QcCEzSu2EejyPYVNDJSto7iI0','Telekinesis'],['1cEQusbgiS5Lg6R9lB0ndDh1QL9ONgxGE','Gravity inversion'],['1U9EeL3zZRp1uopG0GofepLc-SvUgTCwP','Black hole'],['1G7Ajlwi3kFb2WezXwxX7S3E55BfUylum','Level layout: the space station']],'Warped'),video:yt('nLN4PbjdHUc','Warped trailer'),
       text:['A first-person sci-fi puzzle-action game built around physics-based powers: telekinesis, black hole projection, and gravity inversion.'],
-      callout:'The gravity inversion power was my concept, designed specifically as a puzzle-solving tool rather than a combat ability. Each level was built around teaching the player a new spatial logic: what happens to enemies, objects, and the player themselves when &ldquo;down&rdquo; becomes &ldquo;up.&rdquo; That single design decision shaped the entire level design language of the game.',
+      callout:'I designed gravity inversion as a puzzle tool rather than a combat ability. Each level teaches the player a new spatial logic, so the level layouts were built around what the player can flip and move, not what they can shoot.',
       did:['Owned the design of all core systems, mechanics and level layouts','Programmed the player\'s three powers: telekinesis, black hole and gravity inversion'],
       btns:[{t:'Watch on YouTube &rarr;',u:'https://www.youtube.com/watch?v=nLN4PbjdHUc'}]})}},
     {id:'worldly',name:'Worldly Adventures',tag:'School',render:function(){return project({
       badges:['Student game - The Open University','Trailer'],
       meta:[['Type','School project'],['School','The Open University'],['Role','Game Designer & Level Designer'],['Team','5'],['Engine','Unity'],['Duration','3 months']],
-      video:yt('E2PpPdDbcW8','Worldly Adventures trailer'),
-      text:['A mobile arcade game with themed worlds (jungle, toy world, and more), combining vertical platformer and endless runner mechanics across 10-12 levels.'],
-      callout:'I designed the character power system as a 2D matrix: each character has a unique ability per game mode, so the sloth\'s runner power and platformer power are completely different, as are every other character\'s. This meant every character-mode combination felt distinct without requiring separate content pipelines, giving the game replayability while keeping production manageable for a student team.',
+      shots:shots([['1QMJcCCjz9SZI57KtyAr8phkGfMpNgdM3','Levels across every world'],['1cIDk5IVo9ijNlP-lM60yEntrsGLFA4Kl','Maze level'],['104POWJXZF0WBUqzLfCufXku3Ay_jyuf2','Characters x modes']],'Worldly Adventures'),video:yt('E2PpPdDbcW8','Worldly Adventures trailer'),
+      text:['A mobile arcade game with themed worlds that mixes vertical platforming and endless running across 10 to 12 levels.'],
+      callout:'Every character has a unique ability in every game mode, laid out as a 2D character x mode matrix. Each combination plays differently, while each new character or mode only adds one row or column of abilities to design.',
       did:['Built every level in the game','Balanced how each power-up plays across the levels and modes','Wrote the game\'s narrative design'],
       btns:[{t:'Watch on YouTube &rarr;',u:'https://www.youtube.com/watch?v=E2PpPdDbcW8'}]})}},
     {id:'shipped',name:'8 Shipped Games',tag:'AppCentral',render:function(){
@@ -91,7 +96,7 @@
       return badges(lead?['Fan GDD - lead document']:['Fan GDD'])+
       '<div class="pf-gdd"><div class="cover">'+(name.charAt(0))+'<img src="'+IMG(pid,700)+'" alt="'+esc(name)+' Fan GDD cover" loading="lazy" style="position:absolute;inset:0"></div>'+
       '<div><h3>'+esc(name)+'</h3><p>'+text+'</p>'+
-      '<p class="pf-sub">Why fan GDDs? Design breakdowns of games I did not build - reverse-engineering their systems, pacing and mechanics.</p>'+
+      '<p class="pf-sub">Why &ldquo;fan&rdquo; GDDs? These are design breakdowns I wrote for games I didn\'t build &mdash; reverse-engineering their systems, pacing, and mechanics to practice the same documentation and systems-thinking I\'d apply on an original project.</p>'+
       '<div class="pf-btns"><button class="pf-btn" data-embed="'+PREV(pid)+'">Read it here</button><a class="pf-btn ghost" href="'+PREV(pid)+'" target="_blank" rel="noopener">Open in new tab</a><a class="pf-quiet" href="'+DL(pid)+'">Download PDF</a></div></div></div><div data-slot></div>'}}
   }
   var docs=[
@@ -174,8 +179,10 @@
     cv:CV,
     sections:{
       games:{title:'Games',blurb:'Shipped mobile titles, student games and jam entries',items:games,
+        tabs:[{id:'jams',name:'Game Jams',ids:['bigred','clockout']},{id:'student',name:'Student Games',ids:['bumping','warped','worldly']},{id:'shipped',name:'Shipped Games',ids:['shipped']}],
         more:[{t:'Shipped Games page',u:'../shipped-games.html'},{t:'Student Games page',u:'../student-games.html'},{t:'Game Jams page',u:'../game-jams.html'}]},
-      docs:{title:'Design Documents',blurb:'Fan GDDs and systems design logs',items:docs,
+      docs:{title:'Design Documents',blurb:'Fan GDDs and systems design logs',items:docs.slice(-1).concat(docs.slice(0,-1)),
+        tabs:[{id:'logs',name:'Systems Logs',ids:['log']},{id:'fan',name:'Fan GDDs',ids:['hollow','hades','bg3','ghost','ori','days']}],
         more:[{t:'Fan GDD page',u:'../fan-gdd-series.html'},{t:'Systems Documents page',u:'../system-documents.html'}]},
       art:{title:'3D Art',blurb:'Blender, Substance Painter and Unity',items:art,more:[{t:'3D Art page',u:'../3d-art.html'}]},
       about:{title:'About Me',blurb:'Character sheet, experience and education',items:about,more:[{t:'Full home page',u:'../index.html'}]},
