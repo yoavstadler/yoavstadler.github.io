@@ -268,7 +268,7 @@ body[data-theme=workshop]{--edge:#150e09;--pbg:#ead9b0;--ink:#2e2015;--ink2:#6a5
 .hot.cut:hover .hov,.hot.cut:focus-visible .hov,.hot.cut.on .hov,.hot.cut.peek .hov{opacity:1}
 /* the Workshop art already draws the hanging signs: only the lettering and a hover tint are added */
 body[data-theme=workshop] .hot.cut .wtag rect{fill:#ffd27a;fill-opacity:0;stroke:none;transition:fill-opacity .2s}
-body[data-theme=workshop] .hot.cut:hover .wtag rect,body[data-theme=workshop] .hot.cut:focus-visible .wtag rect,body[data-theme=workshop] .hot.cut.on .wtag rect,body[data-theme=workshop] .hot.cut.peek .wtag rect{fill:#ffd27a;fill-opacity:.55}
+body[data-theme=workshop] .hot.cut:hover .wtag rect,body[data-theme=workshop] .hot.cut:focus-visible .wtag rect,body[data-theme=workshop] .hot.cut.on .wtag rect,body[data-theme=workshop] .hot.cut.peek .wtag rect{fill:#ffd27a;fill-opacity:.3}
 body[data-theme=workshop] .hot.cut .wtag text{font-size:12px;fill:#3a2616}
 @media (min-width:761px){
   .pf-stage.behind .pf-reel{z-index:1}
