@@ -76,10 +76,9 @@
         hots[key]=g;
         g.addEventListener('click',function(e){e.stopPropagation();go(key)});
         g.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();go(key)}});
-        g.addEventListener('pointerenter',function(e){spotOn(key);showTip(key,e.clientX,e.clientY)});
-        g.addEventListener('pointermove',function(e){moveTip(e.clientX,e.clientY)});
+        g.addEventListener('pointerenter',function(e){spotOn(key);showTip(key,g)});
         g.addEventListener('pointerleave',function(){spotOff();hideTip()});
-        g.addEventListener('focus',function(){if(!kbd)return;spotOn(key);var r=g.getBoundingClientRect();showTip(key,r.left+r.width/2,r.top)});   /* keyboard focus only: a mouse click must never leave an object stuck in its hover look */
+        g.addEventListener('focus',function(){if(!kbd)return;spotOn(key);showTip(key,g)});   /* keyboard focus only: a mouse click must never leave an object stuck in its hover look */
         g.addEventListener('blur',function(){spotOff();hideTip()});
         return g}
     };
@@ -88,8 +87,14 @@
     document.addEventListener('pointerdown',function(){kbd=false},true);
     function spotOn(k){stage.classList.add('spot');Object.keys(hots).forEach(function(j){hots[j].classList.toggle('on',j===k)})}
     function spotOff(){stage.classList.remove('spot');Object.keys(hots).forEach(function(j){hots[j].classList.remove('on')})}
-    function showTip(key,x,y){var f=F[key];tip.innerHTML='<b>'+esc(f.name)+'</b>'+esc(f.sub);tip.classList.add('on');moveTip(x,y)}
-    function moveTip(x,y){tip.style.left=x+'px';tip.style.top=y+'px'}
+    /* the tooltip sits beside the object (toward the middle of the room), never on top of the artwork */
+    function showTip(key,g){var f=F[key];tip.innerHTML='<b>'+esc(f.name)+'</b>'+esc(f.sub);tip.classList.add('on');
+      var r=g.getBoundingClientRect(),w=tip.offsetWidth,hh=tip.offsetHeight,vw=window.innerWidth,vh=window.innerHeight,cx=r.left+r.width/2,gap=14,x,y;
+      var mid=vw/2,off=Math.abs(cx-mid);
+      if(off>vw*0.12){x=cx<mid?r.right+gap:r.left-gap-w;y=r.top+r.height/2-hh/2}
+      else{x=cx-w/2;y=r.top-gap-hh}
+      x=Math.max(8,Math.min(x,vw-w-8));y=Math.max(96,Math.min(y,vh-hh-8));
+      tip.style.left=x+'px';tip.style.top=y+'px'}
     function hideTip(){tip.classList.remove('on')}
 
     cfg.draw(svg,P);
@@ -152,7 +157,7 @@
       var tpl=document.createElement('template');tpl.innerHTML=html;
       tpl.content.querySelectorAll('iframe').forEach(function(f){
         var src=f.getAttribute('src')||'';
-        if(!/youtube|vimeo|itch\.io|sketchfab/.test(src))return;
+        if(!/youtube|vimeo|sketchfab/.test(src))return;   /* the itch.io widget is a small card, so it loads in place (lazily) - no extra click */
         var b=document.createElement('button');b.type='button';
         b.className='pf-lazy '+(f.className||'');
         b.setAttribute('data-src',src);if(f.title)b.setAttribute('data-title',f.title);
@@ -226,9 +231,11 @@
         return}
       var lz=e.target.closest('.pf-lazy');
       if(lz){var fr=document.createElement('iframe');fr.className=lz.className.replace(/\bpf-lazy\b/,'').trim();
-        var s=lz.getAttribute('data-src');if(/youtube/.test(s)&&!/autoplay/.test(s))s+=(s.indexOf('?')>-1?'&':'?')+'autoplay=1';
+        var s=lz.getAttribute('data-src');
+        if(/youtube|vimeo/.test(s)&&!/autoplay/.test(s))s+=(s.indexOf('?')>-1?'&':'?')+'autoplay=1';
+        if(/sketchfab/.test(s)&&!/autostart/.test(s))s+=(s.indexOf('?')>-1?'&':'?')+'autostart=1&preload=1';
         fr.src=s;fr.title=lz.getAttribute('data-title')||'Embedded content';
-        if(lz.getAttribute('data-allow'))fr.setAttribute('allow',lz.getAttribute('data-allow'));
+        fr.setAttribute('allow',(lz.getAttribute('data-allow')||'')+'; autoplay; fullscreen');
         if(lz.getAttribute('data-fs'))fr.setAttribute('allowfullscreen','');
         lz.replaceWith(fr);fr.focus();return}
       var b=e.target.closest('[data-embed]');
@@ -236,6 +243,11 @@
         slot.innerHTML='<iframe class="pf-read" src="'+b.getAttribute('data-embed')+'" title="Document preview" allow="fullscreen"></iframe>';
         b.textContent='Reading...';b.disabled=true;slot.scrollIntoView({behavior:'smooth',block:'nearest'})}
     });
+    /* keep every screenshot/GIF in its own proportions: vertical ones stay vertical, nothing is cropped */
+    over.addEventListener('load',function(e){var im=e.target;
+      if(!im||im.tagName!=='IMG'||!im.closest('.pf-shots')||!im.naturalWidth)return;
+      var r=im.naturalWidth/im.naturalHeight,fg=im.closest('figure');
+      if(r<0.95&&fg)fg.classList.add('tall');else if(r>=0.95)im.style.aspectRatio=r.toFixed(3)},true);
     over.addEventListener('submit',function(e){
       var f=e.target.closest('form[data-mailto]');if(!f)return;e.preventDefault();
       var d=new FormData(f),name=(d.get('first')+' '+d.get('last')).trim();
