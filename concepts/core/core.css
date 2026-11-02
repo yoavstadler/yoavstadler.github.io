@@ -478,3 +478,15 @@ body[data-theme=workshop] .pf-btn{transition:transform .12s}
  background:radial-gradient(circle at 40% 35%,#f7ecc9 0%,#e9d6a0 62%,#d3b676 100%);border:1.5px solid #b8914a;box-shadow:0 1px 3px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,255,255,.35)}
 
 .pf-tip,body[data-theme=workshop] .pf-tip{transform:none}
+/* v21: one hover language everywhere - the ornate gold frame. Green buttons use btn-hot, parchment ones (inactive tabs, outline buttons, copy link) use the same frame on parchment (chip-hot). */
+body[data-theme=workshop] .pf-tab:not(.on):hover,body[data-theme=workshop] .pf-tab:not(.on):focus-visible,
+body[data-theme=workshop] .pf-btn.ghost:hover,body[data-theme=workshop] .pf-btn.ghost:focus-visible,
+body[data-theme=workshop] .pf-copy:hover,body[data-theme=workshop] .pf-copy:focus-visible{
+ border-image:url(../ui/chip-hot.png) 26 30 fill / 11px 14px stretch;filter:none;box-shadow:none;outline:none;
+ color:#2a1a0e!important;text-shadow:none;-webkit-text-stroke:3px #f6ead0;paint-order:stroke fill;transform:translateY(-1px)}
+body[data-theme=workshop] .pf-tab:not(.on):hover,body[data-theme=workshop] .pf-tab:not(.on):focus-visible{border-image-width:10px 12px}
+body[data-theme=workshop] .pf-copy:hover,body[data-theme=workshop] .pf-copy:focus-visible{border-image-width:9px 12px}
+body[data-theme=workshop] .pf-tab.on:hover,body[data-theme=workshop] .pf-tab.on:focus-visible{
+ border-image:url(../ui/btn-hot.png) 26 30 fill / 10px 12px stretch;filter:none;color:#fff7e0;-webkit-text-stroke:3px #10291f;paint-order:stroke fill;text-shadow:none;transform:translateY(-1px)}
+body[data-theme=workshop] .pf-tab:active,body[data-theme=workshop] .pf-copy:active{filter:none;transform:translateY(1px)}
+body[data-theme=workshop] .pf-copy.ok:hover{color:#1f6b45!important}
