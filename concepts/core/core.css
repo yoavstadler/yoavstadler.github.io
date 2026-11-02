@@ -416,6 +416,6 @@ body[data-theme=workshop] .pf-tip b{color:#7a3f12}
 @media (max-width:760px){body[data-theme=workshop] .pf-tabs{flex-wrap:nowrap;margin-top:38px;padding:0 12px}body[data-theme=workshop] .pf-tab{border-width:5px;padding:0 5px;font-size:11.5px;margin:0 2px 4px 0}}
 /* v14: vector hover ring (three strokes = crisp core + soft halo, no filters) */
 .hot.cut .ring path{fill:none;stroke:#ffd678;stroke-linejoin:round;stroke-linecap:round}
-.hot.cut .ring .rg1{stroke-width:5.2;stroke-opacity:.12}
-.hot.cut .ring .rg2{stroke-width:3;stroke-opacity:.22}
-.hot.cut .ring .rg3{stroke-width:1.25;stroke-opacity:.95}
+.hot.cut .ring .rg1{stroke-width:9;stroke-opacity:.12}
+.hot.cut .ring .rg2{stroke-width:5;stroke-opacity:.24}
+.hot.cut .ring .rg3{stroke-width:2.4;stroke-opacity:.95}
