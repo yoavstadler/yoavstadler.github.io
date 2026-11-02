@@ -93,12 +93,11 @@
   /* ---------- design documents ---------- */
   function gdd(id,name,pid,lead,text){
     return {id:id,name:name,tag:lead?'Lead':'GDD',render:function(){
-      return badges(lead?['Fan GDD - lead document']:['Fan GDD'])+
-      '<div class="pf-gdd"><div class="cover">'+(name.charAt(0))+'<img src="'+IMG(pid,700)+'" alt="'+esc(name)+' Fan GDD cover" loading="lazy" style="position:absolute;inset:0"></div>'+
-      '<div><h3>'+esc(name)+'</h3><p>'+text+'</p>'+
-      '<p class="pf-sub">Why &ldquo;fan&rdquo; GDDs? These are design breakdowns I wrote for games I didn\'t build &mdash; reverse-engineering their systems, pacing, and mechanics to practice the same documentation and systems-thinking I\'d apply on an original project.</p>'+
-      '<div class="pf-btns"><button class="pf-btn" data-embed="'+PREV(pid)+'">Read it here</button><a class="pf-btn ghost" href="'+PREV(pid)+'" target="_blank" rel="noopener">Open in new tab</a><a class="pf-quiet" href="'+DL(pid)+'">Download PDF</a></div></div></div><div data-slot></div>'}}
+      return '<article class="pf-gdd"><div class="cover">'+(name.charAt(0))+'<img src="'+IMG(pid,700)+'" alt="'+esc(name)+' Fan GDD cover" loading="lazy">'+(lead?'<span class="pf-lead">Lead GDD</span>':'')+'</div>'+
+      '<div class="pf-gdd-txt"><h3>'+esc(name)+'</h3><p>'+text+'</p>'+
+      '<div class="pf-btns"><button class="pf-btn" data-embed="'+PREV(pid)+'">Read it here</button><a class="pf-btn ghost" href="'+PREV(pid)+'" target="_blank" rel="noopener">Open in new tab</a><a class="pf-quiet" href="'+DL(pid)+'">Download PDF</a></div></div></article><div data-slot></div>'}}
   }
+  var fanNote='<aside class="pf-note"><strong>Why &ldquo;fan&rdquo; GDDs?</strong> These are design breakdowns I wrote for games I didn\'t build &mdash; reverse-engineering their systems, pacing, and mechanics to practice the same documentation and systems-thinking I\'d apply on an original project.</aside>';
   var docs=[
     gdd('hollow','Hollow Knight','1Jzdpa451eeeXNj9yLJJbzz2695zXMsPu',1,'A full teardown of Hollow Knight\'s ability progression, map design, and difficulty pacing - my most in-depth fan GDD, written as the flagship piece of this series.'),
     gdd('hades','Hades','1QEM6i9MJinDy4t_NXPgBnSwASEnRjw1m',0,'A breakdown of Hades\' roguelike loop, boon/weapon systems, and floor structure - with a critique of how the game handles player motivation and build variety once the main story wraps.'),
@@ -182,7 +181,7 @@
         tabs:[{id:'jams',name:'Game Jams',ids:['bigred','clockout']},{id:'student',name:'Student Games',ids:['bumping','warped','worldly']},{id:'shipped',name:'Shipped Games',ids:['shipped']}],
         more:[{t:'Shipped Games page',u:'../shipped-games.html'},{t:'Student Games page',u:'../student-games.html'},{t:'Game Jams page',u:'../game-jams.html'}]},
       docs:{title:'Design Documents',blurb:'Fan GDDs and systems design logs',items:docs.slice(-1).concat(docs.slice(0,-1)),
-        tabs:[{id:'logs',name:'Systems Logs',ids:['log']},{id:'fan',name:'Fan GDDs',ids:['hollow','hades','bg3','ghost','ori','days']}],
+        tabs:[{id:'logs',name:'Systems Logs',ids:['log']},{id:'fan',name:'Fan GDDs',cards:true,intro:fanNote,ids:['hollow','hades','bg3','ghost','ori','days']}],
         more:[{t:'Fan GDD page',u:'../fan-gdd-series.html'},{t:'Systems Documents page',u:'../system-documents.html'}]},
       art:{title:'3D Art',blurb:'Blender, Substance Painter and Unity',items:art,more:[{t:'3D Art page',u:'../3d-art.html'}]},
       about:{title:'About Me',blurb:'Character sheet, experience and education',items:about,more:[{t:'Full home page',u:'../index.html'}]},

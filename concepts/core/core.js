@@ -176,9 +176,10 @@
       if(body.getAttribute('data-tab')!==key){
         body.setAttribute('data-tab',key);
         var multi=S.items.length>1;
-        body.innerHTML=list.map(function(x){
+        var cards=!!(tab&&tab.cards);
+        body.innerHTML=(tab&&tab.intro?tab.intro:'')+(cards?'<div class="pf-cards">':'')+list.map(function(x){
           var html=lazify(x.render()).replace(/<iframe(?![^>]*loading=)/g,'<iframe loading="lazy"');
-          return '<section class="pf-item" data-id="'+x.id+'">'+(multi?'<header class="pf-ih"><h3 class="pf-it">'+esc(x.name)+'</h3>'+(x.tag?'<span class="pf-itag">'+esc(x.tag)+'</span>':'')+'<button type="button" class="pf-copy" title="Copy a link to this project" data-copy="'+sec+'/'+x.id+'">Copy link</button></header>':'')+html+'</section>'}).join('');
+          return '<section class="pf-item'+(cards?' card':'')+'" data-id="'+x.id+'">'+(multi&&!cards?'<header class="pf-ih"><h3 class="pf-it">'+esc(x.name)+'</h3>'+(x.tag?'<span class="pf-itag">'+esc(x.tag)+'</span>':'')+'<button type="button" class="pf-copy" title="Copy a link to this project" data-copy="'+sec+'/'+x.id+'">Copy link</button></header>':'')+html+'</section>'}).join('')+(cards?'</div>':'');
         over.querySelectorAll('.pf-tab').forEach(function(b){var on=b.getAttribute('data-tab')===key;b.classList.toggle('on',on);b.setAttribute('aria-selected',on?'true':'false');b.tabIndex=on?0:-1});
       }
       cur.item=it.id;
@@ -238,6 +239,7 @@
         lz.replaceWith(fr);fr.focus();return}
       var b=e.target.closest('[data-embed]');
       if(b){var slot=(b.closest('.pf-item')||over).querySelector('[data-slot]');
+        var it0=b.closest('.pf-item');if(it0)it0.classList.add('open');
         slot.innerHTML='<iframe class="pf-read" src="'+b.getAttribute('data-embed')+'" title="Document preview" allow="fullscreen"></iframe>';
         b.textContent='Reading...';b.disabled=true;slot.scrollIntoView({behavior:'smooth',block:'nearest'})}
     });
