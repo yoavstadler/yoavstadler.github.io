@@ -76,9 +76,10 @@
         hots[key]=g;
         g.addEventListener('click',function(e){e.stopPropagation();go(key)});
         g.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();go(key)}});
-        g.addEventListener('pointerenter',function(e){spotOn(key);showTip(key,g)});
+        g.addEventListener('pointerenter',function(e){spotOn(key);showTip(key,e.clientX,e.clientY)});
+        g.addEventListener('pointermove',function(e){moveTip(e.clientX,e.clientY)});
         g.addEventListener('pointerleave',function(){spotOff();hideTip()});
-        g.addEventListener('focus',function(){if(!kbd)return;spotOn(key);showTip(key,g)});   /* keyboard focus only: a mouse click must never leave an object stuck in its hover look */
+        g.addEventListener('focus',function(){if(!kbd)return;spotOn(key);var r=g.getBoundingClientRect();showTip(key,r.left+r.width/2,r.top+r.height/2)});   /* keyboard focus only: a mouse click must never leave an object stuck in its hover look */
         g.addEventListener('blur',function(){spotOff();hideTip()});
         return g}
     };
@@ -87,14 +88,11 @@
     document.addEventListener('pointerdown',function(){kbd=false},true);
     function spotOn(k){stage.classList.add('spot');Object.keys(hots).forEach(function(j){hots[j].classList.toggle('on',j===k)})}
     function spotOff(){stage.classList.remove('spot');Object.keys(hots).forEach(function(j){hots[j].classList.remove('on')})}
-    /* the tooltip sits beside the object (toward the middle of the room), never on top of the artwork */
-    function showTip(key,g){var f=F[key];tip.innerHTML='<b>'+esc(f.name)+'</b>'+esc(f.sub);tip.classList.add('on');
-      var r=g.getBoundingClientRect(),w=tip.offsetWidth,hh=tip.offsetHeight,vw=window.innerWidth,vh=window.innerHeight,cx=r.left+r.width/2,gap=14,x,y;
-      var mid=vw/2,off=Math.abs(cx-mid);
-      if(off>vw*0.12){x=cx<mid?r.right+gap:r.left-gap-w;y=r.top+r.height/2-hh/2}
-      else{x=cx-w/2;y=r.top-gap-hh}
-      x=Math.max(8,Math.min(x,vw-w-8));y=Math.max(96,Math.min(y,vh-hh-8));
-      tip.style.left=x+'px';tip.style.top=y+'px'}
+    /* the tooltip follows the pointer, a little below and to the right of it; it flips sideways/upwards near the screen edges */
+    function showTip(key,x,y){var f=F[key];tip.innerHTML='<b>'+esc(f.name)+'</b>'+esc(f.sub);tip.classList.add('on');moveTip(x,y)}
+    function moveTip(x,y){var w=tip.offsetWidth,hh=tip.offsetHeight,vw=window.innerWidth,vh=window.innerHeight,tx=x+22,ty=y+26;
+      if(tx+w>vw-8)tx=x-22-w;if(ty+hh>vh-8)ty=y-18-hh;
+      tip.style.left=Math.max(8,tx)+'px';tip.style.top=Math.max(8,ty)+'px'}
     function hideTip(){tip.classList.remove('on')}
 
     cfg.draw(svg,P);
