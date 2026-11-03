@@ -155,7 +155,7 @@
       var tpl=document.createElement('template');tpl.innerHTML=html;
       tpl.content.querySelectorAll('iframe').forEach(function(f){
         var src=f.getAttribute('src')||'';
-        if(!/youtube|vimeo|sketchfab/.test(src))return;   /* the itch.io widget is a small card, so it loads in place (lazily) - no extra click */
+        if(!/youtube|vimeo|sketchfab|drive\.google/.test(src))return;   /* the itch.io widget is a small card, so it loads in place (lazily) - no extra click */
         var b=document.createElement('button');b.type='button';
         b.className='pf-lazy '+(f.className||'');
         b.setAttribute('data-src',src);if(f.title)b.setAttribute('data-title',f.title);
@@ -163,11 +163,21 @@
         if(f.hasAttribute('allowfullscreen'))b.setAttribute('data-fs','1');
         var m=src.match(/youtube\.com\/embed\/([\w-]+)/);
         if(m)b.style.backgroundImage='url(https://img.youtube.com/vi/'+m[1]+'/hqdefault.jpg)';
+        var dm=src.match(/drive\.google\.com\/file\/d\/([\w-]+)/);
+        if(dm)b.style.backgroundImage='url(https://drive.google.com/thumbnail?id='+dm[1]+'&sz=w1000)';
         var what=/sketchfab/.test(src)?'3D model':/itch/.test(src)?'game':'video';
         b.setAttribute('aria-label','Load '+what+(f.title?': '+f.title:''));
         b.innerHTML='<span><i></i>'+(what==='game'?'Load playable page':what==='3D model'?'Load 3D model':'Play video')+'</span>';
         f.replaceWith(b)});
       return tpl.innerHTML}
+    /* projects in a tab that are already within about 12% of each other get the same minimum height (the tallest one), so the sections read as equal-sized blocks; re-measured when pictures load or the window changes */
+    function eqItems(body){
+      var its=body.querySelectorAll('.pf-item:not(.card)');if(its.length<2)return;
+      its.forEach(function(e){e.style.minHeight=''});var m=0;
+      var lo=1e9;its.forEach(function(e){m=Math.max(m,e.offsetHeight);lo=Math.min(lo,e.offsetHeight)});
+      if((m-lo)/m<=0.12)its.forEach(function(e){e.style.minHeight=m+'px'});   /* only when they are already close: a big gap would just be empty space */
+      if(!body._eq){body._eq=1;body.addEventListener('load',function(){clearTimeout(body._eqT);body._eqT=setTimeout(function(){eqItems(body)},80)},true);window.addEventListener('resize',function(){eqItems(body)})}
+    }
     function select(sec,id){
       var S=D[sec],body=over.querySelector('.pf-body'),it=S.items[0];
       S.items.forEach(function(x){if(x.id===id)it=x});
@@ -182,6 +192,7 @@
           return '<section class="pf-item'+(cards?' card':'')+'" data-id="'+x.id+'">'+(multi&&!cards?'<header class="pf-ih"><h3 class="pf-it">'+esc(x.name)+'</h3>'+(x.tag?'<span class="pf-itag">'+esc(x.tag)+'</span>':'')+'<button type="button" class="pf-copy" title="Copy a link to this project" data-copy="'+sec+'/'+x.id+'">Copy link</button></header>':'')+html+'</section>'}).join('')+(cards?'</div>':'');
         over.querySelectorAll('.pf-tab').forEach(function(b){var on=b.getAttribute('data-tab')===key;b.classList.toggle('on',on);b.setAttribute('aria-selected',on?'true':'false');b.tabIndex=on?0:-1});
       }
+      eqItems(body);
       cur.item=it.id;
       var t=(id&&id!==key)?body.querySelector('[data-id="'+it.id+'"]'):null;
       body.scrollTop=t?Math.max(0,t.getBoundingClientRect().top-body.getBoundingClientRect().top+body.scrollTop-4):0;

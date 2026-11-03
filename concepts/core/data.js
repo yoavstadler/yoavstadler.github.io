@@ -17,6 +17,7 @@
     return '<figure>'+img+(x[1]?'<figcaption>'+esc(x[1])+'</figcaption>':'')+'</figure>'}).join('')+'</div>'}
   function soon(t){return '<div class="pf-video ph"><span>Trailer coming soon</span></div>'}
   function yt(id,t){return '<div class="pf-video"><iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0" title="'+esc(t)+'" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>'}
+  function drv(id,t){return '<div class="pf-video"><iframe src="'+PREV(id)+'" title="'+esc(t)+'" loading="lazy" allow="autoplay; fullscreen" allowfullscreen></iframe></div>'}
   function itch(id,t){return '<iframe class="pf-embed" src="https://itch.io/embed/'+id+'" title="'+esc(t)+' on itch.io" loading="lazy"></iframe>'}
   function did(a){return '<div class="pf-did"><h4>What I did</h4><ul>'+a.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul></div>'}
   function callout(t){return '<div class="pf-callout"><b>Design decision:</b> '+t+'</div>'}
@@ -46,9 +47,9 @@
 
   var games=[
     {id:'bigred',name:'Big Red, Little Red',tag:'Jam',render:function(){return project({
-      badges:['Game jam - Mini Jame Gam #59','Play in browser'],
+      badges:['Game jam - Mini Jame Gam #59','Trailer','Play in browser'],
       meta:[['Type','Game jam'],['Role','Systems Designer, Programmer & 3D Artist'],['Team','4'],['Engine','Unity'],['Duration','2 days']],
-      shots:shots([['1OUhREg6VNhH-YxSNvaEImn_hG0-3emX6','Enemy waves ramping up'],['1G99_ngCOning-J6H5561b0wFGgvAKZ2x',"Player's upgrade pool"],['1jxdDPaQliZUuwLIDZW1k0y6ua3gUFzin','Wave difficulty curve','https://drive.google.com/file/d/17ti0blt8rceYqNd_v5MBtP4S3-yf9eCy/view','Read the doc &rarr;']],'Big Red, Little Red'),itch:itch(5032761,'Big Red, Little Red'),
+      shots:shots([['1OUhREg6VNhH-YxSNvaEImn_hG0-3emX6','Enemy waves ramping up'],['1G99_ngCOning-J6H5561b0wFGgvAKZ2x',"Player's upgrade pool"],['1jxdDPaQliZUuwLIDZW1k0y6ua3gUFzin','Wave difficulty curve','https://drive.google.com/file/d/17ti0blt8rceYqNd_v5MBtP4S3-yf9eCy/view','Read the doc &rarr;']],'Big Red, Little Red'),video:drv('1lifCCPKVOt1xbB1htQqCfGNk6IhvKIID','Big Red, Little Red trailer'),itch:itch(5032761,'Big Red, Little Red'),
       text:['A 2-player local co-op action game. Little Red shoots and throws grenades, Big Red dashes and pushes enemies (and Little Red) around, and together they hold off escalating enemy waves.'],
       did:['Designed the core systems','Balanced each player\'s upgrade pool','Designed, balanced and programmed the enemies and the wave-difficulty curve','Programmed Little Red end to end'],
       btns:[{t:'Play on itch.io &rarr;',u:'https://yoavstad.itch.io/big-red-little-red'},{t:'Read the Systems Design Log &rarr;',u:'#docs/log',g:1,go:1}]})}},
