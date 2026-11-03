@@ -516,7 +516,18 @@ body[data-theme=workshop] .pf-cards .pf-item+.pf-item:before{display:none}
 @media(max-width:560px){.pf-cards .pf-item.open .pf-gdd{flex-direction:column}.pf-cards .pf-item.open .pf-gdd .cover{flex:none;width:100%;aspect-ratio:3/4}}
 
 /* v22: hover frames are sliced past the corner ornaments (64px of the art) so the swirls are never stretched; the centre of the art is flat so wide buttons stay clean */
+}
+
+/* v23: the ornate hover art is 236x67 and its swirls span the full height, so the frame must be drawn at ONE uniform scale: every button gets a fixed height = 67 x scale and 26/64-sliced borders at that same scale (nothing in the middle is stretched). */
+body[data-theme=workshop] .pf-btn,body[data-theme=workshop] .pf-tab,body[data-theme=workshop] .pf-copy{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;line-height:1.1;white-space:nowrap}
+body[data-theme=workshop] .pf-btn{height:38px;padding:0 30px}
+body[data-theme=workshop] .pf-tab{height:32px;padding:0 28px}
+body[data-theme=workshop] .pf-copy{height:28px;padding:0 23px}
+body[data-theme=workshop] .pf-btn:hover,body[data-theme=workshop] .pf-btn:focus-visible,body[data-theme=workshop] .pf-btn.ghost:hover,body[data-theme=workshop] .pf-btn.ghost:focus-visible{border-image-width:14.75px 36.3px}
+body[data-theme=workshop] .pf-tab:not(.on):hover,body[data-theme=workshop] .pf-tab:not(.on):focus-visible,body[data-theme=workshop] .pf-tab.on:hover,body[data-theme=workshop] .pf-tab.on:focus-visible{border-image-width:12.4px 30.6px}
+body[data-theme=workshop] .pf-copy:hover,body[data-theme=workshop] .pf-copy:focus-visible{border-image-width:10.9px 26.7px}
 @media (max-width:760px){
- body[data-theme=workshop] .pf-tab:not(.on):hover,body[data-theme=workshop] .pf-tab.on:hover{border-image-width:8px 16px}
- body[data-theme=workshop] .pf-tab{padding:0 9px}
+ body[data-theme=workshop] .pf-tab{height:28px;padding:0 9px}
+ body[data-theme=workshop] .pf-tab:not(.on):hover,body[data-theme=workshop] .pf-tab.on:hover{border-image-width:8px 12px;border-image-slice:26 30 fill;border-image-source:url(../ui/chip.png)}
+ body[data-theme=workshop] .pf-tab.on:hover{border-image-source:url(../ui/btn.png)}
 }
