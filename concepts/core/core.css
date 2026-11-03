@@ -482,7 +482,7 @@ body[data-theme=workshop] .pf-btn{transition:transform .12s}
 body[data-theme=workshop] .pf-tab:not(.on):hover,body[data-theme=workshop] .pf-tab:not(.on):focus-visible,
 body[data-theme=workshop] .pf-btn.ghost:hover,body[data-theme=workshop] .pf-btn.ghost:focus-visible,
 body[data-theme=workshop] .pf-copy:hover,body[data-theme=workshop] .pf-copy:focus-visible{
- border-image:url(../ui/chip-hot.png) 26 64 fill / 11px 27px stretch;filter:none;box-shadow:none;outline:none;
+ border-image:url(../ui/chip-hot.png) 57 140 fill / 11px 27px stretch;filter:none;box-shadow:none;outline:none;
  color:#2a1a0e!important;text-shadow:none;-webkit-text-stroke:3px #f6ead0;paint-order:stroke fill;transform:translateY(-1px)}
 body[data-theme=workshop] .pf-tab:not(.on):hover,body[data-theme=workshop] .pf-tab:not(.on):focus-visible{border-image-width:10px 25px}
 body[data-theme=workshop] .pf-copy:hover,body[data-theme=workshop] .pf-copy:focus-visible{border-image-width:9px 22px}
