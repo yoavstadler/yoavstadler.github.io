@@ -538,3 +538,12 @@ body[data-theme=workshop] .pf-copy:hover,body[data-theme=workshop] .pf-copy:focu
 .pf-cards .pf-gdd-txt{flex:1 1 auto;display:flex;flex-direction:column}
 .pf-cards .pf-gdd-txt .pf-btns{margin-top:auto;padding-top:10px}
 .pf-cards{grid-auto-rows:1fr}
+
+/* v25: "Copy link" - the label is centred on its own, the icon hangs to its left */
+.pf-copy,body[data-theme=workshop] .pf-copy{gap:0}
+.pf-copy:before{margin-right:-13px;transform:translateX(-19px)}
+body[data-theme=workshop] .pf-copy{padding:0 32px}
+
+/* v26: objects whose hover art is a full replacement (books, about): the normal picture steps aside while hovered */
+.hot.cut .base{transition:opacity .22s ease-out}
+.hot.cut:hover .base.swap,.hot.cut:focus-visible .base.swap,.hot.cut.on .base.swap,.hot.cut.peek .base.swap{opacity:0}
