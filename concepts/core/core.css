@@ -547,3 +547,8 @@ body[data-theme=workshop] .pf-copy{padding:0 32px}
 /* v26: objects whose hover art is a full replacement (books, about): the normal picture steps aside while hovered */
 .hot.cut .base{transition:opacity .22s ease-out}
 .hot.cut:hover .base.swap,.hot.cut:focus-visible .base.swap,.hot.cut.on .base.swap,.hot.cut.peek .base.swap{opacity:0}
+
+/* v27: every object is a pair of pictures (normal / hover) pasted onto the empty room: the hover one fades in, then the normal one steps out */
+.hot.cut .hov{transition:opacity .14s ease-out}
+.hot.cut .base.swap{transition:none}
+.hot.cut:hover .base.swap,.hot.cut:focus-visible .base.swap,.hot.cut.on .base.swap,.hot.cut.peek .base.swap{opacity:0;transition:opacity 0s linear .14s}
