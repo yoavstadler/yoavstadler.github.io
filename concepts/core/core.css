@@ -531,3 +531,10 @@ body[data-theme=workshop] .pf-copy:hover,body[data-theme=workshop] .pf-copy:focu
  body[data-theme=workshop] .pf-tab:not(.on):hover,body[data-theme=workshop] .pf-tab.on:hover{border-image-width:8px 12px;border-image-slice:26 30 fill;border-image-source:url(../ui/chip.png)}
  body[data-theme=workshop] .pf-tab.on:hover{border-image-source:url(../ui/btn.png)}
 }
+
+/* v24: all Fan GDD cards share one height - text grows, the buttons sit on the bottom edge */
+.pf-cards{align-items:stretch}
+.pf-cards .pf-gdd{flex:1 1 auto}
+.pf-cards .pf-gdd-txt{flex:1 1 auto;display:flex;flex-direction:column}
+.pf-cards .pf-gdd-txt .pf-btns{margin-top:auto;padding-top:10px}
+.pf-cards{grid-auto-rows:1fr}
