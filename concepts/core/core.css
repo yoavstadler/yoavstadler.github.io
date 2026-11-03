@@ -552,3 +552,9 @@ body[data-theme=workshop] .pf-copy{padding:0 32px}
 .hot.cut .hov{transition:opacity .14s ease-out}
 .hot.cut .base.swap{transition:none}
 .hot.cut:hover .base.swap,.hot.cut:focus-visible .base.swap,.hot.cut.on .base.swap,.hot.cut.peek .base.swap{opacity:0;transition:opacity 0s linear .14s}
+
+/* v27b: hard swap between the two pictures (a cross-fade left the old pose showing through for a moment). The hover picture stays at a hair above 0 so the browser keeps it decoded and the first swap never blinks */
+.hot.cut .hov{opacity:.004;transition:none}
+.hot.cut .base.swap{transition:none}
+.hot.cut:hover .base.swap,.hot.cut:focus-visible .base.swap,.hot.cut.on .base.swap,.hot.cut.peek .base.swap{opacity:0;transition:none}
+.hot.cut:hover .hov,.hot.cut:focus-visible .hov,.hot.cut.on .hov,.hot.cut.peek .hov{opacity:1;transition:none}
