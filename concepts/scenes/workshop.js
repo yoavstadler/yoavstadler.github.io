@@ -29,11 +29,11 @@ PF.init({
       '<radialGradient id="vig" cx=".5" cy=".5" r=".78"><stop offset=".62" stop-color="#0a0604" stop-opacity="0"/><stop offset="1" stop-color="#0a0604" stop-opacity=".5"/></radialGradient>'
     );
     function grp(parent,attrs){return el('g',attrs||{},parent)}
-    function pic(parent,file,box,cls){var i=el('image',{x:box.x,y:box.y,width:box.w,height:box.h,'pointer-events':'none'},parent);if(cls)i.setAttribute('class',cls);i.setAttribute('href','art3/'+file+'.webp?v=34');return i}
+    function pic(parent,file,box,cls){var i=el('image',{x:box.x,y:box.y,width:box.w,height:box.h,'pointer-events':'none'},parent);if(cls)i.setAttribute('class',cls);i.setAttribute('href','art3/'+file+'.webp?v=36');return i}
 
     /* 1 - the room (transparent frame interior: the highlight reel plays behind it) */
     var bg=el('image',{x:OX,y:0,width:1024*K,height:900,preserveAspectRatio:'none','pointer-events':'none'},svg);
-    bg.setAttribute('href','art3/plate.webp?v=34');
+    bg.setAttribute('href','art3/plate.webp?v=36');
 
     /* 2 - cut-out objects as clickable layers */
     function object(key,name,hit,label){

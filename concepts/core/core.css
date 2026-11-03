@@ -294,7 +294,7 @@ body[data-theme=workshop] .hot.cut .wtag text{font-size:12px;fill:#3a2616}
 body[data-theme=workshop]{--kit-cream:#efe1bc}
 body[data-theme=workshop] .pf-frame{
   width:min(1120px,100%);height:min(800px,100%);
-  border:46px solid transparent;border-image:url(../ui/frame.png?v=34) 95 / 46px stretch;
+  border:46px solid transparent;border-image:url(../ui/frame.png?v=36) 95 / 46px stretch;
   border-radius:0;background:var(--kit-cream);background-clip:padding-box;
   box-shadow:none;filter:none;animation:pop .25s cubic-bezier(.2,.9,.3,1.2)}
 /* static shadow (a CSS filter on this big, scrolling element made every frame slow) */
@@ -304,44 +304,44 @@ body[data-theme=workshop] .pf-frame:before,body[data-theme=workshop] .pf-frame .
 body[data-theme=workshop] .pf-head{position:absolute;top:0;left:0;right:0;height:0;padding:0;display:block;z-index:5}
 body[data-theme=workshop] .pf-head .ttl{position:absolute;left:50%;top:-74px;transform:translateX(-50%);width:min(80%,640px);height:64px;
   display:flex;align-items:center;justify-content:center;text-align:center;box-sizing:border-box;padding:0 4px;
-  border:0 solid transparent;border-width:0 44px;border-image:url(../ui/plaque.png?v=34) 0 82 0 82 fill / 0 44px 0 44px stretch}
+  border:0 solid transparent;border-width:0 44px;border-image:url(../ui/plaque.png?v=36) 0 82 0 82 fill / 0 44px 0 44px stretch}
 body[data-theme=workshop] .pf-head small{display:none}
 body[data-theme=workshop] .pf-head h2{margin:0;color:#f6ead0;font:700 clamp(19px,2.3vw,26px)/1 var(--head);letter-spacing:.04em;text-shadow:0 2px 0 #1b110a,0 0 12px rgba(0,0,0,.5)}
 body[data-theme=workshop] .pf-head .pf-icon{display:none}
 body[data-theme=workshop] .pf-x{position:absolute;top:-40px;right:-14px;width:50px;height:50px;border:0;border-radius:0;padding:0;
-  background:url(../ui/close.png?v=34) center/contain no-repeat;font-size:0;color:transparent;filter:drop-shadow(0 3px 3px rgba(0,0,0,.5))}
-body[data-theme=workshop] .pf-x:hover,body[data-theme=workshop] .pf-x:focus-visible{background:url(../ui/close-hot.png?v=34) center/contain no-repeat;outline:none}
+  background:url(../ui/close.png?v=36) center/contain no-repeat;font-size:0;color:transparent;filter:drop-shadow(0 3px 3px rgba(0,0,0,.5))}
+body[data-theme=workshop] .pf-x:hover,body[data-theme=workshop] .pf-x:focus-visible{background:url(../ui/close-hot.png?v=36) center/contain no-repeat;outline:none}
 body[data-theme=workshop] .pf-body{padding:16px 24px 18px;margin-top:-2px}
 body[data-theme=workshop] .pf-foot{border-top:0;padding:20px 24px 6px;position:relative}
 body[data-theme=workshop] .pf-foot:before{content:"";position:absolute;left:24px;right:24px;top:4px;height:14px;
-  background:url(../ui/div-l.png?v=34) left center/calc(50% - 22px) 14px no-repeat,url(../ui/div-r.png?v=34) right center/calc(50% - 22px) 14px no-repeat,url(../ui/div-m.png?v=34) center/auto 14px no-repeat}
+  background:url(../ui/div-l.png?v=36) left center/calc(50% - 22px) 14px no-repeat,url(../ui/div-r.png?v=36) right center/calc(50% - 22px) 14px no-repeat,url(../ui/div-m.png?v=36) center/auto 14px no-repeat}
 /* items separated by the ornamental divider instead of tabs */
 body[data-theme=workshop] .pf-item+.pf-item{border-top:0;padding-top:50px;position:relative}
 body[data-theme=workshop] .pf-item+.pf-item:before{content:"";position:absolute;left:0;right:0;top:10px;height:26px;
-  background:url(../ui/div-l.png?v=34) left center/calc(50% - 40px) 26px no-repeat,url(../ui/div-r.png?v=34) right center/calc(50% - 40px) 26px no-repeat,url(../ui/div-m.png?v=34) center/auto 26px no-repeat}
+  background:url(../ui/div-l.png?v=36) left center/calc(50% - 40px) 26px no-repeat,url(../ui/div-r.png?v=36) right center/calc(50% - 40px) 26px no-repeat,url(../ui/div-m.png?v=36) center/auto 26px no-repeat}
 body[data-theme=workshop] .pf-ih{margin-bottom:6px}
 body[data-theme=workshop] .pf-it{color:#2a1a0e}
 /* badges, buttons */
-body[data-theme=workshop] .pf-badge{border:0;border-radius:0;background:none;color:#f6ead0;padding:5px 14px;border:7px solid transparent;border-image:url(../ui/btn.png?v=34) 26 30 fill / 9px 11px stretch;font-size:11px;line-height:1;text-shadow:0 1px 0 rgba(0,0,0,.5)}
-body[data-theme=workshop] .pf-badge.ghost{color:#2f6b57;text-shadow:none;border-image:url(../ui/chip.png?v=34) 22 30 fill / 8px 12px stretch}
+body[data-theme=workshop] .pf-badge{border:0;border-radius:0;background:none;color:#f6ead0;padding:5px 14px;border:7px solid transparent;border-image:url(../ui/btn.png?v=36) 26 30 fill / 9px 11px stretch;font-size:11px;line-height:1;text-shadow:0 1px 0 rgba(0,0,0,.5)}
+body[data-theme=workshop] .pf-badge.ghost{color:#2f6b57;text-shadow:none;border-image:url(../ui/chip.png?v=36) 22 30 fill / 8px 12px stretch}
 body[data-theme=workshop] .pf-badges{gap:6px 4px}
-body[data-theme=workshop] .pf-btn{background:none;border:10px solid transparent;border-image:url(../ui/btn.png?v=34) 26 30 fill / 13px 16px stretch;border-radius:0;color:#f6ead0!important;padding:3px 10px;text-shadow:0 1px 0 rgba(0,0,0,.55);filter:none}
-body[data-theme=workshop] .pf-btn:hover,body[data-theme=workshop] .pf-btn:focus-visible{border-image:url(../ui/btn-hot.png?v=34) 26 64 fill / 13px 32px stretch;filter:none;outline:none}
-body[data-theme=workshop] .pf-btn.ghost{border-image:url(../ui/chip.png?v=34) 22 30 fill / 11px 15px stretch;color:#2f6b57!important;text-shadow:none}
-body[data-theme=workshop] .pf-btn.ghost:hover{border-image:url(../ui/btn-hot.png?v=34) 26 64 fill / 13px 32px stretch;color:#f6ead0!important}
+body[data-theme=workshop] .pf-btn{background:none;border:10px solid transparent;border-image:url(../ui/btn.png?v=36) 26 30 fill / 13px 16px stretch;border-radius:0;color:#f6ead0!important;padding:3px 10px;text-shadow:0 1px 0 rgba(0,0,0,.55);filter:none}
+body[data-theme=workshop] .pf-btn:hover,body[data-theme=workshop] .pf-btn:focus-visible{border-image:url(../ui/btn-hot.png?v=36) 26 64 fill / 13px 32px stretch;filter:none;outline:none}
+body[data-theme=workshop] .pf-btn.ghost{border-image:url(../ui/chip.png?v=36) 22 30 fill / 11px 15px stretch;color:#2f6b57!important;text-shadow:none}
+body[data-theme=workshop] .pf-btn.ghost:hover{border-image:url(../ui/btn-hot.png?v=36) 26 64 fill / 13px 32px stretch;color:#f6ead0!important}
 /* lists */
 body[data-theme=workshop] .pf-did ul,body[data-theme=workshop] .pf-body ul.pf-ul{list-style:none;padding-left:4px}
 body[data-theme=workshop] .pf-did li,body[data-theme=workshop] .pf-ul li{position:relative;padding-left:22px}
-body[data-theme=workshop] .pf-did li:before,body[data-theme=workshop] .pf-ul li:before{content:"";position:absolute;left:2px;top:.35em;width:11px;height:14px;background:url(../ui/bullet.png?v=34) center/contain no-repeat}
+body[data-theme=workshop] .pf-did li:before,body[data-theme=workshop] .pf-ul li:before{content:"";position:absolute;left:2px;top:.35em;width:11px;height:14px;background:url(../ui/bullet.png?v=36) center/contain no-repeat}
 /* scrollbar (webkit); Firefox keeps the thin themed bar */
 body[data-theme=workshop] .pf-body{scrollbar-width:auto;scrollbar-color:auto}
 @supports not selector(::-webkit-scrollbar){body[data-theme=workshop] .pf-body{scrollbar-width:thin;scrollbar-color:#2f7a62 #3a2a1e}}
 body[data-theme=workshop] .pf-body::-webkit-scrollbar{width:20px}
-body[data-theme=workshop] .pf-body::-webkit-scrollbar-track{background:url(../ui/track.png?v=34) center top/20px 38px repeat-y;border-radius:0}
-body[data-theme=workshop] .pf-body::-webkit-scrollbar-thumb{border:0 solid transparent;border-width:16px 0;border-image:url(../ui/thumb.png?v=34) 40 0 fill / 16px 0 stretch;background:none;min-height:56px}
+body[data-theme=workshop] .pf-body::-webkit-scrollbar-track{background:url(../ui/track.png?v=36) center top/20px 38px repeat-y;border-radius:0}
+body[data-theme=workshop] .pf-body::-webkit-scrollbar-thumb{border:0 solid transparent;border-width:16px 0;border-image:url(../ui/thumb.png?v=36) 40 0 fill / 16px 0 stretch;background:none;min-height:56px}
 @media (max-width:760px){
-  body[data-theme=workshop] .pf-frame{width:100%;height:100%;border-width:26px;border-image:url(../ui/frame.png?v=34) 95 / 26px stretch;filter:none}
-  body[data-theme=workshop] .pf-head .ttl{top:-16px;height:44px;width:min(76%,360px);border-width:0 30px;border-image:url(../ui/plaque.png?v=34) 0 82 0 82 fill / 0 30px 0 30px stretch}
+  body[data-theme=workshop] .pf-frame{width:100%;height:100%;border-width:26px;border-image:url(../ui/frame.png?v=36) 95 / 26px stretch;filter:none}
+  body[data-theme=workshop] .pf-head .ttl{top:-16px;height:44px;width:min(76%,360px);border-width:0 30px;border-image:url(../ui/plaque.png?v=36) 0 82 0 82 fill / 0 30px 0 30px stretch}
   body[data-theme=workshop] .pf-head h2{font-size:18px}
   body[data-theme=workshop] .pf-x{top:-18px;right:-14px;width:42px;height:42px}
   body[data-theme=workshop] .pf-body{padding:14px 12px 14px}
@@ -380,8 +380,8 @@ body[data-theme=workshop] .pf-body::-webkit-scrollbar-thumb{border:0 solid trans
 .pf-x{color:#b3261e;border-color:rgba(190,45,35,.7);background:rgba(200,50,40,.12);font-weight:700}
 .pf-x:hover,.pf-x:focus-visible{background:#d9372b;border-color:#d9372b;color:#fff;outline:none}
 .pf-x:active{background:#a8231a;border-color:#a8231a}
-body[data-theme=workshop] .pf-x{background:url(../ui/close-red.png?v=34) center/contain no-repeat;color:transparent;border:0}
-body[data-theme=workshop] .pf-x:hover,body[data-theme=workshop] .pf-x:focus-visible{background:url(../ui/close-red-hot.png?v=34) center/contain no-repeat}
+body[data-theme=workshop] .pf-x{background:url(../ui/close-red.png?v=36) center/contain no-repeat;color:transparent;border:0}
+body[data-theme=workshop] .pf-x:hover,body[data-theme=workshop] .pf-x:focus-visible{background:url(../ui/close-red-hot.png?v=36) center/contain no-repeat}
 body[data-theme=workshop] .pf-x:active{transform:scale(.94)}
 /* click-to-load embeds */
 .pf-lazy{appearance:none;display:grid;place-items:center;border:0;padding:0;cursor:pointer;font:700 14px var(--head);color:#fff;background:#14161c center/cover no-repeat;position:relative}
@@ -397,9 +397,9 @@ body[data-theme=workshop] .pf-x:active{transform:scale(.94)}
 .pf-copy:hover,.pf-copy:focus-visible{border-color:var(--acc);color:var(--ink);outline:none}
 .pf-copy.ok{border-color:#2f8f5b;color:#2f8f5b}
 body[data-theme=workshop] .pf-tabs{padding:0 30px;border-bottom:0;margin-top:2px}
-body[data-theme=workshop] .pf-tab{color:#5a3b22;border-radius:0;border:7px solid transparent;border-image:url(../ui/chip.png?v=34) 22 30 fill / 8px 12px stretch;margin:0 4px 6px 0;padding:2px 19px;font-size:13px;box-shadow:none;background:none}
+body[data-theme=workshop] .pf-tab{color:#5a3b22;border-radius:0;border:7px solid transparent;border-image:url(../ui/chip.png?v=36) 22 30 fill / 8px 12px stretch;margin:0 4px 6px 0;padding:2px 19px;font-size:13px;box-shadow:none;background:none}
 body[data-theme=workshop] .pf-tab:hover{color:#2a1a0e}
-body[data-theme=workshop] .pf-tab.on{color:#f6ead0;border-image:url(../ui/btn.png?v=34) 26 30 fill / 9px 11px stretch;text-shadow:0 1px 0 #1b110a;box-shadow:none;background:none}
+body[data-theme=workshop] .pf-tab.on{color:#f6ead0;border-image:url(../ui/btn.png?v=36) 26 30 fill / 9px 11px stretch;text-shadow:0 1px 0 #1b110a;box-shadow:none;background:none}
 body[data-theme=workshop] .pf-tab:focus-visible{outline:2px solid #c8362b;outline-offset:1px}
 body[data-theme=workshop] .pf-copy{border-color:#9a7a4a;color:#5a3b22}
 body[data-theme=workshop] .pf-lazy span{background:rgba(31,21,12,.82);border-color:#c9a24f}
@@ -440,9 +440,9 @@ body[data-theme=workshop] .pf-badge:first-child{background:rgba(47,107,87,.14);b
 body[data-theme=workshop] .pf-badge.ghost{background:transparent;border:1px dashed #9a7a4a;border-image:none;color:#6b4a2b}
 body[data-theme=workshop] .pf-badges{gap:6px}
 body[data-theme=workshop] .pf-btn{cursor:pointer;padding:5px 22px;font-size:13px;letter-spacing:.07em;transition:filter .12s,transform .12s}
-body[data-theme=workshop] .pf-btn:hover,body[data-theme=workshop] .pf-btn:focus-visible{border-image:url(../ui/btn.png?v=34) 26 30 fill / 13px 16px stretch;filter:brightness(1.28) saturate(1.12) drop-shadow(0 0 5px rgba(255,210,122,.85));transform:translateY(-1px);outline:none}
+body[data-theme=workshop] .pf-btn:hover,body[data-theme=workshop] .pf-btn:focus-visible{border-image:url(../ui/btn.png?v=36) 26 30 fill / 13px 16px stretch;filter:brightness(1.28) saturate(1.12) drop-shadow(0 0 5px rgba(255,210,122,.85));transform:translateY(-1px);outline:none}
 body[data-theme=workshop] .pf-btn:active{filter:brightness(.92);transform:translateY(1px)}
-body[data-theme=workshop] .pf-btn.ghost:hover,body[data-theme=workshop] .pf-btn.ghost:focus-visible{border-image:url(../ui/chip.png?v=34) 22 30 fill / 11px 15px stretch;color:#1b5a46!important;filter:brightness(1.06) saturate(1.25) drop-shadow(0 0 5px rgba(255,210,122,.9))}
+body[data-theme=workshop] .pf-btn.ghost:hover,body[data-theme=workshop] .pf-btn.ghost:focus-visible{border-image:url(../ui/chip.png?v=36) 22 30 fill / 11px 15px stretch;color:#1b5a46!important;filter:brightness(1.06) saturate(1.25) drop-shadow(0 0 5px rgba(255,210,122,.9))}
 /* tabs */
 .pf-tab{transition:background .15s,color .15s,transform .12s,filter .12s}
 .pf-tab:not(.on):hover{background:rgba(128,128,128,.18);color:var(--ink);box-shadow:inset 0 -3px 0 var(--acc)}
@@ -456,9 +456,9 @@ body[data-theme=workshop] .pf-tab:active{transform:translateY(1px);filter:bright
 .pf-copy:hover,.pf-copy:focus-visible{background:var(--acc);border-color:var(--acc);color:var(--btn-ink);outline:none}
 .pf-copy:active{transform:translateY(1px)}
 .pf-copy.ok{background:#2f8f5b;border-color:#2f8f5b;color:#fff}
-body[data-theme=workshop] .pf-copy{border:7px solid transparent;border-image:url(../ui/chip.png?v=34) 22 30 fill / 8px 12px stretch;background:none;color:#5a3b22;padding:1px 16px 1px 15px;font:700 12px var(--body,system-ui);cursor:pointer;transition:filter .12s,transform .12s,color .12s}
+body[data-theme=workshop] .pf-copy{border:7px solid transparent;border-image:url(../ui/chip.png?v=36) 22 30 fill / 8px 12px stretch;background:none;color:#5a3b22;padding:1px 16px 1px 15px;font:700 12px var(--body,system-ui);cursor:pointer;transition:filter .12s,transform .12s,color .12s}
 body[data-theme=workshop] .pf-copy:hover,body[data-theme=workshop] .pf-copy:focus-visible{background:none;color:#1b5a46;filter:brightness(1.06) saturate(1.25) drop-shadow(0 0 4px rgba(255,210,122,.9));transform:translateY(-1px)}
-body[data-theme=workshop] .pf-copy.ok{background:none;color:#1f6b45;border-image:url(../ui/chip.png?v=34) 22 30 fill / 8px 12px stretch;filter:saturate(1.3)}
+body[data-theme=workshop] .pf-copy.ok{background:none;color:#1f6b45;border-image:url(../ui/chip.png?v=36) 22 30 fill / 8px 12px stretch;filter:saturate(1.3)}
 .pf-x{cursor:pointer}
 
 /* v17 */
@@ -469,7 +469,7 @@ body[data-theme=workshop] .pf-copy.ok{background:none;color:#1f6b45;border-image
 /* v17: Gemini's gold hover frame is back; no filters (they drew a box around the button); label gets an outline so it stays readable over the ornaments */
 body[data-theme=workshop] .pf-btn:hover,body[data-theme=workshop] .pf-btn:focus-visible,
 body[data-theme=workshop] .pf-btn.ghost:hover,body[data-theme=workshop] .pf-btn.ghost:focus-visible{
- border-image:url(../ui/btn-hot.png?v=34) 26 64 fill / 13px 32px stretch;filter:none;outline:none;box-shadow:none;
+ border-image:url(../ui/btn-hot.png?v=36) 26 64 fill / 13px 32px stretch;filter:none;outline:none;box-shadow:none;
  color:#fff7e0!important;text-shadow:none;-webkit-text-stroke:3.2px #10291f;paint-order:stroke fill;transform:translateY(-1px)}
 body[data-theme=workshop] .pf-btn:active,body[data-theme=workshop] .pf-btn.ghost:active{filter:none;transform:translateY(1px)}
 body[data-theme=workshop] .pf-btn{transition:transform .12s}
@@ -482,12 +482,12 @@ body[data-theme=workshop] .pf-btn{transition:transform .12s}
 body[data-theme=workshop] .pf-tab:not(.on):hover,body[data-theme=workshop] .pf-tab:not(.on):focus-visible,
 body[data-theme=workshop] .pf-btn.ghost:hover,body[data-theme=workshop] .pf-btn.ghost:focus-visible,
 body[data-theme=workshop] .pf-copy:hover,body[data-theme=workshop] .pf-copy:focus-visible{
- border-image:url(../ui/chip-hot.png?v=34) 57 140 fill / 11px 27px stretch;filter:none;box-shadow:none;outline:none;
- color:#2a1a0e!important;text-shadow:none;-webkit-text-stroke:3px #f6ead0;paint-order:stroke fill;transform:translateY(-1px)}
+ border-image:url(../ui/chip-hot.png?v=36) 57 140 fill / 11px 27px stretch;filter:none;box-shadow:none;outline:none;
+ color:#2a1a0e!important;text-shadow:none;-webkit-text-stroke:0;transform:translateY(-1px)}
 body[data-theme=workshop] .pf-tab:not(.on):hover,body[data-theme=workshop] .pf-tab:not(.on):focus-visible{border-image-width:10px 25px}
 body[data-theme=workshop] .pf-copy:hover,body[data-theme=workshop] .pf-copy:focus-visible{border-image-width:9px 22px}
 body[data-theme=workshop] .pf-tab.on:hover,body[data-theme=workshop] .pf-tab.on:focus-visible{
- border-image:url(../ui/btn-hot.png?v=34) 26 64 fill / 10px 25px stretch;filter:none;color:#fff7e0;-webkit-text-stroke:3px #10291f;paint-order:stroke fill;text-shadow:none;transform:translateY(-1px)}
+ border-image:url(../ui/btn-hot.png?v=36) 26 64 fill / 10px 25px stretch;filter:none;color:#fff7e0;-webkit-text-stroke:3px #10291f;paint-order:stroke fill;text-shadow:none;transform:translateY(-1px)}
 body[data-theme=workshop] .pf-tab:active,body[data-theme=workshop] .pf-copy:active{filter:none;transform:translateY(1px)}
 body[data-theme=workshop] .pf-copy.ok:hover{color:#1f6b45!important}
 
@@ -528,8 +528,8 @@ body[data-theme=workshop] .pf-tab:not(.on):hover,body[data-theme=workshop] .pf-t
 body[data-theme=workshop] .pf-copy:hover,body[data-theme=workshop] .pf-copy:focus-visible{border-image-width:10.9px 26.7px}
 @media (max-width:760px){
  body[data-theme=workshop] .pf-tab{height:28px;padding:0 9px}
- body[data-theme=workshop] .pf-tab:not(.on):hover,body[data-theme=workshop] .pf-tab.on:hover{border-image-width:8px 12px;border-image-slice:26 30 fill;border-image-source:url(../ui/chip.png?v=34)}
- body[data-theme=workshop] .pf-tab.on:hover{border-image-source:url(../ui/btn.png?v=34)}
+ body[data-theme=workshop] .pf-tab:not(.on):hover,body[data-theme=workshop] .pf-tab.on:hover{border-image-width:8px 12px;border-image-slice:26 30 fill;border-image-source:url(../ui/chip.png?v=36)}
+ body[data-theme=workshop] .pf-tab.on:hover{border-image-source:url(../ui/btn.png?v=36)}
 }
 
 /* v24: all Fan GDD cards share one height - text grows, the buttons sit on the bottom edge */
@@ -562,3 +562,6 @@ body[data-theme=workshop] .pf-copy{padding:0 32px}
 /* v34: the tab row scrolls sideways (overflow-x), which also clips vertically - give it room above/below so the hover lift and glow of a tab are never cut off */
 body[data-theme=workshop] .pf-tabs{padding-top:9px;margin-top:-7px}
 @media (max-width:760px){body[data-theme=workshop] .pf-tabs{padding-top:7px;margin-top:31px}}
+
+/* v35: no browser tap/click highlight box on buttons and links */
+body[data-theme=workshop] button,body[data-theme=workshop] a,body[data-theme=workshop] [role=button]{-webkit-tap-highlight-color:transparent}
