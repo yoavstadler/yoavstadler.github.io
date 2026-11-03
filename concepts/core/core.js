@@ -304,3 +304,10 @@
     route();
   }};
 })();
+
+/* v39: ?dbg=1 shows switches for finding what draws the pale box on button hover */
+(function(){try{if(!/[?&]dbg=1/.test(location.search))return}catch(e){return}
+var items=[['art','hover frame art -> resting art'],['text','hide the label text'],['shadow','no label outline'],['lift','no 1px lift (transform)'],['back','no backing colour'],['frame','no panel pop animation'],['sel','no text selection'],['stage','ignore scene mouse (parallax)'],['ease','easing ON (.12s)']];
+var b=document.createElement('div');b.className='dbg-box';b.innerHTML='<b>Hover test: tick one, then hover a button</b>'+items.map(function(i){return '<label><input type="checkbox" data-k="'+i[0]+'"> '+i[1]+'</label>'}).join('')+'<label style="margin-top:6px;opacity:.7">tell me which tick makes the box vanish</label>';
+b.addEventListener('change',function(e){var k=e.target.getAttribute('data-k');if(k)document.documentElement.classList.toggle('d-'+k,e.target.checked)});
+document.body.appendChild(b)})();
