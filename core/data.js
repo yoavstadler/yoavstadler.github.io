@@ -180,13 +180,13 @@
     sections:{
       games:{title:'Games',blurb:'Shipped mobile titles, student games and jam entries',items:games,
         tabs:[{id:'jams',name:'Game Jams',ids:['bigred','clockout']},{id:'student',name:'Student Games',ids:['bumping','warped','worldly']},{id:'shipped',name:'Shipped Games',ids:['shipped']}],
-        more:[{t:'Shipped Games page',u:'../shipped-games.html'},{t:'Student Games page',u:'../student-games.html'},{t:'Game Jams page',u:'../game-jams.html'}]},
+        more:[{t:'Shipped Games page',u:'shipped-games.html'},{t:'Student Games page',u:'student-games.html'},{t:'Game Jams page',u:'game-jams.html'}]},
       docs:{title:'Documentation',blurb:'Fan GDDs and systems design logs',items:docs.slice(-1).concat(docs.slice(0,-1)),
         tabs:[{id:'logs',name:'Systems Logs',ids:['log']},{id:'fan',name:'Fan GDDs',cards:true,intro:fanNote,ids:['hollow','hades','bg3','ghost','ori','days']}],
-        more:[{t:'Fan GDD page',u:'../fan-gdd-series.html'},{t:'Systems Documentation page',u:'../system-documents.html'}]},
-      art:{title:'3D Art',blurb:'Blender, Substance Painter and Unity',items:art,more:[{t:'3D Art page',u:'../3d-art.html'}]},
-      about:{title:'About Me',blurb:'Character sheet, experience and education',items:about,more:[{t:'Full home page',u:'../index.html'}]},
-      contact:{title:'Contact',blurb:'Email, phone, CV and a message form',items:contact,more:[{t:'Contact page',u:'../contact.html'}]}
+        more:[{t:'Fan GDD page',u:'fan-gdd-series.html'},{t:'Systems Documentation page',u:'system-documents.html'}]},
+      art:{title:'3D Art',blurb:'Blender, Substance Painter and Unity',items:art,more:[{t:'3D Art page',u:'3d-art.html'}]},
+      about:{title:'About Me',blurb:'Character sheet, experience and education',items:about,more:[{t:'Full home page',u:'classic.html'}]},
+      contact:{title:'Contact',blurb:'Email, phone, CV and a message form',items:contact,more:[{t:'Contact page',u:'contact.html'}]}
     }
   };
 })();

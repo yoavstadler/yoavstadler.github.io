@@ -16,7 +16,7 @@
 
     var skip=h('a','pf-skip','Skip to sections');skip.href='#pf-menu';skip.onclick=function(e){e.preventDefault();var b=document.querySelector('.pf-menu button');if(b)b.focus()};root.appendChild(skip);
     /* top bar */
-    var bar=h('div','pf-bar','<b>Yoav Stadler<span>Game &middot; Systems Designer</span></b><nav><a href="'+window.PF_DATA.cv+'" target="_blank" rel="noopener">CV</a><a href="../index.html">Classic site</a><a href="index.html">All concepts</a></nav>');
+    var bar=h('div','pf-bar','<b>Yoav Stadler<span>Game &middot; Systems Designer</span></b><nav><a href="'+window.PF_DATA.cv+'" target="_blank" rel="noopener">CV</a><a href="classic.html">Classic site</a></nav>');
     root.appendChild(bar);
 
     /* stage + svg */
@@ -106,8 +106,8 @@
     reel.innerHTML='<div class="pf-ph"><div><strong>Highlight reel</strong><small>drop your video in assets/reel.mp4</small></div></div>';
     var vid=document.createElement('video');
     vid.muted=true;vid.defaultMuted=true;vid.loop=true;vid.autoplay=true;vid.playsInline=true;vid.preload='auto';vid.setAttribute('playsinline','');vid.setAttribute('muted','');
-    vid.poster=cfg.reelPoster||'../assets/reel-poster.jpg';
-    vid.src=cfg.reelSrc||'../assets/reel.mp4';
+    vid.poster=cfg.reelPoster||'assets/reel-poster.jpg';
+    vid.src=cfg.reelSrc||'assets/reel.mp4';
     vid.addEventListener('loadeddata',function(){reel.classList.add('live')});
     vid.addEventListener('error',function(){reel.classList.remove('live')});
     reel.insertBefore(vid,reel.firstChild);

@@ -4,148 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Yoav Stadler - Game &amp; Systems Designer</title>
-<meta name="description" content="Portfolio of Yoav Stadler, a game designer who thinks in systems first. Shipped mobile games, student projects, game jams, fan GDDs and 3D art.">
-<link rel="stylesheet" href="assets/style.css">
-<script>document.documentElement.className+=' js'</script>
+<meta name="description" content="Portfolio of Yoav Stadler, a game designer who thinks in systems first. Shipped mobile games, student projects, game jams, fan GDDs and 3D art, in an interactive wizard's workshop.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="core/core.css?v=43">
 </head>
-<body data-page="home">
-<header class="site-header" id="site-header"><noscript><nav class="plain"><a href="index.html">Home</a><a href="shipped-games.html">Games</a><a href="fan-gdd-series.html">Design Documents</a><a href="3d-art.html">3D Art</a><a href="contact.html">Contact</a></nav></noscript></header>
-
-<main>
-  <!-- landing scene -->
-  <section class="scene" id="scene" aria-label="Choose your path">
-    <svg id="svg" viewBox="0 0 1600 800" preserveAspectRatio="xMidYMax slice" role="img"
-         aria-label="A paladin stands where a forest road forks into four paths: Games, Design Documents, 3D Art and Contact."></svg>
-    <div class="title"><b>CHOOSE YOUR PATH</b><span>YOAV STADLER &middot; GAME &middot; SYSTEMS DESIGNER</span><span class="hint">Hover a signpost, or tap one</span></div>
-    <div class="panel" id="panel" role="dialog" aria-live="polite"></div>
-    <a class="scroll-cue" href="#about">Scroll for the full story<i></i></a>
-  </section>
-  <div class="mnav" id="mnav"></div>
-
-  <!-- hero card -->
-  <section class="hero-card" id="about">
-    <div class="wrap">
-      <h2>Yoav Stadler</h2>
-      <p>Game &middot; Systems Designer</p>
-      <a class="btn" href="https://drive.google.com/file/d/1gcEmQcEfi3NBi9tTSo0CpcGJJECU0DMk/view" target="_blank" rel="noopener">VIEW CV</a>
-    </div>
-  </section>
-
-  <!-- featured work -->
-  <section class="band">
-    <div class="wrap">
-      <h2 class="h center reveal">Featured Work</h2>
-      <div class="slider reveal" data-slider aria-roledescription="carousel" aria-label="Featured work">
-        <button class="arrow prev" aria-label="Previous slide">&#8249;</button>
-        <button class="arrow next" aria-label="Next slide">&#8250;</button>
-        <div class="frame"><div class="track">
-          <a class="slide" href="game-jams.html">
-            <div class="img"><img src="https://lh3.googleusercontent.com/d/1BR0VVQ95qs8ur8oBbvy_2dtG7S3VsW-N=w1000" alt="Big Red, Little Red" loading="lazy"><span class="badge">GAME JAM</span></div>
-            <div class="body"><h3>Big Red, Little Red</h3>
-              <p>A 2-player local co-op wave-survival game made with three friends in 2 days for Mini Jame Gam #59 - two tomatoes against an army of vegetables, with a difficulty curve I documented in a full systems log.</p>
-              <span class="btn">View Project &rarr;</span></div>
-          </a>
-          <a class="slide" href="student-games.html">
-            <div class="img"><img src="https://lh3.googleusercontent.com/d/1w2EQT7bWBfPpoEKMesUCbdXTmZDu-daR=w1200" alt="Warped" loading="lazy"><span class="badge">STUDENT GAME</span></div>
-            <div class="body"><h3>Warped</h3>
-              <p>A first-person sci-fi puzzle-action game built around physics powers - telekinesis, black holes, and gravity inversion. Game Lead &amp; Lead Designer on a team of six.</p>
-              <span class="btn">View Project &rarr;</span></div>
-          </a>
-          <a class="slide" href="shipped-games.html">
-            <div class="img"><img src="https://yoavstadler.weebly.com/uploads/1/5/3/9/153988856/ice-cream-roll-portfolio_orig.png" alt="Shipped Games - AppCentral" loading="lazy"><span class="badge">SHIPPED</span></div>
-            <div class="body"><h3>Shipped Games</h3>
-              <p>Eight hyper-casual mobile titles shipped as Product Manager &amp; Game Designer at AppCentral - owning level design, balancing, and retention.</p>
-              <span class="btn">View Project &rarr;</span></div>
-          </a>
-          <a class="slide" href="fan-gdd-series.html">
-            <div class="img"><img src="https://lh3.googleusercontent.com/d/1Jzdpa451eeeXNj9yLJJbzz2695zXMsPu=w1000" alt="Hollow Knight Fan GDD" loading="lazy" style="object-position:center 35%"><span class="badge">LEAD GDD</span></div>
-            <div class="body"><h3>Hollow Knight</h3>
-              <p>A full teardown of Hollow Knight's ability progression, map design, and difficulty pacing - the flagship of my fan GDD series.</p>
-              <span class="btn">View Project &rarr;</span></div>
-          </a>
-        </div></div>
-        <div class="dots" role="tablist" aria-label="Choose slide"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- introduction -->
-  <section class="band" style="background:var(--bg2);border-block:1px solid var(--line)">
-    <div class="wrap">
-      <h2 class="h reveal">Introduction</h2>
-      <div class="intro">
-        <div class="reveal">
-          <p class="big">Hi, I&rsquo;m Yoav Stadler, a game designer who thinks in systems first.</p>
-          <p>At AppCentral, I shipped 8 mobile titles as Product Manager, a role that meant owning level design, balancing and player retention, not just the product roadmap.</p>
-          <p>These days, Howest Digital Arts &amp; Entertainment is where I&rsquo;m sharpening that craft, building out my coding, 3D art and design fundamentals.</p>
-          <p>My design process starts with how players actually behave. The systems come after, not the other way around.</p>
-        </div>
-        <blockquote class="quote reveal">Today might be the chance to let your talent bloom.<br>Maybe tomorrow, the day after, or next year...</blockquote>
-      </div>
-    </div>
-  </section>
-
-  <!-- experience -->
-  <section class="band">
-    <div class="wrap">
-      <h2 class="h reveal">Experience</h2>
-      <p class="reveal" style="color:#d9ceb2;font-size:18px">That philosophy started taking shape at AppCentral:</p>
-      <div class="exp">
-        <div class="card pad reveal">
-          <div class="role"><b>AppCentral</b><span>Product Manager &amp; Game Designer</span><span>Mar 2023 &ndash; Jul 2024</span></div>
-          <ul>
-            <li><b>Designed &amp; balanced core game systems</b><em>Tuned mechanics and progression loops to optimize playtime and retention.</em></li>
-            <li><b>Bridged design and engineering</b><em>Worked cross-functionally with developers and UI/UX to ship mechanics smoothly.</em></li>
-            <li><b>Owned GDD documentation</b><em>Kept design specs clear and current across teams.</em></li>
-            <li><b>Ran playtesting &amp; balance passes</b><em>Surfaced issues early and iterated on fixes with the team.</em></li>
-            <li><b>Analyzed player data to drive retention</b><em>Used KPIs to refine mechanics and improve player satisfaction.</em></li>
-          </ul>
-        </div>
-        <img class="reveal" src="https://yoavstadler.weebly.com/uploads/1/5/3/9/153988856/ice-cream-roll-portfolio_orig.png" alt="Ice Cream Roll gameplay" loading="lazy" data-fallback>
-      </div>
-    </div>
-  </section>
-
-  <!-- education -->
-  <section class="band edu">
-    <div class="wrap">
-      <h2 class="h reveal">Education</h2>
-      <div class="edu-grid">
-        <div class="card pad edu-card reveal">
-          <h3>Howest - Digital Arts &amp; Entertainment</h3>
-          <div class="sub-line">Bachelor's degree - Independent Game Production &middot; 2025 &ndash; current</div>
-          <p>Further development of existing skills and acquisition of additional knowledge in:</p>
-          <ul><li>Game Design</li><li>Coding (Unity, C#, MonoGame)</li><li>3D Art (Blender, Graphic fundamentals)</li></ul>
-        </div>
-        <div class="card pad edu-card reveal">
-          <h3>The Open University</h3>
-          <div class="sub-line">AAS - Associate of Applied Science &middot; 2021 &ndash; 2022</div>
-          <ul>
-            <li>Developed a multi-level casual mobile game with unique mechanics, showcasing creativity and adaptability under pressure.</li>
-            <li>Researched gaming market trends, players&rsquo; incentives, and gameplay loops to optimize game design.</li>
-            <li>Led a team in developing a final project game, managing gameplay mechanics, UX/UI, technical implementation, designing game economy and itemization systems, and balancing loot drops and player rewards.</li>
-            <li>Hands-on experience with Unity, Adobe Photoshop, and game balancing tools.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- closing quote + contact -->
-  <section class="band cta">
-    <div class="wrap">
-      <blockquote class="quote solo reveal">...But if you think it will never come, it probably never will.</blockquote>
-      <h2 class="h center reveal" style="margin-top:44px">Get In Touch</h2>
-      <div class="btn-row reveal">
-        <a class="btn" href="contact.html">CONTACT ME</a>
-        <a class="btn ghost" href="https://drive.google.com/file/d/1gcEmQcEfi3NBi9tTSo0CpcGJJECU0DMk/view" target="_blank" rel="noopener">DOWNLOAD CV</a>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer id="site-footer"></footer>
-<script src="assets/scene.js"></script>
-<script src="assets/site.js"></script>
+<body>
+<div id="pf"></div>
+<noscript><p style="padding:70px 20px;color:#eee">This landing page needs JavaScript. The classic site is at <a href="classic.html">classic.html</a>.</p></noscript>
+<script src="core/data.js?v=43"></script>
+<script src="core/core.js?v=43"></script>
+<script src="scenes/workshop.js?v=43"></script>
 </body>
 </html>

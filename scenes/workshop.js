@@ -3,7 +3,7 @@
    Window, books and construct also have a NAME-hover.webp patch (a second pose) that fades in on hover; every object has a gold outline ring drawn as a vector path (RING, art units) so it stays sharp at any size.
    All art coordinates below are in source-image units (1024 x 572); K converts them to scene units. Images are stored at the master's resolution, 2.5 px per unit (WebP). The gold ring follows the HOVER pose; signs and strings live in the plate and are part of the ring.
    Hover = opacity fades only: no CSS filters, no per-frame JS, so it stays smooth.
-   To swap art: replace the WebP files in concepts/art3/ (same canvas position) and adjust the numbers here. */
+   To swap art: replace the WebP files in art3/ (same canvas position) and adjust the numbers here. */
 PF.init({
   theme:'workshop',
   reel:{x:577.3,y:290.8,w:452.8,h:295.2,shape:'rect'},   /* = the transparent frame interior of plate.webp */
@@ -29,11 +29,11 @@ PF.init({
       '<radialGradient id="vig" cx=".5" cy=".5" r=".78"><stop offset=".62" stop-color="#0a0604" stop-opacity="0"/><stop offset="1" stop-color="#0a0604" stop-opacity=".5"/></radialGradient>'
     );
     function grp(parent,attrs){return el('g',attrs||{},parent)}
-    function pic(parent,file,box,cls){var i=el('image',{x:box.x,y:box.y,width:box.w,height:box.h,'pointer-events':'none'},parent);if(cls)i.setAttribute('class',cls);i.setAttribute('href','art3/'+file+'.webp?v=42');return i}
+    function pic(parent,file,box,cls){var i=el('image',{x:box.x,y:box.y,width:box.w,height:box.h,'pointer-events':'none'},parent);if(cls)i.setAttribute('class',cls);i.setAttribute('href','art3/'+file+'.webp?v=43');return i}
 
     /* 1 - the room (transparent frame interior: the highlight reel plays behind it) */
     var bg=el('image',{x:OX,y:0,width:1024*K,height:900,preserveAspectRatio:'none','pointer-events':'none'},svg);
-    bg.setAttribute('href','art3/plate.webp?v=42');
+    bg.setAttribute('href','art3/plate.webp?v=43');
 
     /* 2 - cut-out objects as clickable layers */
     function object(key,name,hit,label){
