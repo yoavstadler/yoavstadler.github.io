@@ -155,7 +155,7 @@
       var tpl=document.createElement('template');tpl.innerHTML=html;
       tpl.content.querySelectorAll('iframe').forEach(function(f){
         var src=f.getAttribute('src')||'';
-        if(!/youtube|vimeo|sketchfab|drive\.google/.test(src))return;   /* the itch.io widget is a small card, so it loads in place (lazily) - no extra click */
+        if(!/youtube|vimeo|sketchfab/.test(src))return;   /* the itch.io widget is a small card, and Google Drive videos have no autoplay (a facade there would cost a second click), so both load in place (lazily) */
         var b=document.createElement('button');b.type='button';
         b.className='pf-lazy '+(f.className||'');
         b.setAttribute('data-src',src);if(f.title)b.setAttribute('data-title',f.title);
