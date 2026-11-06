@@ -594,3 +594,11 @@ body[data-theme=workshop] .pf-btn:active,body[data-theme=workshop] .pf-tab:activ
 .pf-itchtxt small{font-size:13px;color:var(--ink2)}
 .pf-itchbtn{flex:none;background:#fa5c5c;color:#fff;font:700 14px/1 system-ui,sans-serif;padding:11px 16px;border-radius:5px;white-space:nowrap}
 .pf-itchcard:hover .pf-itchbtn,.pf-itchcard:focus-visible .pf-itchbtn{background:#ff7676}
+
+/* v47: Drive player sits ~10px low inside its frame (measured), so lift it; poster picture over it until it is clicked */
+.pf-video iframe.pf-drive{top:-10px;height:calc(100% + 10px)}
+.pf-poster{position:absolute;inset:0;pointer-events:none;background:#000;transition:opacity .25s,visibility .25s}
+.pf-poster img{display:block;width:100%;height:100%;object-fit:cover}
+.pf-poster i{position:absolute;left:50%;top:calc(50% - 5px);width:64px;height:44px;margin:-22px 0 0 -32px;border-radius:12px;background:rgba(20,20,20,.72)}
+.pf-poster i:after{content:"";position:absolute;left:25px;top:12px;border-left:16px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent}
+.pf-poster.gone{opacity:0;visibility:hidden}

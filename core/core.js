@@ -155,6 +155,9 @@
       var tpl=document.createElement('template');tpl.innerHTML=html;
       tpl.content.querySelectorAll('iframe').forEach(function(f){
         var src=f.getAttribute('src')||'';
+        /* Google Drive video: keep the player where it is (one click) and lay a picture from the video over it; the picture ignores the mouse, so the click reaches Drive's play button, and it fades out as soon as the player takes focus */
+        var dv=src.match(/drive\.google\.com\/file\/d\/([\w-]+)/);
+        if(dv&&f.parentNode){f.insertAdjacentHTML('afterend','<span class="pf-poster"><img src="https://drive.google.com/thumbnail?id='+dv[1]+'&sz=w1000" alt="" onerror="this.parentNode.remove()"><i></i></span>')}
         if(!/youtube|vimeo|sketchfab/.test(src))return;   /* the itch.io widget is a small card, and Google Drive videos have no autoplay (a facade there would cost a second click), so both load in place (lazily) */
         var b=document.createElement('button');b.type='button';
         b.className='pf-lazy '+(f.className||'');
@@ -228,6 +231,9 @@
       if(m[0]&&D[m[0]])open(m[0],m[1]);else close();
     }
     window.addEventListener('hashchange',route);
+    /* clicking into a Drive player moves focus into its iframe: that is the moment to remove the picture laid over it */
+    window.addEventListener('blur',function(){setTimeout(function(){var a=document.activeElement;
+      if(a&&a.tagName==='IFRAME'&&a.parentNode){var ps=a.parentNode.querySelector('.pf-poster');if(ps)ps.classList.add('gone')}},0)});
 
     /* clicks inside panel: read-here embeds, in-page links, contact form */
     over.addEventListener('click',function(e){
