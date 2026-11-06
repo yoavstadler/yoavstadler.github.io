@@ -18,7 +18,9 @@
   function soon(t){return '<div class="pf-video ph"><span>Trailer coming soon</span></div>'}
   function yt(id,t){return '<div class="pf-video"><iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0" title="'+esc(t)+'" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>'}
   function drv(id,t){return '<div class="pf-video"><iframe src="'+PREV(id)+'" title="'+esc(t)+'" loading="lazy" allow="autoplay; fullscreen" allowfullscreen></iframe></div>'}
-  function itch(id,t){return '<iframe class="pf-embed" src="https://itch.io/embed/'+id+'" title="'+esc(t)+' on itch.io" loading="lazy"></iframe>'}
+  /* itch.io card built here (no iframe): itch.io's own embed widget answers "429 Too Many Requests" when a few of them load at once */
+  var ITCH={5032761:'https://yoavstad.itch.io/big-red-little-red',5095025:'https://tijmendc.itch.io/clock-out',5128382:'https://morose-interactive.itch.io/bumping-mayham'};
+  function itch(id,t){return '<a class="pf-itchcard" href="'+ITCH[id]+'" target="_blank" rel="noopener"><span class="pf-itchtxt"><strong>'+esc(t)+'</strong><small>Playable in your browser on itch.io</small></span><span class="pf-itchbtn">Play on itch.io</span></a>'}
   function did(a){return '<div class="pf-did"><h4>What I did</h4><ul>'+a.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul></div>'}
   function callout(t){return '<div class="pf-callout"><b>Design decision:</b> '+t+'</div>'}
   function btns(a){return '<div class="pf-btns">'+a.map(function(b){

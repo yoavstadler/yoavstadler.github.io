@@ -277,3 +277,10 @@ form input:focus,form textarea:focus{outline:2px solid var(--amber-hi);border-co
 .video.ph{display:grid;place-items:center;background:repeating-linear-gradient(135deg,rgba(255,255,255,.03) 0 10px,rgba(255,255,255,.07) 10px 20px);border:2px dashed var(--line2)}
 .video.ph span{font:700 13px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--amber)}
 .project .shots{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+
+/* v46: native itch.io card (itch.io's embed widget answers 429 when several load at once) */
+.itchcard{display:flex;align-items:center;justify-content:space-between;gap:14px;max-width:552px;padding:14px 16px;border:1px solid rgba(255,255,255,.14);border-radius:10px;background:rgba(255,255,255,.05);text-decoration:none;color:inherit}
+.itchcard span:first-child{display:flex;flex-direction:column;gap:3px;min-width:0}
+.itchcard strong{font-size:17px}
+.itchcard small{font-size:13px;opacity:.75}
+.itchbtn{flex:none;background:#fa5c5c;color:#fff;font:700 14px/1 system-ui,sans-serif;padding:11px 16px;border-radius:5px;white-space:nowrap}

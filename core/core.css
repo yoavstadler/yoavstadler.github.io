@@ -586,3 +586,11 @@ body[data-theme=workshop] .pf-btn.ghost:hover,body[data-theme=workshop] .pf-btn.
 body[data-theme=workshop] .pf-btn,body[data-theme=workshop] .pf-tab,body[data-theme=workshop] .pf-copy{position:relative;top:0;transform:none!important;will-change:auto;transition:top .12s!important}
 body[data-theme=workshop] .pf-btn:hover,body[data-theme=workshop] .pf-btn:focus-visible,body[data-theme=workshop] .pf-tab:hover,body[data-theme=workshop] .pf-tab:focus-visible,body[data-theme=workshop] .pf-copy:hover,body[data-theme=workshop] .pf-copy:focus-visible{transform:none!important;top:-1px}
 body[data-theme=workshop] .pf-btn:active,body[data-theme=workshop] .pf-tab:active,body[data-theme=workshop] .pf-copy:active{transform:none!important;top:1px}
+
+/* v46: native itch.io card */
+.pf-itchcard{display:flex;align-items:center;justify-content:space-between;gap:14px;max-width:560px;padding:14px 16px;margin-bottom:12px;border:1px solid var(--line);border-radius:8px;background:var(--card);text-decoration:none;color:inherit}
+.pf-itchtxt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.pf-itchtxt strong{font-size:17px;color:var(--ink)}
+.pf-itchtxt small{font-size:13px;color:var(--ink2)}
+.pf-itchbtn{flex:none;background:#fa5c5c;color:#fff;font:700 14px/1 system-ui,sans-serif;padding:11px 16px;border-radius:5px;white-space:nowrap}
+.pf-itchcard:hover .pf-itchbtn,.pf-itchcard:focus-visible .pf-itchbtn{background:#ff7676}
