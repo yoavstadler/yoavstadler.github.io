@@ -157,7 +157,7 @@
         var src=f.getAttribute('src')||'';
         /* Google Drive video: keep the player where it is (one click) and lay a picture from the video over it; the picture ignores the mouse, so the click reaches Drive's play button, and it fades out as soon as the player takes focus */
         var dv=src.match(/drive\.google\.com\/file\/d\/([\w-]+)/);
-        if(dv&&f.parentNode){f.insertAdjacentHTML('afterend','<span class="pf-poster" style="background-image:url(https://drive.google.com/thumbnail?id='+dv[1]+'&sz=w1000)"><span><i></i>Play video</span></span>')}
+        if(dv&&f.parentNode){f.insertAdjacentHTML('afterend','<span class="pf-poster" style="background-image:url('+(f.getAttribute('data-poster')?'https://lh3.googleusercontent.com/d/'+f.getAttribute('data-poster')+'=w1000':'https://drive.google.com/thumbnail?id='+dv[1]+'&sz=w1000')+')"><span><i></i>Play video</span></span>')}
         if(!/youtube|vimeo|sketchfab/.test(src))return;   /* the itch.io widget is a small card, and Google Drive videos have no autoplay (a facade there would cost a second click), so both load in place (lazily) */
         var b=document.createElement('button');b.type='button';
         b.className='pf-lazy '+(f.className||'');

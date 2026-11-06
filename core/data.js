@@ -17,7 +17,8 @@
     return '<figure>'+img+(x[1]?'<figcaption>'+esc(x[1])+'</figcaption>':'')+'</figure>'}).join('')+'</div>'}
   function soon(t){return '<div class="pf-video ph"><span>Trailer coming soon</span></div>'}
   function yt(id,t){return '<div class="pf-video"><iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0" title="'+esc(t)+'" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>'}
-  function drv(id,t){return '<div class="pf-video"><iframe class="pf-drive" src="'+PREV(id)+'" title="'+esc(t)+'" loading="lazy" allow="autoplay; fullscreen" allowfullscreen></iframe></div>'}
+  /* p = optional Drive picture id for the preview, used when Google's own frame from the video is black */
+  function drv(id,t,p){return '<div class="pf-video"><iframe class="pf-drive"'+(p?' data-poster="'+p+'"':'')+' src="'+PREV(id)+'" title="'+esc(t)+'" loading="lazy" allow="autoplay; fullscreen" allowfullscreen></iframe></div>'}
   /* itch.io card built here (no iframe): itch.io's own embed widget answers "429 Too Many Requests" when a few of them load at once */
   var ITCH={5032761:'https://yoavstad.itch.io/big-red-little-red',5095025:'https://tijmendc.itch.io/clock-out',5128382:'https://morose-interactive.itch.io/bumping-mayham'};
   function itch(id,t){return '<a class="pf-itchcard" href="'+ITCH[id]+'" target="_blank" rel="noopener"><span class="pf-itchtxt"><strong>'+esc(t)+'</strong><small>Playable in your browser on itch.io</small></span><span class="pf-itchbtn">Play on itch.io</span></a>'}
@@ -65,7 +66,7 @@
     {id:'bumping',name:'Bumping Mayhem',tag:'School',render:function(){return project({
       badges:['Student game - Howest DAE','Trailer','Play in browser'],
       meta:[['Type','School project'],['School','Howest DAE'],['Role','Game Lead & Lead Designer'],['Team','3'],['Engine','Unity'],['Duration','2 months']],
-      shots:shots([['1kT9R-Nh_tJxOmiz1BHADCPT8s8LVQMSK','Power-up picks'],['1iL-bk2c6fMMnhC12fEN8hYpuj0qQKWLh','Wave start'],['1CcYqxa3JwhsoZTBzn2tJPdlfz091zp_m','Bubble shield']],'Bumping Mayhem'),video:drv('1A48kiYYDJ9Njw9wyQY-AtYR6cu7Ip7U-','Bumping Mayhem trailer'),itch:itch(5128382,'Bumping Mayhem'),
+      shots:shots([['1kT9R-Nh_tJxOmiz1BHADCPT8s8LVQMSK','Power-up picks'],['1iL-bk2c6fMMnhC12fEN8hYpuj0qQKWLh','Wave start'],['1CcYqxa3JwhsoZTBzn2tJPdlfz091zp_m','Bubble shield']],'Bumping Mayhem'),video:drv('1A48kiYYDJ9Njw9wyQY-AtYR6cu7Ip7U-','Bumping Mayhem trailer','1iL-bk2c6fMMnhC12fEN8hYpuj0qQKWLh'),itch:itch(5128382,'Bumping Mayhem'),
       text:['A vehicular wave-defense game where the player rams, tricks, and power-ups their way through escalating enemy hordes to protect and repair a central objective. Power-ups are tuned to scale exponentially, meaning specialization beats generalism: a deliberate risk/reward design.'],
       callout:'Playtesting revealed a core feel problem: enemies clustering on the objective meant the player kept accidentally hitting it when trying to ram enemies, killing momentum and punishing aggression. My solution was a one-way bubble shield. Enemies push against it from outside, but the player drives through freely. This separated the collision domains cleanly and made aggressive play feel satisfying rather than frustrating.',
       did:['Designed the exponential power-up system','Tuned enemy waves on a sine-wave difficulty curve, alternating pressure with breathing room','Designed the one-way bubble shield around the objective'],
