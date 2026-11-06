@@ -61,9 +61,9 @@
       did:['Designed the desk-calling mechanic','Designed and balanced the Manager, who calls every 30 seconds to micromanage and comes for you if you don\'t answer','Designed the phone-hand, used to answer the Manager and hang up a wrong dial','Designed and balanced the level layout'],
       btns:[{t:'Play on itch.io &rarr;',u:'https://tijmendc.itch.io/clock-out'}]})}},
     {id:'bumping',name:'Bumping Mayhem',tag:'School',render:function(){return project({
-      badges:['Student game - Howest DAE','Play in browser'],
+      badges:['Student game - Howest DAE','Trailer','Play in browser'],
       meta:[['Type','School project'],['School','Howest DAE'],['Role','Game Lead & Lead Designer'],['Team','3'],['Engine','Unity'],['Duration','2 months']],
-      shots:shots([['1kT9R-Nh_tJxOmiz1BHADCPT8s8LVQMSK','Power-up picks'],['1iL-bk2c6fMMnhC12fEN8hYpuj0qQKWLh','Wave start'],['1CcYqxa3JwhsoZTBzn2tJPdlfz091zp_m','Bubble shield']],'Bumping Mayhem'),itch:itch(5128382,'Bumping Mayhem'),
+      shots:shots([['1kT9R-Nh_tJxOmiz1BHADCPT8s8LVQMSK','Power-up picks'],['1iL-bk2c6fMMnhC12fEN8hYpuj0qQKWLh','Wave start'],['1CcYqxa3JwhsoZTBzn2tJPdlfz091zp_m','Bubble shield']],'Bumping Mayhem'),video:drv('1A48kiYYDJ9Njw9wyQY-AtYR6cu7Ip7U-','Bumping Mayhem trailer'),itch:itch(5128382,'Bumping Mayhem'),
       text:['A vehicular wave-defense game where the player rams, tricks, and power-ups their way through escalating enemy hordes to protect and repair a central objective. Power-ups are tuned to scale exponentially, meaning specialization beats generalism: a deliberate risk/reward design.'],
       callout:'Playtesting revealed a core feel problem: enemies clustering on the objective meant the player kept accidentally hitting it when trying to ram enemies, killing momentum and punishing aggression. My solution was a one-way bubble shield. Enemies push against it from outside, but the player drives through freely. This separated the collision domains cleanly and made aggressive play feel satisfying rather than frustrating.',
       did:['Designed the exponential power-up system','Tuned enemy waves on a sine-wave difficulty curve, alternating pressure with breathing room','Designed the one-way bubble shield around the objective'],
