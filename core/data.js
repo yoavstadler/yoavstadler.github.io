@@ -12,19 +12,21 @@
   function meta(a){return '<dl class="pf-meta">'+a.map(function(m){return '<div><dt>'+esc(m[0])+'</dt><dd>'+esc(m[1])+'</dd></div>'}).join('')+'</dl>'}
   /* items: [driveId, caption] or [driveId, caption, linkUrl, linkText] */
   function shots(items,alt){return '<div class="pf-shots'+(items.length===1?' one':'')+'">'+items.map(function(x,i){
-    var img='<img src="'+IMG(x[0],1000)+'" alt="'+esc(x[1]||alt+' screenshot '+(i+1))+'" loading="lazy">';
+    var img='<img src="'+IMG(x[0],1600)+'" alt="'+esc(x[1]||alt+' screenshot '+(i+1))+'" loading="lazy">';
     if(x[2])img='<a class="pf-shotlink" href="'+x[2]+'" target="_blank" rel="noopener">'+img+'<span>'+x[3]+'</span></a>';
     return '<figure>'+img+(x[1]?'<figcaption>'+esc(x[1])+'</figcaption>':'')+'</figure>'}).join('')+'</div>'}
   function soon(t){return '<div class="pf-video ph"><span>Trailer coming soon</span></div>'}
-  function yt(id,t){return '<div class="pf-video"><iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0" title="'+esc(t)+'" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>'}
-  /* p = optional Drive picture id for the preview, used when Google's own frame from the video is black */
-  function drv(id,t,p){return '<div class="pf-video"><iframe class="pf-drive"'+(p?' data-poster="'+p+'"':'')+' src="'+PREV(id)+'" title="'+esc(t)+'" loading="lazy" allow="autoplay; fullscreen" allowfullscreen></iframe></div>'}
+  /* shown only after a video was started, in case the player does not load */
+  function vfall(u,where){return '<p class="pf-vfall">Video not loading? <a href="'+u+'" target="_blank" rel="noopener">Watch it on '+where+'</a></p>'}
+  function yt(id,t){return '<div class="pf-video"><iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0" title="'+esc(t)+'" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>'+vfall('https://www.youtube.com/watch?v='+id,'YouTube')}
+  /* p = optional preview picture (a file of ours such as assets/posters/x.jpg, or a Drive picture id), used when Google's own frame from the video is black. Always a still picture, never a GIF. */
+  function drv(id,t,p){return '<div class="pf-video"><iframe class="pf-drive"'+(p?' data-poster="'+p+'"':'')+' src="'+PREV(id)+'" title="'+esc(t)+'" loading="lazy" allow="autoplay; fullscreen" allowfullscreen></iframe></div>'+vfall('https://drive.google.com/file/d/'+id+'/view','Google Drive')}
   /* itch.io card built here (no iframe): itch.io's own embed widget answers "429 Too Many Requests" when a few of them load at once */
   var ITCH={5032761:'https://yoavstad.itch.io/big-red-little-red',5095025:'https://tijmendc.itch.io/clock-out',5128382:'https://morose-interactive.itch.io/bumping-mayham'};
   function itch(id,t){return '<a class="pf-itchcard" href="'+ITCH[id]+'" target="_blank" rel="noopener"><span class="pf-itchtxt"><strong>'+esc(t)+'</strong><small>Playable in your browser on itch.io</small></span><span class="pf-itchbtn">Play on itch.io</span></a>'}
   function did(a){return '<div class="pf-did"><h4>What I did</h4><ul>'+a.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul></div>'}
   function callout(t){return '<div class="pf-callout"><b>Design decision:</b> '+t+'</div>'}
-  function btns(a){return '<div class="pf-btns">'+a.map(function(b){
+  function btns(a){if(!a||!a.length)return '';return '<div class="pf-btns">'+a.map(function(b){
     if(b.q)return '<a class="pf-quiet" href="'+b.u+'">'+b.t+'</a>';
     return '<a class="pf-btn'+(b.g?' ghost':'')+'" href="'+b.u+'"'+(b.go?'':' target="_blank" rel="noopener"')+'>'+b.t+'</a>'}).join('')+'</div>'}
   function paras(a){return a.map(function(p){return '<p>'+p+'</p>'}).join('')}
@@ -66,7 +68,7 @@
     {id:'bumping',name:'Bumping Mayhem',tag:'School',render:function(){return project({
       badges:['Student game - Howest DAE','Trailer','Play in browser'],
       meta:[['Type','School project'],['School','Howest DAE'],['Role','Game Lead & Lead Designer'],['Team','3'],['Engine','Unity'],['Duration','2 months']],
-      shots:shots([['1kT9R-Nh_tJxOmiz1BHADCPT8s8LVQMSK','Power-up picks'],['1iL-bk2c6fMMnhC12fEN8hYpuj0qQKWLh','Wave start'],['1CcYqxa3JwhsoZTBzn2tJPdlfz091zp_m','Bubble shield']],'Bumping Mayhem'),video:drv('1A48kiYYDJ9Njw9wyQY-AtYR6cu7Ip7U-','Bumping Mayhem trailer','1iL-bk2c6fMMnhC12fEN8hYpuj0qQKWLh'),itch:itch(5128382,'Bumping Mayhem'),
+      shots:shots([['1kT9R-Nh_tJxOmiz1BHADCPT8s8LVQMSK','Power-up picks'],['1iL-bk2c6fMMnhC12fEN8hYpuj0qQKWLh','Wave start'],['1CcYqxa3JwhsoZTBzn2tJPdlfz091zp_m','Bubble shield']],'Bumping Mayhem'),video:drv('1A48kiYYDJ9Njw9wyQY-AtYR6cu7Ip7U-','Bumping Mayhem trailer','assets/posters/bumping-mayhem.jpg'),itch:itch(5128382,'Bumping Mayhem'),
       text:['A vehicular wave-defense game where the player rams, tricks, and power-ups their way through escalating enemy hordes to protect and repair a central objective. Power-ups are tuned to scale exponentially, meaning specialization beats generalism: a deliberate risk/reward design.'],
       callout:'Playtesting revealed a core feel problem: enemies clustering on the objective meant the player kept accidentally hitting it when trying to ram enemies, killing momentum and punishing aggression. My solution was a one-way bubble shield. Enemies push against it from outside, but the player drives through freely. This separated the collision domains cleanly and made aggressive play feel satisfying rather than frustrating.',
       did:['Designed the exponential power-up system','Tuned enemy waves on a sine-wave difficulty curve, alternating pressure with breathing room','Designed the one-way bubble shield around the objective'],
@@ -78,7 +80,7 @@
       text:['A first-person sci-fi puzzle-action game built around physics-based powers: telekinesis, black hole projection, and gravity inversion.'],
       callout:'I designed gravity inversion as a puzzle tool rather than a combat ability. Each level teaches the player a new spatial logic, so the level layouts were built around what the player can flip and move, not what they can shoot.',
       did:['Owned the design of all core systems, mechanics and level layouts','Programmed the player\'s three powers: telekinesis, black hole and gravity inversion'],
-      btns:[{t:'Watch on YouTube &rarr;',u:'https://www.youtube.com/watch?v=nLN4PbjdHUc'}]})}},
+      btns:[]})}},
     {id:'worldly',name:'Worldly Adventures',tag:'School',render:function(){return project({
       badges:['Student game - The Open University','Trailer'],
       meta:[['Type','School project'],['School','The Open University'],['Role','Game Designer & Level Designer'],['Team','5'],['Engine','Unity'],['Duration','3 months']],
@@ -86,7 +88,7 @@
       text:['A mobile arcade game with themed worlds that mixes vertical platforming and endless running across 10 to 12 levels.'],
       callout:'Every character has a unique ability in every game mode, laid out as a 2D character x mode matrix. Each combination plays differently, while each new character or mode only adds one row or column of abilities to design.',
       did:['Built every level in the game','Balanced how each power-up plays across the levels and modes','Wrote the game\'s narrative design'],
-      btns:[{t:'Watch on YouTube &rarr;',u:'https://www.youtube.com/watch?v=E2PpPdDbcW8'}]})}},
+      btns:[]})}},
     {id:'shipped',name:'8 Shipped Games',tag:'AppCentral',render:function(){
       return badges(['AppCentral - March 2023 - July 2024','App Store'])+
       '<p class="lead">Eight hyper-casual mobile titles shipped to the App Store during my time as Product Manager &amp; Game Designer at AppCentral. In a small startup team, PM meant owning level design, balancing, and feature decisions alongside roadmap and metrics.</p>'+
@@ -101,7 +103,7 @@
       '<div class="pf-gdd-txt"><h3>'+esc(name)+'</h3><p>'+text+'</p>'+
       '<div class="pf-btns"><button class="pf-btn" data-embed="'+PREV(pid)+'">Read it here</button><a class="pf-btn ghost" href="'+PREV(pid)+'" target="_blank" rel="noopener">Open in new tab</a><a class="pf-quiet" href="'+DL(pid)+'">Download PDF</a></div></div></article><div data-slot></div>'}}
   }
-  var fanNote='<aside class="pf-note"><strong>Why &ldquo;fan&rdquo; GDDs?</strong> These are design breakdowns I wrote for games I didn\'t build &mdash; reverse-engineering their systems, pacing, and mechanics to practice the same documentation and systems-thinking I\'d apply on an original project.</aside>';
+  var fanNote='<aside class="pf-note"><strong>Why &ldquo;fan&rdquo; GDDs?</strong> These are design breakdowns I wrote for games I didn\'t build - reverse-engineering their systems, pacing, and mechanics to practice the same documentation and systems-thinking I\'d apply on an original project.</aside>';
   var docs=[
     gdd('hollow','Hollow Knight','1Jzdpa451eeeXNj9yLJJbzz2695zXMsPu',1,'A full teardown of Hollow Knight\'s ability progression, map design, and difficulty pacing - my most in-depth fan GDD, written as the flagship piece of this series.'),
     gdd('hades','Hades','1QEM6i9MJinDy4t_NXPgBnSwASEnRjw1m',0,'A breakdown of Hades\' roguelike loop, boon/weapon systems, and floor structure - with a critique of how the game handles player motivation and build variety once the main story wraps.'),
@@ -109,9 +111,9 @@
     gdd('ghost','Ghost of Tsushima','1TDUVp_bGZNORnopUGrpM63jzl7VNxIdf',0,'An analysis of Jin Sakai\'s dual combat identity - samurai stances vs. Ghost techniques - and how progression, exploration, and boss design reinforce that core theme.'),
     gdd('ori','Ori and the Blind Forest','1LLErxldXnlgehhlK-cm-bwJY7BZpXmKp',0,'An analysis of Ori\'s traversal ability gating and how movement upgrades double as narrative beats and Metroidvania backtracking hooks.'),
     gdd('days','Days Gone','11GNXQctTGn6p1hL-D6_8vaD6fG78RJOY',0,'A look at Days Gone\'s survival loop - camps, trust, bike upgrades, and horde encounters - and where its pacing and mission variety hold the experience back.'),
-    {id:'log',name:'Wave Spawning Log',tag:'Systems',render:function(){
+    {id:'log',name:'Wave Spawning Difficulty',tag:'Systems log',render:function(){
       var pid='17ti0blt8rceYqNd_v5MBtP4S3-yf9eCy';
-      return badges(['Game jam log - Big Red, Little Red'])+'<h3>Wave Spawning Difficulty</h3>'+
+      return badges(['Game jam log - Big Red, Little Red'])+
       '<div class="pf-split"><div><div class="pf-shots one"><img src="'+IMG('1jxdDPaQliZUuwLIDZW1k0y6ua3gUFzin',1400)+'" alt="Wave difficulty curve chart - enemy load vs. felt difficulty across 9 waves" loading="lazy"></div></div><div>'+
       '<p>An iteration log tracking a broken difficulty curve during the jam - early waves that punished new players and late waves that had gone slack, plus the real numbers behind fixing both.</p>'+
       '<ul class="pf-ul"><li>Moving from a linear difficulty ramp to a sine-based curve to give players breathing room after spikes</li><li>Retuning enemy-type introductions so new enemies teach their behavior before punishing mistakes</li><li>The actual tuning values: Big Red\'s dash duration, Little Red\'s grenade cooldown, and per-wave enemy counts</li><li>What playtesting revealed - including a compounding-upgrade problem that wasn\'t fully solved by the jam\'s end</li></ul>'+
@@ -119,24 +121,25 @@
   ];
 
   /* ---------- 3D art ---------- */
-  function model(id,name,uid,text,extra){
+  /* thumb = the model's own preview picture on Sketchfab (shown on the "Load 3D model" box) */
+  var SKFB='https://media.sketchfab.com/models/';
+  function model(id,name,uid,thumb,text,extra){
     return {id:id,name:name,tag:'3D',render:function(){
-      return badges(['Blender','Substance Painter'].concat(extra?['Unity']:[]))+'<h3>'+esc(name)+'</h3>'+
-      '<div class="pf-3d"><iframe title="'+esc(name)+' - 3D model" src="https://sketchfab.com/models/'+uid+'/embed" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen></iframe></div>'+
-      '<p>'+text+'</p>'+(extra||'')+
-      '<div class="pf-btns"><a class="pf-btn ghost" href="https://sketchfab.com/3d-models/'+uid+'" target="_blank" rel="noopener">Open on Sketchfab &rarr;</a></div>'}}
+      return badges(['Blender','Substance Painter'].concat(extra?['Unity']:[]))+
+      '<div class="pf-msplit"><div><div class="pf-3d"><iframe title="'+esc(name)+' - 3D model" data-thumb="'+SKFB+uid+'/thumbnails/'+thumb+'" src="https://sketchfab.com/models/'+uid+'/embed" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen></iframe></div></div>'+
+      '<div><p>'+text+'</p>'+(extra||'')+'</div></div>'}}
   }
   var art=[
-    model('risen','The Risen','32d7c5aa69764cd2ae5448291b02e1d6','An RTS building of an artificial sun built for the Solthari - a light-worshipping faction whose elemental magic depends on sunlight, and whose power is fading as an encroaching cloud layer cuts off their mountain peak from the sun. The structure represents an engineered replacement light source, built to sustain their fading civilization. Designed to fit the assignment\'s faction visual brief (Art Nouveau and Greek-inspired architecture, pastel greens/yellows/aquamarines, gold and crystal materials), modeled and animated in Blender, textured in Substance Painter, and assembled, lit, and rendered in Unity - including building and upgrade animations across three growth stages.',
-      '<p class="pf-sub">Animation preview</p><div class="pf-video"><iframe src="https://player.vimeo.com/video/1229128149?title=0&byline=0&portrait=0&playsinline=1" title="The Risen - animation preview" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>'),
-    model('artisan','Artisan\'s Desk','cc616b54e5d6402aaf18d8e93a4bf591','A low-poly prop set built from a randomized assignment prompt - profession: noble jeweler. Framed as a workspace for a jeweler in service of the Medici family, crafting the ornate, poisoned jewelry the family was rumored to use against political rivals. Modeled in Blender, textured in Substance Painter. Fully rotatable model above.'),
-    model('shrine','Sukuna\'s Malevolent Shrine','4ff07e3f657f48d69266234b3b9cd504','A fan reinterpretation of Sukuna\'s domain expansion from Jujutsu Kaisen - built to explore mood, silhouette, and scale rather than a 1:1 recreation. Modeled in Blender, textured in Substance Painter. Fully rotatable model above.'),
-    model('diorama','Forest Loner Diorama','05b1d069e8114ab1af736deaf7051116','A full narrative environment diorama - an isolated hunting cabin in an autumn forest, populated with wildlife, vehicles, and scattered storytelling props. Modeled in Blender, textured in Substance Painter. Fully rotatable model above.')
+    model('risen','The Risen','32d7c5aa69764cd2ae5448291b02e1d6','b0714e96268d4578856df80d47b1359e/43246f58402c407ea7646d2794c14285.jpeg','An RTS building of an artificial sun built for the Solthari - a light-worshipping faction whose elemental magic depends on sunlight, and whose power is fading as an encroaching cloud layer cuts off their mountain peak from the sun. The structure represents an engineered replacement light source, built to sustain their fading civilization. Designed to fit the assignment\'s faction visual brief (Art Nouveau and Greek-inspired architecture, pastel greens/yellows/aquamarines, gold and crystal materials), modeled and animated in Blender, textured in Substance Painter, and assembled, lit, and rendered in Unity - including building and upgrade animations across three growth stages.',
+      '<p class="pf-sub">Animation preview</p><div class="pf-video pf-anim"><iframe data-thumb="'+SKFB+'32d7c5aa69764cd2ae5448291b02e1d6/thumbnails/b0714e96268d4578856df80d47b1359e/43246f58402c407ea7646d2794c14285.jpeg" src="https://player.vimeo.com/video/1229128149?title=0&byline=0&portrait=0&playsinline=1" title="The Risen - animation preview" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>'+vfall('https://vimeo.com/1229128149','Vimeo')),
+    model('artisan','Artisan\'s Desk','cc616b54e5d6402aaf18d8e93a4bf591','78f27fd078924c609d2cd77d481facbc/5a1cbd5449da4773b6aa97ac3f9a94aa.jpeg','A low-poly prop set built from a randomized assignment prompt - profession: noble jeweler. Framed as a workspace for a jeweler in service of the Medici family, crafting the ornate, poisoned jewelry the family was rumored to use against political rivals. Modeled in Blender, textured in Substance Painter. Fully rotatable model above.'),
+    model('shrine','Sukuna\'s Malevolent Shrine','4ff07e3f657f48d69266234b3b9cd504','342b1fd0d1e74ca6990cf3c566ba4d50/4ce604fec2db4a82bbdf59437e749309.jpeg','A fan reinterpretation of Sukuna\'s domain expansion from Jujutsu Kaisen - built to explore mood, silhouette, and scale rather than a 1:1 recreation. Modeled in Blender, textured in Substance Painter. Fully rotatable model above.'),
+    model('diorama','Forest Loner Diorama','05b1d069e8114ab1af736deaf7051116','7b790cde5cb74b60a2f58d4acd1b8a66/fc7f2ca5b22749bcabd476295e22f093.jpeg','A full narrative environment diorama - an isolated hunting cabin in an autumn forest, populated with wildlife, vehicles, and scattered storytelling props. Modeled in Blender, textured in Substance Painter. Fully rotatable model above.')
   ];
 
   /* ---------- about ---------- */
   var about=[
-    {id:'sheet',name:'Character Sheet',tag:'Me',render:function(){
+    {id:'sheet',name:'Profile',tag:'Me',render:function(){
       return '<div class="pf-sheet"><div><div class="pf-portrait">Y<img src="'+WEEBLY+'background-images/79829628.png" alt="Yoav Stadler" loading="lazy"></div></div><div>'+
       '<h3>Yoav Stadler</h3>'+
       '<dl class="pf-stats"><dt>Class</dt><dd>Game &middot; Systems Designer</dd><dt>Guild</dt><dd>Howest DAE - Independent Game Production (2025 - now)</dd><dt>Quests cleared</dt><dd>8 shipped mobile titles, 5 student games and jam entries</dd><dt>Former role</dt><dd>Product Manager &amp; Game Designer, AppCentral</dd></dl>'+
@@ -148,7 +151,7 @@
       '<p>My design process starts with how players actually behave. The systems come after, not the other way around.</p>'+
       '<blockquote class="pf-quote">Today might be the chance to let your talent bloom.<br>Maybe tomorrow, the day after, or next year...<br>...But if you think it will never come, it probably never will.</blockquote>'+
       '<div class="pf-btns"><a class="pf-btn" href="'+CV+'" target="_blank" rel="noopener">View CV (PDF)</a><a class="pf-btn ghost" href="#contact">Send a message</a></div></div></div>'}},
-    {id:'journey',name:'Experience',tag:'Quest log',render:function(){
+    {id:'journey',name:'Experience',tag:'Journey',render:function(){
       return badges(['AppCentral','Mar 2023 - Jul 2024'])+'<h3>Product Manager &amp; Game Designer</h3>'+
       '<p>That philosophy started taking shape at AppCentral:</p>'+
       '<ul class="pf-ul pf-xp"><li><b>Designed &amp; balanced core game systems</b><em>Tuned mechanics and progression loops to optimize playtime and retention.</em></li>'+

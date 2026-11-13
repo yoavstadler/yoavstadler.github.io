@@ -27,7 +27,7 @@
     var layers=[],hots={};
     var tip=h('div','pf-tip');document.body.appendChild(tip);
 
-    var P={W:1600,H:900,el:svgEl,rnd:rnd,esc:esc,svg:svg,hots:hots,
+    var P={W:1600,H:900,el:svgEl,rnd:rnd,esc:esc,svg:svg,hots:hots,flavor:F,
       defs:function(html){var d=svg.querySelector('defs')||svgEl('defs',{},svg);d.insertAdjacentHTML('beforeend',html)},
       layer:function(depth,id){var g=svgEl('g',{'data-d':depth},svg);if(id)g.id=id;layers.push(g);return g},
       tag:function(parent,text,x,y){
@@ -64,7 +64,7 @@
       hot:function(key,g,o){
         o=o||{};var f=F[key];
         g.setAttribute('class',(g.getAttribute('class')||'')+' hot');
-        g.setAttribute('tabindex','0');g.setAttribute('role','button');g.setAttribute('aria-label',f.name+' - '+f.sub);
+        g.setAttribute('tabindex','0');g.setAttribute('role','button');g.setAttribute('aria-label',(f.sign&&f.sign!==f.name?f.sign+' ('+f.name+')':f.name)+' - '+f.sub);
         if(o.box)svgEl('rect',{x:o.box[0],y:o.box[1],width:o.box[2],height:o.box[3],fill:'transparent'},g);
         if(o.box){
           var fr=o.frame||o.box,bx=fr[0],by=fr[1],bw=fr[2],bh=fr[3],L=Math.max(14,Math.min(34,Math.min(bw,bh)*.2)),br=svgEl('g',{class:'hbr','pointer-events':'none'},g);
@@ -89,7 +89,7 @@
     function spotOn(k){stage.classList.add('spot');Object.keys(hots).forEach(function(j){hots[j].classList.toggle('on',j===k)})}
     function spotOff(){stage.classList.remove('spot');Object.keys(hots).forEach(function(j){hots[j].classList.remove('on')})}
     /* the tooltip follows the pointer, a little below and to the right of it; it flips sideways/upwards near the screen edges */
-    function showTip(key,x,y){var f=F[key];tip.innerHTML='<b>'+esc(f.name)+'</b>'+esc(f.sub);tip.classList.add('on');moveTip(x,y)}
+    function showTip(key,x,y){var f=F[key];tip.innerHTML='<b>'+esc(f.sign||f.name)+'</b>'+esc(f.sub);tip.classList.add('on');moveTip(x,y)}
     function moveTip(x,y){var w=tip.offsetWidth,hh=tip.offsetHeight,vw=window.innerWidth,vh=window.innerHeight,tx=x+22,ty=y+26;
       if(tx+w>vw-8)tx=x-22-w;if(ty+hh>vh-8)ty=y-18-hh;
       tip.style.left=Math.max(8,tx)+'px';tip.style.top=Math.max(8,ty)+'px'}
@@ -128,9 +128,12 @@
       b.addEventListener('focus',function(){if(kbd)spotOn(k)});
       b.addEventListener('blur',spotOff);
       menu.appendChild(b)});
-    stage.appendChild(menu);
     var hint=h('div','pf-hint',cfg.hint||'Click any framed object &middot; or press 1-5');
     stage.appendChild(hint);
+    /* the section tabs sit in the top line; on phones they are the big buttons under the reel */
+    var mq=window.matchMedia('(max-width:760px)');
+    function placeMenu(){if(mq.matches)stage.insertBefore(menu,hint);else bar.insertBefore(menu,bar.querySelector('nav'))}
+    placeMenu();if(mq.addEventListener)mq.addEventListener('change',placeMenu);else if(mq.addListener)mq.addListener(placeMenu);
     setTimeout(function(){hint.classList.add('gone')},9000);
 
     /* panel */
@@ -140,7 +143,7 @@
     function frame(sec){
       var f=F[sec],S=D[sec];
       over.innerHTML='<div class="pf-frame" role="document"><i class="c c1"></i><i class="c c2"></i><i class="c c3"></i><i class="c c4"></i>'+
-        '<div class="pf-head"><div class="ttl"><small>'+esc(f.name)+'</small><h2>'+esc(S.title)+'</h2></div>'+(cfg.icons&&cfg.icons[sec]?'<img class="pf-icon" src="'+cfg.icons[sec]+'" alt="">':'')+'<button class="pf-x" type="button" aria-label="Close">&times;</button></div>'+
+        '<div class="pf-head"><div class="ttl"><small>'+esc(f.name)+'</small><h2>'+esc(f.sign||S.title)+'</h2></div>'+(cfg.icons&&cfg.icons[sec]?'<img class="pf-icon" src="'+cfg.icons[sec]+'" alt="">':'')+'<button class="pf-x" type="button" aria-label="Close">&times;</button></div>'+
         (S.tabs?'<div class="pf-tabs" role="tablist" aria-label="'+esc(S.title)+' categories">'+S.tabs.map(function(t){return '<button type="button" role="tab" class="pf-tab" data-tab="'+t.id+'" aria-selected="false">'+esc(t.name)+'</button>'}).join('')+'</div>':'')+
         '<div class="pf-body" tabindex="0"></div>'+
         '<div class="pf-foot"><span>'+esc(S.blurb)+'</span><span>'+S.more.map(function(m){return '<a href="'+m.u+'">'+esc(m.t)+' &rarr;</a>'}).join(' &nbsp; ')+'</span></div></div>';
@@ -157,7 +160,8 @@
         var src=f.getAttribute('src')||'';
         /* Google Drive video: keep the player where it is (one click) and lay a picture from the video over it; the picture ignores the mouse, so the click reaches Drive's play button, and it fades out as soon as the player takes focus */
         var dv=src.match(/drive\.google\.com\/file\/d\/([\w-]+)/);
-        if(dv&&f.parentNode){f.insertAdjacentHTML('afterend','<span class="pf-poster" style="background-image:url('+(f.getAttribute('data-poster')?'https://lh3.googleusercontent.com/d/'+f.getAttribute('data-poster')+'=w1000':'https://drive.google.com/thumbnail?id='+dv[1]+'&sz=w1000')+')"><span><i></i>Play video</span></span>')}
+        if(dv&&f.parentNode){var dp=f.getAttribute('data-poster');   /* data-poster = a picture file of ours, or a Drive picture id; without it Google's own frame from the video is used */
+          f.insertAdjacentHTML('afterend','<span class="pf-poster" style="background-image:url('+(dp?(/[\/.]/.test(dp)?dp:'https://lh3.googleusercontent.com/d/'+dp+'=w1600-rj'):'https://drive.google.com/thumbnail?id='+dv[1]+'&sz=w1600')+')"><span><i></i>Play video</span></span>')}
         if(!/youtube|vimeo|sketchfab/.test(src))return;   /* the itch.io widget is a small card, and Google Drive videos have no autoplay (a facade there would cost a second click), so both load in place (lazily) */
         var b=document.createElement('button');b.type='button';
         b.className='pf-lazy '+(f.className||'');
@@ -165,7 +169,8 @@
         if(f.getAttribute('allow'))b.setAttribute('data-allow',f.getAttribute('allow'));
         if(f.hasAttribute('allowfullscreen'))b.setAttribute('data-fs','1');
         var m=src.match(/youtube(?:-nocookie)?\.com\/embed\/([\w-]+)/);
-        if(m)b.style.backgroundImage='url(https://img.youtube.com/vi/'+m[1]+'/hqdefault.jpg)';
+        if(m)b.style.backgroundImage='url(https://img.youtube.com/vi/'+m[1]+'/maxresdefault.jpg),url(https://img.youtube.com/vi/'+m[1]+'/hqdefault.jpg)';   /* the large picture; the small one shows through if a video has no large one */
+        if(f.getAttribute('data-thumb'))b.style.backgroundImage='url('+f.getAttribute('data-thumb')+')';   /* 3D models and Vimeo: picture given in data.js */
         var dm=src.match(/drive\.google\.com\/file\/d\/([\w-]+)/);
         if(dm)b.style.backgroundImage='url(https://drive.google.com/thumbnail?id='+dm[1]+'&sz=w1000)';
         var what=/sketchfab/.test(src)?'3D model':/itch/.test(src)?'game':'video';
@@ -233,7 +238,7 @@
     window.addEventListener('hashchange',route);
     /* clicking into a Drive player moves focus into its iframe: that is the moment to remove the picture laid over it */
     window.addEventListener('blur',function(){setTimeout(function(){var a=document.activeElement;
-      if(a&&a.tagName==='IFRAME'&&a.parentNode){var ps=a.parentNode.querySelector('.pf-poster');if(ps)ps.classList.add('gone')}},0)});
+      if(a&&a.tagName==='IFRAME'&&a.parentNode){var ps=a.parentNode.querySelector('.pf-poster');if(ps){ps.classList.add('gone');a.parentNode.classList.add('played')}}},0)});
 
     /* clicks inside panel: read-here embeds, in-page links, contact form */
     over.addEventListener('click',function(e){
@@ -246,7 +251,7 @@
         if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(u).then(done,function(){prompt('Copy this link',u)});else{prompt('Copy this link',u)}
         return}
       var lz=e.target.closest('.pf-lazy');
-      if(lz){var fr=document.createElement('iframe');fr.className=lz.className.replace(/\bpf-lazy\b/,'').trim();
+      if(lz){var fr=document.createElement('iframe');if(lz.parentNode&&lz.parentNode.classList)lz.parentNode.classList.add('played');fr.className=lz.className.replace(/\bpf-lazy\b/,'').trim();
         var s=lz.getAttribute('data-src');
         if(/youtube|vimeo/.test(s)&&!/autoplay/.test(s))s+=(s.indexOf('?')>-1?'&':'?')+'autoplay=1';
         if(/sketchfab/.test(s)&&!/autostart/.test(s))s+=(s.indexOf('?')>-1?'&':'?')+'autostart=1&preload=1';

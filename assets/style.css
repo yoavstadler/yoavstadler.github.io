@@ -1,16 +1,21 @@
 /* Yoav Stadler portfolio - shared styles. Theme: forest road at dusk, amber accents.
    Colors live in :root so the whole site can be re-themed from here. */
+/* Two fonts on the whole site: Lora (titles) and Source Sans 3 (everything else), served from assets/fonts. */
+@font-face{font-family:"Lora";font-style:normal;font-weight:400 700;font-display:swap;src:url(fonts/lora.woff2) format("woff2")}
+@font-face{font-family:"Lora";font-style:italic;font-weight:400 700;font-display:swap;src:url(fonts/lora-italic.woff2) format("woff2")}
+@font-face{font-family:"Source Sans 3";font-style:normal;font-weight:200 900;font-display:swap;src:url(fonts/source-sans-3.woff2) format("woff2")}
+@font-face{font-family:"Source Sans 3";font-style:italic;font-weight:200 900;font-display:swap;src:url(fonts/source-sans-3-italic.woff2) format("woff2")}
 :root{
   --bg:#08130f; --bg2:#0d1b16; --panel:#11231b; --panel2:#173026;
   --line:rgba(200,146,42,.34); --line2:rgba(255,255,255,.09);
   --amber:#C8922A; --amber-hi:#f0bf5a; --text:#efe6d2; --muted:#b9ad90; --red:#9a2e36;
-  --serif:Georgia,"Palatino Linotype",Palatino,"Book Antiqua",serif;
-  --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --serif:"Lora",serif;
+  --sans:"Source Sans 3",sans-serif;
   --hdr:64px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:calc(var(--hdr) + 12px)}
-body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 var(--sans);font-variant-numeric:lining-nums;-webkit-font-smoothing:antialiased}
 img,iframe{max-width:100%}
 img{display:block}
 a{color:var(--amber-hi)}
@@ -82,7 +87,7 @@ ul{padding-left:1.2em;margin:0 0 1em}
 .scene .title .hint{font-style:italic;font-size:11px;letter-spacing:.1em;color:#b8aa88;margin-top:10px}
 .sign{cursor:pointer;outline:none}
 .sign .plaque{fill:#2a1f10;stroke:var(--amber);stroke-width:2;transition:fill .2s}
-.sign text{fill:#f3e3bd;font:600 20px system-ui,sans-serif;text-anchor:middle;pointer-events:none;transition:fill .2s}
+.sign text{fill:#f3e3bd;font:600 20px var(--sans);text-anchor:middle;pointer-events:none;transition:fill .2s}
 .sign .post{fill:#3b2a17}
 .sign .glow{opacity:.55;transition:opacity .25s,transform .25s;transform-box:fill-box;transform-origin:center}
 .sign:hover .glow,.sign:focus-visible .glow,.sign.active .glow{opacity:1;transform:scale(1.55)}
@@ -283,4 +288,11 @@ form input:focus,form textarea:focus{outline:2px solid var(--amber-hi);border-co
 .itchcard span:first-child{display:flex;flex-direction:column;gap:3px;min-width:0}
 .itchcard strong{font-size:17px}
 .itchcard small{font-size:13px;opacity:.75}
-.itchbtn{flex:none;background:#fa5c5c;color:#fff;font:700 14px/1 system-ui,sans-serif;padding:11px 16px;border-radius:5px;white-space:nowrap}
+.itchbtn{flex:none;background:#fa5c5c;color:#fff;font:700 14px/1 var(--sans);padding:11px 16px;border-radius:5px;white-space:nowrap}
+
+/* v50: pictures in a 2 x 2 grid of big pictures; a lone third picture is centred at the same size */
+.project .shots{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.project .shots figure:last-child:nth-child(odd):not(:only-child){grid-column:1/-1;justify-self:center;width:calc(50% - 7px)}
+.project .shots:has(img.tall~img.tall),.project .shots.tall{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+@media (max-width:640px){.project .shots{grid-template-columns:minmax(0,1fr)}.project .shots figure:last-child:nth-child(odd):not(:only-child){width:auto;justify-self:auto}}
+button,input,textarea,select{font-family:inherit}

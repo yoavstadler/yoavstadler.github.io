@@ -10,12 +10,13 @@ PF.init({
   reelBehind:true,   /* the video plays UNDER the room image, visible through its transparent frame */
   hint:'Click any object &middot; or press 1-5',
   icons:{games:'art2/icon-games.png',docs:'art2/icon-docs.png',art:'art2/icon-art.png',about:'art2/icon-about.png',contact:'art2/icon-contact.png'},
+  /* name = the plain name on the top tabs. sign (optional) = the themed name used on the hanging sign, the hover tip and the panel title. */
   flavor:{
-    games:{name:'Games',sub:'Shipped titles, student games and jams'},
-    docs:{name:'Documentation',sub:'Fan GDDs and systems design logs'},
-    art:{name:'3D Art',sub:'Models you can rotate'},
-    about:{name:'About',sub:'Character sheet, experience, education'},
-    contact:{name:'Contact',sub:'Email, CV and message form'}
+    games:{name:'Games',sign:'Quest Log',sub:'Shipped titles, student games and jams'},
+    docs:{name:'Documentation',sign:'Design Tomes',sub:'Fan GDDs and systems design logs'},
+    art:{name:'3D Art',sign:'The Forge',sub:'Models you can rotate'},
+    about:{name:'About',sign:'Character Sheet',sub:'Character sheet, experience, education'},
+    contact:{name:'Contact',sign:'Send a Raven',sub:'Email, CV and message form'}
   },
   draw:function(svg,P){
     var el=P.el,K=900/572,OX=(1600-1024*K)/2,T='translate('+OX+',0) scale('+K+')';
@@ -29,11 +30,11 @@ PF.init({
       '<radialGradient id="vig" cx=".5" cy=".5" r=".78"><stop offset=".62" stop-color="#0a0604" stop-opacity="0"/><stop offset="1" stop-color="#0a0604" stop-opacity=".5"/></radialGradient>'
     );
     function grp(parent,attrs){return el('g',attrs||{},parent)}
-    function pic(parent,file,box,cls){var i=el('image',{x:box.x,y:box.y,width:box.w,height:box.h,'pointer-events':'none'},parent);if(cls)i.setAttribute('class',cls);i.setAttribute('href','art3/'+file+'.webp?v=43');return i}
+    function pic(parent,file,box,cls){var i=el('image',{x:box.x,y:box.y,width:box.w,height:box.h,'pointer-events':'none'},parent);if(cls)i.setAttribute('class',cls);i.setAttribute('href','art3/'+file+'.webp?v=50');return i}
 
     /* 1 - the room (transparent frame interior: the highlight reel plays behind it) */
     var bg=el('image',{x:OX,y:0,width:1024*K,height:900,preserveAspectRatio:'none','pointer-events':'none'},svg);
-    bg.setAttribute('href','art3/plate.webp?v=43');
+    bg.setAttribute('href','art3/plate.webp?v=50');
 
     /* 2 - cut-out objects as clickable layers */
     function object(key,name,hit,label){
@@ -46,16 +47,20 @@ PF.init({
       var rg=grp(w,{class:'ring',mask:'url(#rm-'+name+')'});
       ['rg1','rg2','rg3'].forEach(function(c){el('path',{d:RINGH[name],class:c,'pointer-events':'none'},rg)});
       var s=SIGN[name],tg=grp(w,{class:'wtag'});
-      var t=el('text',{x:s[0]+s[2]/2,y:s[1]+s[3]/2+.5+(SDY[name]||0)},tg);t.textContent=label;if(label.length>11)t.setAttribute('style','font-size:10.5px');
+      var t=el('text',{x:s[0]+s[2]/2,y:s[1]+s[3]/2+.5+(SDY[name]||0)},tg);t.textContent=label;
+      /* the lettering is fitted to its paper: 12 units high at most, smaller when the name is long (measured again once the web font has loaded) */
+      function fit(){t.removeAttribute('style');var w=0;try{w=t.getComputedTextLength()}catch(e){}var room=s[2]-9;if(w>room)t.setAttribute('style','font-size:'+Math.max(7.5,12*room/w).toFixed(2)+'px')}
+      fit();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
       P.hot(key,g,{});   /* no box: the silhouette path above is the hit area; the sign + hover outline are the cue */
       return {g:g};
     }
-    var oContact=object('contact','raven',[52,24,282,316],'Contact');
-    object('art','construct',[750,46,1024,322],'3D Art');
-    var oDocs=object('docs','books',[50,334,286,570],'Documentation');
+    function sign(k){var f=P.flavor[k];return f.sign||f.name}   /* the name on the hanging sign: flavor.sign if set, else the plain section name */
+    var oContact=object('contact','raven',[52,24,282,316],sign('contact'));
+    object('art','construct',[750,46,1024,322],sign('art'));
+    var oDocs=object('docs','books',[50,334,286,570],sign('docs'));
     svg.insertBefore(oDocs.g,oContact.g);      /* the Documentation hover is drawn below the Contact layer so the rune that touches the Contact sign never covers its lettering */
-    object('about','about',[336,360,710,570],'About');
-    object('games','disc',[684,280,960,570],'Games');
+    object('about','about',[336,360,710,570],sign('about'));
+    object('games','disc',[684,280,960,570],sign('games'));
 
     el('rect',{x:0,y:0,width:1600,height:900,fill:'url(#vig)','pointer-events':'none'},svg);
   }
