@@ -9,7 +9,10 @@
   var CV='https://drive.google.com/file/d/1gcEmQcEfi3NBi9tTSo0CpcGJJECU0DMk/view?usp=sharing';
 
   function badges(a){return '<div class="pf-badges">'+a.map(function(b,i){return '<span class="pf-badge'+(i?' ghost':'')+'">'+esc(b)+'</span>'}).join('')+'</div>'}
-  function meta(a){return '<dl class="pf-meta">'+a.map(function(m){return '<div><dt>'+esc(m[0])+'</dt><dd>'+esc(m[1])+'</dd></div>'}).join('')+'</dl>'}
+  function meta(a){return '<dl class="pf-meta">'+a.map(function(m){
+    /* a team entry carries its teammates: ['Team','4',[['Name','Role'],...]] */
+    if(m[0]==='Team'&&m[2])return '<div class="team"><dt>Team of '+esc(m[1])+'</dt><dd>'+m[2].map(function(t){return '<span class="pf-mate">'+esc(t[0])+(t[1]?'<em>'+esc(t[1])+'</em>':'')+'</span>'}).join('')+'</dd></div>';
+    return '<div><dt>'+esc(m[0])+'</dt><dd>'+esc(m[1])+'</dd></div>'}).join('')+'</dl>'}
   /* items: [driveId, caption] or [driveId, caption, linkUrl, linkText] */
   function shots(items,alt){return '<div class="pf-shots'+(items.length===1?' one':'')+'">'+items.map(function(x,i){
     var img='<img src="'+IMG(x[0],1600)+'" alt="'+esc(x[1]||alt+' screenshot '+(i+1))+'" loading="lazy">';
@@ -64,21 +67,21 @@
   var games=[
     {id:'bigred',name:'Big Red, Little Red',tag:'Jam',render:function(){return project({
       badges:['Game jam - Mini Jame Gam #59','Trailer','Play in browser'],
-      meta:[['Type','Game jam'],['Role','Systems Designer, Programmer & 3D Artist'],['Team','4'],['Engine','Unity'],['Duration','2 days']],
+      meta:[['Type','Game jam'],['Role','Systems Designer, Programmer & 3D Artist'],['Team','4',[['Pauline Leites'],['Johnathan Streit'],['Thor Deceuninck']]],['Engine','Unity'],['Duration','2 days']],
       shots:media([['1OUhREg6VNhH-YxSNvaEImn_hG0-3emX6','Enemy waves ramping up'],['1G99_ngCOning-J6H5561b0wFGgvAKZ2x',"Player's upgrade pool"],['1jxdDPaQliZUuwLIDZW1k0y6ua3gUFzin','Wave difficulty curve','https://drive.google.com/file/d/17ti0blt8rceYqNd_v5MBtP4S3-yf9eCy/view','Read the doc &rarr;']],'Big Red, Little Red','feature'),video:drv('1lifCCPKVOt1xbB1htQqCfGNk6IhvKIID','Big Red, Little Red trailer'),
       text:['A 2-player local co-op action game. Little Red shoots and throws grenades, Big Red dashes and pushes enemies (and Little Red) around, and together they hold off escalating enemy waves.'],
       did:['Designed the core systems','Balanced each player\'s upgrade pool','Designed, balanced and programmed the enemies and the wave-difficulty curve','Programmed Little Red end to end'],
       btns:[{t:'Play on itch.io &rarr;',u:'https://yoavstad.itch.io/big-red-little-red'},{t:'Read the Systems Design Log &rarr;',u:'#docs/log',g:1,go:1}]})}},
     {id:'clockout',name:'Clock Out',tag:'Jam',render:function(){return project({
       badges:['Game jam - The Game Design','Trailer','Play in browser'],
-      meta:[['Type','University game jam'],['Role','Game & Systems Designer'],['Team','3'],['Engine','Unity'],['Duration','1.5 days']],
+      meta:[['Type','University game jam'],['Role','Game & Systems Designer'],['Team','3',[['Tijmen De Clercq'],['Dylan Bouckaert']]],['Engine','Unity'],['Duration','1.5 days']],
       shots:media([['1G4t1JqdsiA7ZnaL_0bhseZE0zYtRmSjH','Desk-calling'],['1hZnFNcZu5MiAHKRJ-cT03ds6ybDZtwQV','The Manager & phone-hand'],['assets/media/clockout-steal.gif','Stealing the door code'],['19L14RBBqT0zNP-FgrY_BuAr7APd0uto6','Level layout']],'Clock Out'),video:yt('Fz5CbVEgtMs','Clock Out trailer'),
       text:['A top-down stealth puzzle game. You\'re sneaking out of the office early using the one tool on your desk nobody suspects: an old rotary phone.','Dial a desk, make it ring, and watch coworkers walk over to answer it, clearing your path. Made with tijmenDC and bronzenkid.'],
       did:['Designed the desk-calling mechanic','Designed and balanced the Manager, who calls every 30 seconds to micromanage and comes for you if you don\'t answer','Designed the phone-hand, used to answer the Manager and hang up a wrong dial','Designed and balanced the level layout'],
       btns:[{t:'Play on itch.io &rarr;',u:'https://tijmendc.itch.io/clock-out'}]})}},
     {id:'bumping',name:'Bumping Mayhem',tag:'School',render:function(){return project({
       badges:['Student game - Howest DAE','Trailer','Play in browser'],
-      meta:[['Type','School project'],['School','Howest DAE'],['Role','Game Lead & Lead Designer'],['Team','3'],['Engine','Unity'],['Duration','2 months']],
+      meta:[['Type','School project'],['School','Howest DAE'],['Role','Game Lead & Lead Designer'],['Team','3',[['Tijmen De Clercq','Game Developer'],['Arne Meirlaen','UI/UX Designer']]],['Engine','Unity'],['Duration','2 months']],
       shots:media([['1kT9R-Nh_tJxOmiz1BHADCPT8s8LVQMSK','Power-up picks'],['1iL-bk2c6fMMnhC12fEN8hYpuj0qQKWLh','Wave start'],['assets/media/bumping-ramming.gif','Ramming enemies'],['1CcYqxa3JwhsoZTBzn2tJPdlfz091zp_m','Bubble shield']],'Bumping Mayhem'),video:drv('1A48kiYYDJ9Njw9wyQY-AtYR6cu7Ip7U-','Bumping Mayhem trailer','assets/posters/bumping-mayhem.jpg'),
       text:['A vehicular wave-defense game where the player rams, tricks, and power-ups their way through escalating enemy hordes to protect and repair a central objective.','Power-ups are tuned to scale exponentially, meaning specialization beats generalism: a deliberate risk/reward design.'],
       callout:['Playtesting revealed a core feel problem: enemies clustering on the objective meant the player kept accidentally hitting it when trying to ram enemies, killing momentum and punishing aggression.','My solution was a one-way bubble shield. Enemies push against it from outside, but the player drives through freely. This separated the collision domains cleanly and made aggressive play feel satisfying rather than frustrating.'],
@@ -86,7 +89,7 @@
       btns:[{t:'Play on itch.io &rarr;',u:'https://morose-interactive.itch.io/bumping-mayham'}]})}},
     {id:'warped',name:'Warped',tag:'School',render:function(){return project({
       badges:['Student game - The Open University','Trailer'],
-      meta:[['Type','School project'],['School','The Open University'],['Role','Game Lead & Lead Designer'],['Team','6'],['Engine','Unity'],['Duration','3 months']],
+      meta:[['Type','School project'],['School','The Open University'],['Role','Game Lead & Lead Designer'],['Team','7',[['Maya Antonovsky','Lead Game Designer, Narrative Designer'],['Jenya Shmulevich','Lead Game Developer'],['Eilon Perets','Game Developer, UI Designer'],['Chen Tsadok','3D Artist, Effects Specialist'],['Shahar Shtern','Lead 3D Artist, 3D Animator'],['Delphi Kasper','Sound Designer']]],['Engine','Unity'],['Duration','3 months']],
       shots:media([['1tHepYQ7QcCEzSu2EejyPYVNDJSto7iI0','Telekinesis'],['1cEQusbgiS5Lg6R9lB0ndDh1QL9ONgxGE','Gravity inversion'],['1U9EeL3zZRp1uopG0GofepLc-SvUgTCwP','Black hole'],['1G7Ajlwi3kFb2WezXwxX7S3E55BfUylum','Level layout: the space station']],'Warped'),video:yt('nLN4PbjdHUc','Warped trailer'),
       text:['A first-person sci-fi puzzle-action game built around physics-based powers: telekinesis, black hole projection, and gravity inversion.'],
       callout:['I designed gravity inversion as a puzzle tool rather than a combat ability.','Each level teaches the player a new spatial logic, so the level layouts were built around what the player can flip and move, not what they can shoot.'],
@@ -94,7 +97,7 @@
       btns:[]})}},
     {id:'worldly',name:'Worldly Adventures',tag:'School',render:function(){return project({
       badges:['Student game - The Open University','Trailer'],
-      meta:[['Type','School project'],['School','The Open University'],['Role','Game Designer & Level Designer'],['Team','5'],['Engine','Unity'],['Duration','3 months']],
+      meta:[['Type','School project'],['School','The Open University'],['Role','Game Designer & Level Designer'],['Team','5',[['Dar Ger','Project Manager'],['Roni Maor','Game Designer & 3D Artist'],['Re\'em Mordechai','Lead 3D Artist & Animator'],['Yevgeny Shmulevich','Lead Game Developer']]],['Engine','Unity'],['Duration','3 months']],
       shots:media([['1QMJcCCjz9SZI57KtyAr8phkGfMpNgdM3','Levels across every world'],['1cIDk5IVo9ijNlP-lM60yEntrsGLFA4Kl','Maze level'],['assets/media/worldly-flyer.gif','Flyer mode'],['104POWJXZF0WBUqzLfCufXku3Ay_jyuf2','Characters x modes']],'Worldly Adventures','tall'),video:yt('E2PpPdDbcW8','Worldly Adventures trailer'),
       text:['A mobile arcade game with themed worlds that mixes vertical platforming and endless running across 10 to 12 levels.'],
       callout:['Every character has a unique ability in every game mode, laid out as a 2D character x mode matrix.','Each combination plays differently, while each new character or mode only adds one row or column of abilities to design.'],
@@ -114,7 +117,7 @@
       '<div class="pf-gdd-txt"><h3>'+esc(name)+'</h3><p>'+text+'</p>'+
       '<div class="pf-btns"><button class="pf-btn" data-embed="'+PREV(pid)+'">Read it here</button><a class="pf-btn ghost" href="'+PREV(pid)+'" target="_blank" rel="noopener">Open in new tab</a><a class="pf-quiet" href="'+DL(pid)+'">Download PDF</a></div></div></article><div data-slot></div>'}}
   }
-  var fanNote='<aside class="pf-note"><strong>Why &ldquo;fan&rdquo; GDDs?</strong> These are design breakdowns I wrote for games I didn\'t build &mdash; reverse-engineering their systems, pacing, and mechanics to practice the same documentation and systems-thinking I\'d apply on an original project.</aside>';
+  var fanNote='<aside class="pf-note"><strong>Why &ldquo;fan&rdquo; GDDs?</strong> These are design breakdowns I wrote for games I didn\'t build - reverse-engineering their systems, pacing, and mechanics to practice the same documentation and systems-thinking I\'d apply on an original project.</aside>';
   var docs=[
     gdd('hollow','Hollow Knight','1Jzdpa451eeeXNj9yLJJbzz2695zXMsPu',1,'A full teardown of Hollow Knight\'s ability progression, map design, and difficulty pacing - my most in-depth fan GDD, written as the flagship piece of this series.'),
     gdd('hades','Hades','1QEM6i9MJinDy4t_NXPgBnSwASEnRjw1m',0,'A breakdown of Hades\' roguelike loop, boon/weapon systems, and floor structure - with a critique of how the game handles player motivation and build variety once the main story wraps.'),
@@ -152,7 +155,7 @@
 
   /* ---------- about ---------- */
   var about=[
-    {id:'sheet',name:'Character Sheet',tag:'Me',render:function(){
+    {id:'sheet',name:'Character Sheet',nohead:true,render:function(){
       /* left: who I am (portrait + stats); right: the introduction on top, abilities and equipment underneath - both columns end on the same line */
       return '<div class="pf-sheet2">'+
       '<div class="pf-card pf-idc"><div class="pf-portrait">Y<img src="'+WEEBLY+'background-images/79829628.png" alt="Yoav Stadler" loading="lazy"></div>'+

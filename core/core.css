@@ -783,3 +783,23 @@ body[data-theme=workshop] .pf-foot:before{top:6px}
 .pf-logsplit p,.pf-logsplit ul{max-width:none}
 @container (max-width:900px){.pf-logsplit{grid-template-columns:minmax(0,1fr)}}
 .pf-contact2 form.pf-contact .row{width:100%}
+/* v51b - the panel name plaque is mounted centred on the frame's top rail (not squeezed against the top bar); tabs move down to keep their space */
+@media (min-width:761px){
+  body[data-theme=workshop] .pf-head .ttl{top:-57px}
+  body[data-theme=workshop] .pf-tabs{margin-top:9px}
+}
+/* team: a full row under the other facts, teammates listed with their roles */
+.pf-top-s .pf-meta>div.team{grid-column:1/-1}
+.pf-top-s .pf-meta>div:nth-child(3n+2):nth-last-child(2):has(+.team){grid-column:span 2}
+.pf-top-s .pf-meta>div:nth-child(3n+1):nth-last-child(2):has(+.team){grid-column:span 3}
+.pf-meta .team dd{display:flex;flex-wrap:wrap;gap:6px 22px}
+.pf-mate{white-space:nowrap}
+.pf-mate em{font-style:normal;color:var(--muted,#6b5f4f);font-weight:400;margin-left:6px}
+.pf-mate em:before{content:"- "}
+/* the start hint never shows behind an open panel */
+body:has(.pf-over.open) .pf-hint{opacity:0}
+.pf-top-s .pf-meta>div.team.team{grid-column:1/-1}
+.pf-meta .team dd{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px 22px}
+.pf-meta .team dd:has(em){grid-template-columns:repeat(2,minmax(0,1fr))}
+.pf-mate{white-space:normal}
+@container (max-width:700px){.pf-meta .team dd,.pf-meta .team dd:has(em){grid-template-columns:minmax(0,1fr)}}
