@@ -13,7 +13,7 @@ PF.init({
   /* name = the plain name on the top tabs. sign (optional) = the themed name used on the hanging sign, the hover tip and the panel title. */
   flavor:{
     games:{name:'Games',sign:'Quest Log',sub:'Shipped titles, student games and jams'},
-    docs:{name:'Documentation',sign:'Design Tomes',sub:'Fan GDDs and systems design logs'},
+    docs:{name:'Documentation',sign:'Lore Library',sub:'Fan GDDs and systems design logs'},
     art:{name:'3D Art',sign:'The Forge',sub:'Models you can rotate'},
     about:{name:'About',sign:'Character Sheet',sub:'Character sheet, experience, education'},
     contact:{name:'Contact',sign:'Send a Raven',sub:'Email, CV and message form'}
@@ -30,11 +30,11 @@ PF.init({
       '<radialGradient id="vig" cx=".5" cy=".5" r=".78"><stop offset=".62" stop-color="#0a0604" stop-opacity="0"/><stop offset="1" stop-color="#0a0604" stop-opacity=".5"/></radialGradient>'
     );
     function grp(parent,attrs){return el('g',attrs||{},parent)}
-    function pic(parent,file,box,cls){var i=el('image',{x:box.x,y:box.y,width:box.w,height:box.h,'pointer-events':'none'},parent);if(cls)i.setAttribute('class',cls);i.setAttribute('href','art3/'+file+'.webp?v=50');return i}
+    function pic(parent,file,box,cls){var i=el('image',{x:box.x,y:box.y,width:box.w,height:box.h,'pointer-events':'none'},parent);if(cls)i.setAttribute('class',cls);i.setAttribute('href','art3/'+file+'.webp?v=51');return i}
 
     /* 1 - the room (transparent frame interior: the highlight reel plays behind it) */
     var bg=el('image',{x:OX,y:0,width:1024*K,height:900,preserveAspectRatio:'none','pointer-events':'none'},svg);
-    bg.setAttribute('href','art3/plate.webp?v=50');
+    bg.setAttribute('href','art3/plate.webp?v=51');
 
     /* 2 - cut-out objects as clickable layers */
     function object(key,name,hit,label){

@@ -629,9 +629,6 @@ body[data-theme=workshop] .pf-poster span{background:rgba(31,21,12,.82);border-c
   body[data-theme=workshop] .pf-over{padding:38px 16px 12px}
   body[data-theme=workshop] .pf-frame{height:100%;width:min(100%,max(1120px,calc((100svh - var(--bar) - 50px) * 2.3)))}
 }
-/* text grows a little with the window so lines stay readable in a big panel */
-.pf-body{container-type:inline-size}
-.pf-body>*{font-size:clamp(16px,1.02cqw,19px)}
 
 /* pictures and GIFs: a 2 x 2 grid of big pictures (a lone third picture is centred at the same size; a row of vertical phone captures keeps its own columns) */
 .pf-shots{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 18px;margin-bottom:14px}
@@ -664,10 +661,125 @@ body[data-theme=workshop] .pf-poster span{background:rgba(31,21,12,.82);border-c
 .pf-shots.one img{width:auto;max-width:100%;margin:0 auto;max-height:min(60svh,560px)}
 /* the 3D viewer always fits the panel without scrolling */
 .pf-3d{width:min(100%,calc((100svh - 360px) * 16 / 9))}
-.pf-video.pf-anim{width:min(100%,calc((100svh - 360px) * 16 / 9))}
-@container (min-width:1400px){.pf-msplit .pf-3d{width:min(100%,calc((100svh - 360px) * 16 / 9))}}
 /* long text keeps a readable line length in a wide panel */
 .pf-item>p,.pf-sheet p,.pf-msplit p,.pf-item>ul,.pf-note{max-width:92ch}
 @media (max-width:760px){.pf-shots:not(.one){max-width:none}.pf-3d,.pf-video.pf-anim{width:100%}}
-/* v50: the panel is much wider now - Fan GDD cards keep a readable cover size (about 6 in a row on a desktop) instead of three giant covers */
-.pf-cards{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+
+/* ======================================================================
+   v51 - one layout for every project, everything lines up
+   ====================================================================== */
+.pf-body{container-type:inline-size}
+/* section tabs: centred, a little bigger */
+body[data-theme=workshop] .pf-tabs{justify-content:safe center}
+@media (min-width:761px){
+  body[data-theme=workshop] .pf-tab{height:40px;padding:0 36px;font-size:15px;margin:0 5px 6px}
+  body[data-theme=workshop] .pf-tab:not(.on):hover,body[data-theme=workshop] .pf-tab:not(.on):focus-visible,body[data-theme=workshop] .pf-tab.on:hover,body[data-theme=workshop] .pf-tab.on:focus-visible{border-image-width:15.5px 38.2px}
+}
+/* the category line at the bottom sits fully inside the parchment, clear of the frame */
+body[data-theme=workshop] .pf-foot{padding:24px 28px 16px}
+body[data-theme=workshop] .pf-foot:before{top:6px}
+
+/* project: trailer left, facts + contributions right; the button sits on the trailer's bottom line */
+.pf-top{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:32px;align-items:stretch;margin-top:8px}
+.pf-top-v .pf-video{margin:0}
+.pf-top-v .pf-vfall{margin:8px 0 0}
+.pf-top-s{display:flex;flex-direction:column;min-width:0}
+.pf-top-s .pf-meta{grid-template-columns:repeat(3,minmax(0,1fr));margin:0 0 20px}
+.pf-top-s .pf-did{margin:0}
+.pf-top-s .pf-did h4{margin-top:0}
+.pf-top-s .pf-btns{margin-top:auto;padding-top:20px}
+@container (max-width:1400px){
+  .pf-top{grid-template-columns:minmax(0,1fr);gap:24px}
+  .pf-top-s .pf-btns{margin-top:4px}
+}
+
+/* project pictures: same width as everything above them; captions centred */
+.pf-media{display:grid;gap:24px;margin:36px 0 0}
+.pf-media figure{margin:0;min-width:0}
+.pf-media .pf-mf{position:relative;border-radius:8px;overflow:hidden;background:#14161c;border:1px solid var(--line)}
+.pf-media img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.pf-media figcaption{text-align:center;margin-top:10px;font:600 13px var(--head);letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+.pf-media.grid,.pf-media.feature{grid-template-columns:repeat(2,minmax(0,1fr))}
+.pf-media.feature figure:nth-child(3){grid-column:2;grid-row:1 / span 2;display:flex;flex-direction:column}
+.pf-media.feature figure:nth-child(3) .pf-shotlink{flex:1;display:flex;flex-direction:column}
+.pf-media.feature figure:nth-child(3) .pf-mf{flex:1}
+.pf-media.feature figure:nth-child(3) img{position:absolute;inset:0;height:100%;aspect-ratio:auto;object-fit:cover;object-position:center top}
+.pf-media.feature figure:nth-child(1){grid-column:1;grid-row:1}
+.pf-media.feature figure:nth-child(2){grid-column:1;grid-row:2}
+/* phone captures: one row across the full width, all the same size */
+.pf-media.tall{grid-template-columns:repeat(4,minmax(0,1fr))}
+.pf-media.tall img{aspect-ratio:9/16;object-position:center}
+@container (max-width:900px){.pf-media.tall{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* description + design decision: two boxes of the same height, short paragraphs */
+.pf-story{display:grid;gap:24px;margin:36px 0 4px;align-items:stretch}
+.pf-story.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.pf-story .pf-desc,.pf-story .pf-callout{margin:0;padding:22px 26px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.32)}
+.pf-story .pf-callout{border-left:4px solid var(--acc)}
+.pf-story p{margin:0 0 14px;line-height:1.65;max-width:none}
+.pf-story p:last-child{margin-bottom:0}
+@container (max-width:900px){.pf-story.two{grid-template-columns:minmax(0,1fr)}}
+
+/* 3D art: viewer on top (with the animation beside it at the same size when there is one), text underneath at the same width */
+.pf-mv{width:min(100%,calc((100svh - 400px) * 16 / 9));margin:8px auto 0}
+.pf-mv .pf-3d,.pf-mv .pf-video{width:100%;max-height:none;margin:0}
+.pf-model.two .pf-mv{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.pf-mv figure{margin:0}
+.pf-mv figcaption{text-align:center;margin-top:10px;font:600 13px var(--head);letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+.pf-video.played~.pf-vfall{display:block}
+.pf-mt{width:min(100%,calc((100svh - 400px) * 16 / 9));margin:28px auto 4px}
+.pf-model.two .pf-mt{width:100%;columns:2;column-gap:40px}
+.pf-mt p{max-width:none;margin:0 0 14px;line-height:1.65;break-inside:avoid}
+@container (max-width:900px){.pf-model.two .pf-mv{grid-template-columns:minmax(0,1fr)}.pf-model.two .pf-mt{columns:1}}
+
+/* Character Sheet: who I am on the left, introduction and skills on the right; both sides end on the same line */
+.pf-sheet2{display:grid;grid-template-columns:minmax(260px,.8fr) minmax(0,1.7fr);grid-template-rows:1fr auto;gap:24px;max-width:1320px;margin:8px auto 0;align-items:stretch}
+.pf-sheet2 .pf-card{padding:26px 30px;border-radius:10px;background:rgba(255,255,255,.32)}
+.pf-sheet2 h4{margin-top:0}
+.pf-idc{grid-row:1 / span 2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.pf-idc .pf-portrait{width:min(100%,250px)}
+.pf-idc h3{margin:20px 0 10px;font:700 24px var(--head)}
+.pf-idc .pf-stats{grid-template-columns:minmax(0,1fr);gap:2px;margin:0}
+.pf-idc .pf-stats dt{padding-top:12px}
+.pf-introc p{max-width:none}
+.pf-introc .pf-quote{margin:18px 0}
+.pf-introc .pf-btns{margin-top:18px}
+.pf-skillc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+@container (max-width:900px){.pf-sheet2,.pf-skillc{grid-template-columns:minmax(0,1fr)}.pf-idc{grid-row:auto}}
+
+/* Send a Raven: two cards of the same height, centred in the panel */
+.pf-body:has(.pf-contact2){display:flex;flex-direction:column;justify-content:safe center}
+.pf-contact2{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:28px;width:100%;max-width:1200px;margin:0 auto;align-items:stretch}
+.pf-contact2 .pf-card{padding:28px 32px;border-radius:10px;background:rgba(255,255,255,.32)}
+.pf-contact2 .pf-links{display:flex;flex-direction:column}
+.pf-contact2 .pf-links h3{margin-top:0}
+.pf-contact2 .pf-links p{margin:0 0 16px}
+.pf-contact2 .pf-links .pf-btns{margin-top:auto;padding-top:8px}
+.pf-contact2 form.pf-contact{display:flex;flex-direction:column;gap:0}
+.pf-contact2 form.pf-contact label:first-child{margin-top:0}
+.pf-contact2 form.pf-contact .row label{margin-top:0}
+.pf-contact2 form.pf-contact textarea{flex:1;min-height:140px}
+.pf-contact2 form.pf-contact .pf-btns{margin-top:18px;align-items:center;gap:16px}
+.pf-contact2 .pf-note2{margin:0;text-transform:none;letter-spacing:0;font-size:13px}
+@container (max-width:900px){.pf-contact2{grid-template-columns:minmax(0,1fr)}}
+/* five facts: the last one (Team) takes the rest of its row so the grid has no hole */
+.pf-top-s .pf-meta>div:last-child:nth-child(3n+2){grid-column:span 2}
+.pf-top-s .pf-meta>div:last-child:nth-child(3n+1){grid-column:span 3}
+.pf-sheet2 .pf-card p{font-size:16px;color:var(--ink);line-height:1.65}
+.pf-sheet2 .pf-introc .lead{font-size:18px}
+.pf-introc{display:flex;flex-direction:column;justify-content:center}
+.pf-contact2{max-width:1300px}
+.pf-contact2 .pf-card{padding:34px 40px}
+.pf-contact2 .pf-links h3{font-size:26px;margin-bottom:22px}
+.pf-contact2 .pf-links p{margin:0 0 22px}
+.pf-contact2 .pf-links p a{font-size:18px}
+.pf-contact2 .pf-links .k{font-size:12px}
+.pf-contact2 form.pf-contact input{padding:12px 14px}
+.pf-contact2 form.pf-contact textarea{min-height:230px}
+/* systems log: the chart fills the left half, the text sits beside it, centred on the same line */
+.pf-logsplit{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px;align-items:center;margin-top:10px}
+.pf-logpic{border-radius:8px;overflow:hidden;border:1px solid var(--line);background:#14161c;display:flex;justify-content:center}
+.pf-logpic img{display:block;width:100%;max-height:calc(100svh - 360px);object-fit:contain}
+.pf-logsplit p,.pf-logsplit ul{max-width:none}
+@container (max-width:900px){.pf-logsplit{grid-template-columns:minmax(0,1fr)}}
+.pf-contact2 form.pf-contact .row{width:100%}
